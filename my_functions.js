@@ -46,3 +46,8 @@ function formatMoney(fltSum) {
 	return n;
 }
 //==============================
+//Вывод остатка времени
+function DaysLeft (dteTarget) {
+	dteToday = new Date();
+	return (dteTarget - dteToday)/(1000*3600*24);
+}
