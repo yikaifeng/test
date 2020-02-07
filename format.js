@@ -42,9 +42,9 @@ function formatMoney(fltSum) {
 	if (n<0) {
 		sign = "-";
 		n = Math.abs(n);
-		n = n.toFixed(2);
 	}
-
+		
+	n = n.toFixed(2);
 	n += "";
 	n = new Array(4 - n.length % 3).join("U") + n;
 	n = n.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
