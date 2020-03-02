@@ -10,6 +10,7 @@ var cStartDate = "Дата начала";
 var cStartTime = "Время начала";
 var cEndDate = "Дата окончания";
 var cEndTime = "Время окончания";
+var cInterval = "Интервал";
 //Имена значений полей
 var cPeriod = "🗓️ повтор.";
 var cPlan = "⏳ в плане";
@@ -22,6 +23,7 @@ var fldStartDate = curEntry.field (cStartDate);
 var fldStartTime = curEntry.field (cStartTime);
 var fldEndDate = curEntry.field (cEndDate);
 var fldEndTime = curEntry.field (cEndTime);
+var fldInterval = curEntry.field (cInterval);
 
 //Прочее
 var bEndDate = false;
@@ -34,7 +36,7 @@ var strResult = "Исправлено:";
 //Проверка соответствия типа и статуса
 if (fldType==cPeriod && fldStatus==cDone) {
 	curEntry.set(cStatus, cPlan);
-	strResult = strResult + "\n*статус";
+	strResult = strResult + "\n*" + cStatus;
 }
 //Проверка времени и дат на существование
 if (fldEndDate == undefined) {bEndDate = false;} else {bEndDate = true;}
@@ -46,13 +48,13 @@ if (fldEndDate) {
 	if (fldEndDate<fldStartDate) {
 		curEntry.set(cEndDate, fldStartDate);
 		dteEndDate = fldStartDate;
-		strResult = strResult + "\n*дата окончания";
+		strResult = strResult + "\n*" + cEndDate;
 	}
 } else {
 	if (bEndTime) {
 		curEntry.set(cEndDate, fldStartDate);
 		dteEndDate = fldStartDate;
-		strResult = strResult + "\n*дата окончания";
+		strResult = strResult + "\n*" + cEndDate;
 	}
 }
 
@@ -61,7 +63,7 @@ if (!bStartTime) {
 	if(bEndTime) {
 		curEntry.set(cStartTime, fldEndTime);
 		dteStartTime = fldEndTime;
-		strResult = strResult + "\n*время начала";
+		strResult = strResult + "\n*" + cStartTime;
 	}
 }
 
@@ -72,8 +74,14 @@ if (bEndTime) {
 	dteEndDate.getDate()==fldStartDate.getDate() &&
 	fldEndTime < dteStartTime) {
 		curEntry.set(cEndTime, dteStartTime);
-		strResult = strResult + "\n*время окончания";
+		strResult = strResult + "\n*" + cEndTime;
 	}
+}
+
+//Проверка интервала
+if (fldInterval!=undefined && fldInterval<0) {
+	curEntry.set(cInterval, Math.abs(fldInterval));
+	strResult = strResult + "\n*" + cInterval;
 }
 
 curEntry.recalc();
