@@ -32,10 +32,10 @@ if (fldType==cPeriod && fldStatus==cDone) {
 	strResult = strResult + "\n*статус";
 }
 
-//Проверка времени начала (есть ли время начала при времени окончания)
-if (fldEndTime!=undefined && fldStartTime==undefined) {
-	curEntry.set(cStartDate, fldEndTime);
-	strResult = strResult + "\n*время начала";
+//Проверка даты окончания (есть ли время окнчания)
+if (fldEndDate==undefined && fldEndTime!=undefined) {
+	curEntry.set(cEndDate, fldStartDate);
+	strResult = strResult + "\n*дата окончания";
 }
 
 //Проверка даты окончания (не раньше ли даты начала)
@@ -44,10 +44,10 @@ if (fldEndDate!=undefined && fldEndDate<fldStartDate) {
 	strResult = strResult + "\n*дата окончания";
 }
 
-//Проверка даты окончания (есть ли время окнчания)
-if (fldEndDate==undefined && fldEndTime!=undefined) {
-	curEntry.set(cEndDate, fldStartDate);
-	strResult = strResult + "\n*дата окончания";
+//Проверка времени начала (есть ли время начала при времени окончания)
+if (fldEndTime!=undefined && fldStartTime==undefined) {
+	curEntry.set(cStartTime, fldEndTime);
+	strResult = strResult + "\n*время начала";
 }
 
 //Проверка времени окончания
