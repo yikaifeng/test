@@ -51,10 +51,10 @@ if (fldEndTime!=undefined && fldStartTime==undefined) {
 }
 
 //Проверка времени окончания
-if (fldEndDate.getFullYear()==fldStartDate.getFullYear() && \
-	fldEndDate.getMonth()==fldStartDate.getMonth() &&  \
-	fldEndDate.getDate()==fldStartDate.getDate() && \
-	fldEndDate!=undefined && \
+if (fldEndDate.getFullYear()==fldStartDate.getFullYear() && 
+	fldEndDate.getMonth()==fldStartDate.getMonth() && 
+	fldEndDate.getDate()==fldStartDate.getDate() && 
+	fldEndDate!=undefined && 
 	fldEndTime<fldStartTime) {
 		curEntry.set(cEndTime, fldStartTime);
 		strResult = strResult + "\n*время окончания";
