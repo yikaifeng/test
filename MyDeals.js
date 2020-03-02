@@ -50,23 +50,15 @@ if (fldEndTime!=undefined && fldStartTime==undefined) {
 	strResult = strResult + "\n*время начала";
 }
 
-if (fldStartTime < fldEndTime) {
-	log("START < END");
-}
-if (fldStartTime == fldEndTime) {
-		log("START = END");
-}
-if (fldStartTime > fldEndTime) {
-		log("START > END");
-}
-
 //Проверка времени окончания
-if (fldEndDate==fldStartDate && fldEndDate!=undefined) {
-	if (fldEndTime<fldStartTime) {
+if (fldEndDate.getFullYear()==fldStartDate.getFullYear() && \
+	fldEndDate.getMonth()==fldStartDate.getMonth() &&  \
+	fldEndDate.getDate()==fldStartDate.getDate() && \
+	fldEndDate!=undefined && \
+	fldEndTime<fldStartTime) {
 		curEntry.set(cEndTime, fldStartTime);
 		strResult = strResult + "\n*время окончания";
 	}
-}
 
 curEntry.recalc();
 
