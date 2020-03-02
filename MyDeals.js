@@ -23,7 +23,12 @@ var fldStartTime = curEntry.field (cStartTime);
 var fldEndDate = curEntry.field (cEndDate);
 var fldEndTime = curEntry.field (cEndTime);
 
-//Сообщение
+//Прочее
+var bEndDate = false;
+var bStartTime = false;
+var bEndTime = false;
+var dteEndDate = fldEndDate;
+var dteStartTime = fldStartTime;
 var strResult = "Исправлено:";
 
 //Проверка соответствия типа и статуса
@@ -31,33 +36,47 @@ if (fldType==cPeriod && fldStatus==cDone) {
 	curEntry.set(cStatus, cPlan);
 	strResult = strResult + "\n*статус";
 }
+//Проверка времени и дат на существование
+if (fldEndDate == undefined) {bEndDate = false;} else {bEndDate = true;}
+if (fldStartTime == undefined) {bStartTime = false;} else {bStartTime = true;}
+if (fldEndTime == undefined) {bEndTime = false;} else {bEndTime = true;}
 
-//Проверка даты окончания (есть ли время окнчания)
-if (fldEndDate==undefined && fldEndTime!=undefined) {
-	curEntry.set(cEndDate, fldStartDate);
-	strResult = strResult + "\n*дата окончания";
+//Проверка даты окончания
+if (fldEndDate) {
+	if (fldEndDate<fldStartDate) {
+		curEntry.set(cEndDate, fldStartDate);
+		dteEndDate = fldStartDate;
+		strResult = strResult + "\n*дата окончания";
+	}
+} else {
+	if (bEndTime) {
+		curEntry.set(cEndDate, fldStartDate);
+		dteEndDate = fldStartDate;
+		strResult = strResult + "\n*дата окончания";
+	}
 }
 
-//Проверка даты окончания (не раньше ли даты начала)
-if (fldEndDate!=undefined && fldEndDate<fldStartDate) {
-	curEntry.set(cEndDate, fldStartDate);
-	strResult = strResult + "\n*дата окончания";
+//Проверка времени начала
+if (!bStartTime) {
+	if(bEndTime) {
+		curEntry.set(cStartTime, fldEndTime);
+		dteStartTime = fldEndTime;
+		strResult = strResult + "\n*время начала";
+	}
 }
 
-//Проверка времени начала (есть ли время начала при времени окончания)
-if (fldEndTime!=undefined && fldStartTime==undefined) {
-	curEntry.set(cStartTime, fldEndTime);
-	strResult = strResult + "\n*время начала";
+//Проверка времени окончания
+if (bEndTime) {
+	if (dteEndDate.getFullYear()==fldStartDate.getFullYear() && 
+	dteEndDate.getMonth()==fldStartDate.getMonth() && 
+	dteEndDate.getDate()==fldStartDate.getDate() &&
+	fldEndTime < dteStartTime) {
+		curEntry.set(cEndTime, dteStartTime);
+		strResult = strResult + "\n*время окончания";
+	}
 }
 
 curEntry.recalc();
-
-//Проверка времени окончания
-if (fldEndDate.getFullYear()==fldStartDate.getFullYear() && fldEndDate.getMonth()==fldStartDate.getMonth() && fldEndDate.getDate()==fldStartDate.getDate() && fldEndDate!=undefined && fldEndTime<fldStartTime) {
-		curEntry.set(cEndTime, fldStartTime);
-		strResult = strResult + "\n*время окончания";
-		curEntry.recalc();
-	}
 
 if (strResult!="Исправлено:") {
 	message(strResult);	
