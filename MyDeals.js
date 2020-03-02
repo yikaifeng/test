@@ -50,10 +50,10 @@ if (fldEndTime!=undefined && fldStartTime==undefined) {
 	strResult = strResult + "\n*время начала";
 }
 
-console.log ("ДНачала: " + fldStartDate);
-console.log ("ДКонца: " + fldEndDate);
-console.log ("ВНачала: " + fldStartTime);
-console.log ("ВКонца: " + fldEndTime);
+log ("ДНачала: " + fldStartDate);
+log ("ДКонца: " + fldEndDate);
+log ("ВНачала: " + fldStartTime);
+log ("ВКонца: " + fldEndTime);
 
 //Проверка времени окончания
 if (fldEndDate==fldStartDate && fldEndDate!=undefined) {
