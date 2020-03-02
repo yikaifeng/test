@@ -50,13 +50,14 @@ if (fldEndTime!=undefined && fldStartTime==undefined) {
 	strResult = strResult + "\n*время начала";
 }
 
+curEntry.recalc();
+
 //Проверка времени окончания
 if (fldEndDate.getFullYear()==fldStartDate.getFullYear() && fldEndDate.getMonth()==fldStartDate.getMonth() && fldEndDate.getDate()==fldStartDate.getDate() && fldEndDate!=undefined && fldEndTime<fldStartTime) {
 		curEntry.set(cEndTime, fldStartTime);
 		strResult = strResult + "\n*время окончания";
+		curEntry.recalc();
 	}
-
-curEntry.recalc();
 
 if (strResult!="Исправлено:") {
 	message(strResult);	
