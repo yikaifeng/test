@@ -51,12 +51,15 @@ if (fldEndTime!=undefined && fldStartTime==undefined) {
 }
 
 //Проверка времени окончания
-if (fldEndDate==fldStartDate && fldEndDate!=undefined && fldEndTime<fldStartTime) {
-	curEntry.set(cEndTime, fldStartTime);
-	strResult = strResult + "\n*время окончания";
+if (fldEndDate==fldStartDate && fldEndDate!=undefined) {
+	if (fldEndTime<fldStartTime) {
+		curEntry.set(cEndTime, fldStartTime);
+		strResult = strResult + "\n*время окончания";
+	}
 }
 
 curEntry.recalc();
+
 if (strResult!="Исправлено:") {
 	message(strResult);	
 }
