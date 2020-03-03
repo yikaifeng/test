@@ -84,11 +84,16 @@ if (bEndTime) {
 }
 
 //Проверка вычисления переодичности и смены дат
+log("ВЫЧИСЛЯТЬ: " + fldCount);
+log("МЕНЯТЬ: " + fldAuto);
+
 if (fldType!=cPeriod && fldCount==1) {
+	log("ВНУТРИ IF: " + cCount);
 	curEntry.set(cCount, 0);
 	strResult = strResult + "\n*" + cCount;
 }
 if (fldType!=cPeriod && fldAuto==1) {
+	log("ВНУТРИ IF: " + cAuto);
 	curEntry.set(fldAuto, 0);
 	strResult = strResult + "\n*" + fldAuto;
 }
