@@ -12,7 +12,7 @@ var cEndDate = "Дата окончания";
 var cEndTime = "Время окончания";
 var cCount = "Вычислять периодичность";
 var cAuto = "Автоматически менять дату";
-var cInterval = "⚠️ Интервал";
+var cInterval = "Интервал";
 //Имена значений полей
 var cPeriod = "🗓️ повтор.";
 var cPlan = "⏳ в плане";
@@ -35,7 +35,7 @@ var bStartTime = false;
 var bEndTime = false;
 var dteEndDate = fldEndDate;
 var dteStartTime = fldStartTime;
-var cResult = "Исправлено:";
+var cResult = "⚠️ Исправлено:";
 var strResult = cResult;
 
 //Проверка соответствия типа и статуса
