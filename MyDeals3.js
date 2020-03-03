@@ -122,7 +122,7 @@ function checkDealsEntry() {
 //**********************************************************
 //Функция переноса даты вперед или назад
 //**********************************************************
-function shiftDate (bForward = true, oEntry = curEntry) {
+function shiftDate (bForward, oEntry) {
 	//Локальные переменные
 	var direction = 0;
 	
@@ -131,7 +131,8 @@ function shiftDate (bForward = true, oEntry = curEntry) {
 		exit();
 	}
 	
-	if (bForward) {direction = 1;} else {direction = -1;}
+	if (bForward != false) {direction = 1;} else {direction = -1;}
+	if (oEntry == undefined || oEntry == null) {oEntry = curEntry;}
 	
 	switch (fldUnit) {
 
