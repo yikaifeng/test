@@ -35,7 +35,7 @@ var bStartTime = false;
 var bEndTime = false;
 var dteEndDate = fldEndDate;
 var dteStartTime = fldStartTime;
-var cResult = "⚠️ Исправлено:";
+var cResult = "Исправлено:";
 var strResult = cResult;
 
 //Проверка соответствия типа и статуса
