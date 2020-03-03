@@ -89,7 +89,7 @@ if (fldType!=cPeriod && fldCount==1) {
 	strResult = strResult + "\n*" + cCount;
 }
 if (fldType!=cPeriod && fldAuto==1) {
-	curEntry.set(сAuto, 0);
+	curEntry.set(cAuto, 0);
 	strResult = strResult + "\n*" + fldAuto;
 }
 
