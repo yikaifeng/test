@@ -85,11 +85,11 @@ if (bEndTime) {
 
 //Проверка вычисления переодичности и смены дат
 if (fldType!=cPeriod && fldCount==true) {
-	curEntry.set(cCount, false);
+	curEntry.set(cCount, 0);
 	strResult = strResult + "\n*" + cCount;
 }
 if (fldType!=cPeriod && fldAuto==true) {
-	curEntry.set(fldAuto, false);
+	curEntry.set(fldAuto, 0);
 	strResult = strResult + "\n*" + fldAuto;
 }
 
