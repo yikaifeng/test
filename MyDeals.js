@@ -10,6 +10,8 @@ var cStartDate = "Дата начала";
 var cStartTime = "Время начала";
 var cEndDate = "Дата окончания";
 var cEndTime = "Время окончания";
+var cCount = "Вычислять периодичность";
+var cAuto = "Автоматически менять дату";
 var cInterval = "Интервал";
 //Имена значений полей
 var cPeriod = "🗓️ повтор.";
@@ -23,6 +25,8 @@ var fldStartDate = curEntry.field (cStartDate);
 var fldStartTime = curEntry.field (cStartTime);
 var fldEndDate = curEntry.field (cEndDate);
 var fldEndTime = curEntry.field (cEndTime);
+var fldCount = curEntry.field (cCount);
+var fldAuto = curEntry.field (cAuto);
 var fldInterval = curEntry.field (cInterval);
 
 //Прочее
@@ -31,7 +35,8 @@ var bStartTime = false;
 var bEndTime = false;
 var dteEndDate = fldEndDate;
 var dteStartTime = fldStartTime;
-var strResult = "Исправлено:";
+var cResult = "⚠️ Исправлено:";
+var strResult = cResult;
 
 //Проверка соответствия типа и статуса
 if (fldType==cPeriod && fldStatus==cDone) {
@@ -78,6 +83,16 @@ if (bEndTime) {
 	}
 }
 
+//Проверка вычисления переодичности и смены дат
+if (fldType!=cPeriod && fldCount==true) {
+	curEntry.set(cCount, false);
+	strResult = strResult + "\n*" + cCount;
+}
+if (fldType!=cPeriod && fldAuto==true) {
+	curEntry.set(fldAuto, false);
+	strResult = strResult + "\n*" + fldAuto;
+}
+
 //Проверка интервала
 if (fldInterval!=undefined && fldInterval<0) {
 	curEntry.set(cInterval, Math.abs(fldInterval));
@@ -86,7 +101,7 @@ if (fldInterval!=undefined && fldInterval<0) {
 
 curEntry.recalc();
 
-if (strResult!="Исправлено:") {
+if (strResult!=cResult) {
 	message(strResult);	
 }
 
