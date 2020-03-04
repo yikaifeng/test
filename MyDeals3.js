@@ -232,11 +232,11 @@ function isExpired (oEntry){
 		strDate = cEndDate;
 	}
 	
-	if (curRecord.field(cAuto) == 1 && 
-		curRecord.field(cType)==cPeriod &&
-		curRecord.field(strDate).getFullYear() <= Date().getFullYear() &&
-		curRecord.field(strDate).getMonth() <= Date().getMonth() &&
-		curRecord.field(strDate).getDay() < (Date().getDay)) {
+	if (oEntry.field(cAuto) == 1 && 
+		oEntry.field(cType)==cPeriod &&
+		oEntry.field(strDate).getFullYear() <= Date().getFullYear() &&
+		oEntry.field(strDate).getMonth() <= Date().getMonth() &&
+		oEntry.field(strDate).getDay() < (Date().getDay)) {
 			return true;
 		} else {
 			return false;
