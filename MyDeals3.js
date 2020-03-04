@@ -141,7 +141,7 @@ function shiftDate (bForward, oEntry) {
 	//Локальные переменные
 	var direction = 0;
 	
-	if (!fldCount) {
+	if (!oEntry.field(cCount)) {
 		message("⚠️ Периодичность не включена");
 		exit();
 	}
