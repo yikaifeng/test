@@ -48,14 +48,13 @@ var fldInterval = curEntry.field (cInterval);
 //----------------------------------------------------------
 //Вспомогательная функция для shiftAuto
 //----------------------------------------------------------
-function isExpired(strDate) {
+function isExpired(dteAuto) {
 	
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(deal1)");
 	//log("\n*deal1: " + deal1.title);
 	
 	
 	var dte = new Date();
-	dteAuto = deal1.field(strDate);
 	
 	//log("**DATE: " + deal1.field(strDate) + "\n**TDY: " + dte);
 	//log("\nSTR: " + deal1.field(cStartDate) + "\nEND: " + deal1.field(cEndDate) + "\nTDY: " + dte);
@@ -316,10 +315,11 @@ function shiftAuto() {
 			if (deal.field(cEndDate) != undefined) {
 				strDate = cEndDate;
 			}
-			if (isExpired(strDate)) {
+			var dteAuto = deal.field(strDate);
+			if (isExpired(dteAuto)) {
 				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
 				count = count + 1;
-				while (isExpired(strDate)){
+				while (isExpired(dteAuto)){
 					log("\nWHILE\nDATE: " + deal.field(strDate));
 					shiftDate(true, deal);
 				}
