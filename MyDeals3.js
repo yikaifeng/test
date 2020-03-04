@@ -212,7 +212,7 @@ function shiftAuto () {
 	log("INSIDE shiftAuto");
 	for (var i = 0; i < curLib.entries().length; i++) {
 		log("INSIDE for: " + i);
-		var curRecord = curLib.Entries[i];
+		var curRecord = curLib.entries[i];
 		if (curRecord.field(cAuto) == 1 && 
 			curRecord.field(cType)==cPeriod &&
 			curRecord.field("cStartDate").getFullYear() <= Date().getFullYear() &&
