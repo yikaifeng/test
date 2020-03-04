@@ -127,6 +127,7 @@ function checkDealsEntry() {
 //Функция переноса даты вперед или назад
 //**********************************************************
 function shiftDate (bForward, oEntry) {
+	var bShowMessage = true;
 	//Лог
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftDate(bForward, oEntry)");
 	log("\n*bForward= " + bForward);
@@ -134,6 +135,7 @@ function shiftDate (bForward, oEntry) {
 		log("\n*oEntry= " + oEntry);
 	} else {
 		log("\noEntry= " + oEntry.title);
+		bShowMessage = false;
 	}
 
 	//Локальные переменные
@@ -145,7 +147,10 @@ function shiftDate (bForward, oEntry) {
 	}
 	
 	if (bForward != false) {direction = 1;} else {direction = -1;}
-	if (oEntry == undefined || oEntry == null) {oEntry = curEntry;}
+	if (oEntry == undefined || oEntry == null) {
+		oEntry = curEntry;
+		log("\n*oEntry= " + oEntry.title);
+	}
 	
 	switch (fldUnit) {
 
@@ -213,7 +218,7 @@ function shiftDate (bForward, oEntry) {
 			break;
 		}
 
-	message("✔️ Дата изменена");
+	if (bShowMessage) {message("✔️ Дата изменена");}
 
 	//Лог
 	log("\nСДВИГ НА:" + direction*fldInterval + " " + fldUnit);
@@ -226,8 +231,8 @@ function shiftDate (bForward, oEntry) {
 //Вспомогательная функция
 function isExpired(oEntry) {
 	
-	log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(oEntry)");
-	log("\n*oEntry: " + oEntry.title);
+	//log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(oEntry)");
+	//log("\n*oEntry: " + oEntry.title);
 	var strDate = cStartDate;
 	
 	if (oEntry.field(cEndDate) != undefined) {
@@ -235,7 +240,7 @@ function isExpired(oEntry) {
 	}
 	
 	var dte = new Date();
-	log("\nSTR: " + oEntry.field(cStartDate) + "\nEND: " + oEntry.field(cEndDate) + "\nTDY: " + dte);
+	//log("\nSTR: " + oEntry.field(cStartDate) + "\nEND: " + oEntry.field(cEndDate) + "\nTDY: " + dte);
 	
 	if (oEntry.field(cAuto) == 1 && 
 		oEntry.field(cType)==cPeriod &&
@@ -256,7 +261,7 @@ function shiftAuto () {
 	for (var i = 0; i < deals.length; i++) {
 		var curRecord = deals[i];
 		if (isExpired(curRecord)) {
-				log("\n  !НАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + curRecord.field(cName));
+				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + curRecord.field(cName));
 				while (isExpired(curRecord)){
 					shiftDate(true, curRecord);
 				}
