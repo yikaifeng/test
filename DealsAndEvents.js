@@ -48,32 +48,22 @@ var fldInterval = curEntry.field (cInterval);
 //----------------------------------------------------------
 //Вспомогательная функция для shiftAuto
 //----------------------------------------------------------
-function isExpired(deal1) {
+function isExpired(strDate) {
 	
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(deal1)");
 	//log("\n*deal1: " + deal1.title);
-	var strDate = cStartDate;
 	
-	if (deal1.field(cEndDate) != undefined) {
-		strDate = cEndDate;
-	}
 	
 	var dte = new Date();
-	var dteDeal = deal1.field(strDate);
+	dteAuto = deal1.field(strDate);
 	
 	//log("**DATE: " + deal1.field(strDate) + "\n**TDY: " + dte);
 	//log("\nSTR: " + deal1.field(cStartDate) + "\nEND: " + deal1.field(cEndDate) + "\nTDY: " + dte);
-	if (deal1.field(cAuto) == 1) {log("\n+авто");}
-	if (deal1.field(cType)==cPeriod) {log("\n+тип");}
-	if (dteDeal.getFullYear() <= dte.getFullYear()) {log("\n+год:\n" + dteDeal.getFullYear() + "\n" + dte.getFullYear());}
-	if (dteDeal.getMonth() <= dte.getMonth()) {log("\n+месяц:\n"+ dteDeal.getMonth() + "\n" + dte.getMonth());}
-	if (dteDeal.getDay() < dte.getDay()) {log("\n+день\n"+ dteDeal.getDay() + "\n" + dte.getDay());}	
+	log("\n*dteAuto: " + dteAuto.getDay() + "." + dteAuto.getMonth() + "." + dteAuto.getFullYear());	
 	
-	if (deal1.field(cAuto) == 1 && 
-		deal1.field(cType)==cPeriod &&
-		deal1.field(strDate).getFullYear() <= dte.getFullYear() &&
-		deal1.field(strDate).getMonth() <= dte.getMonth() &&
-		deal1.field(strDate).getDay() < dte.getDay()) {
+	if (dteAuto.getFullYear() <= dte.getFullYear() &&
+		dteAuto.getMonth() <= dte.getMonth() &&
+		dteAuto.getDay() < dte.getDay()) {
 			return true;
 		} else {
 			return false;
@@ -321,14 +311,20 @@ function shiftAuto() {
 	
 	for (var i = 0; i < deals.length; i++) {
 		var deal = deals[i];
-		if (isExpired(deal)) {
+		if (deal.field(cAuto) == 1 && deal.field(cType)==cPeriod) {
+			var strDate = cStartDate;
+			if (deal.field(cEndDate) != undefined) {
+				strDate = cEndDate;
+			}
+			if (isExpired(strDate)) {
 				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
 				count = count + 1;
-				while (isExpired(deal)){
-					log("DATE1: " + deal.field(cStartDate) + "\nDATE2: " + deal.field(cEndDate));
+				while (isExpired(strDate)){
+					log("\nWHILE\nDATE: " + deal.field(strDate));
 					shiftDate(true, deal);
 				}
-		}
+			}
+		}		
 	}
 	
 	message("✔️ Перенесены даты: " + count + " (запись)");
