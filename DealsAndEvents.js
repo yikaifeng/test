@@ -333,7 +333,7 @@ function shiftAuto() {
 				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
 				count = count + 1;
 				
-				while (deal.field(strDate) < today) && loop !=0){
+				while (deal.field(strDate) < today && loop !=0){
 					log("\nWHILE\n*поле: " + deal.field(strDate));
 
 					shiftDate(true, deal);
