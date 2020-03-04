@@ -31,7 +31,7 @@ var cInterval = "Интервал";
 //Значения полей
 var fldType = curEntry.field (cType);
 var fldStatus = curEntry.field (cStatus);
-var fldCategory = curEntry.fgColor(cCategory);
+var fldCategory = curEntry.field(cCategory);
 var fldStartDate = curEntry.field (cStartDate);
 var fldStartTime = curEntry.field (cStartTime);
 var fldEndDate = curEntry.field (cEndDate);
