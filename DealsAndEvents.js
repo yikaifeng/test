@@ -107,8 +107,19 @@ function getName(strSource) {
 //----------------------------------------------------------
 function checkDeal() {
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ checkDeal()\nИМЯ ЗАПИСИ: " + curDeal.title);
-	initialize();
 	//Локальные переменные
+	var curDeal = entry();
+	//Поля
+	var fldType = curDeal.field (cType);
+	var fldStatus = curDeal.field (cStatus);
+	var fldStartDate = curDeal.field (cStartDate);
+	var fldStartTime = curDeal.field (cStartTime);
+	var fldEndDate = curDeal.field (cEndDate);
+	var fldEndTime = curDeal.field (cEndTime);
+	var fldCount = curDeal.field (cCount);
+	var fldAuto = curDeal.field (cAuto);
+	var fldInterval = curDeal.field (cInterval);
+	//прочее
 	var cResult = "⚠️ Исправлено:";
 	var bEndDate = false;
 	var bStartTime = false;
@@ -192,9 +203,10 @@ function shiftDate(bForward, deal) {
 		
 	//Лог
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftDate(bForward, deal)");
-	initialize();
+	//Локальные переменные
+	var curDeal = entry();
 	
-		//Показывать ли сообщение о смене даты
+	//Показывать ли сообщение о смене даты
 	var bShowMessage = true;
 	//Направление сдвига
 	var direction = 0;
@@ -208,10 +220,11 @@ function shiftDate(bForward, deal) {
 	} else {
 		log("\n*deal(snd): " + deal.title);
 		bShowMessage = false;
-		fldStartDate = deal.field(cStartDate);
-		fldEndDate = deal.field(cEndDate);
-		fldInterval = deal.field(cInterval);
 	}
+	
+	var fldStartDate = deal.field(cStartDate);
+	var fldEndDate = deal.field(cEndDate);
+	var fldInterval = deal.field(cInterval);
 	
 	//Выход, если не включен счёт переодичности
 	if (!deal.field(cCount)) {
@@ -346,7 +359,12 @@ function shiftAuto() {
 //Функция автоматического сдвига даты
 //----------------------------------------------------------
 function daysLeft() {
-	initialize();
+	
+	//Локальные переменные
+	var curDeal = entry();
+	//Поля
+	var fldStartDate = curDeal.field (cStartDate);
+	
 	var res = " дн.";
 	var dteToday = new Date();
 	var dteDiff = (fldStartDate - dteToday)/(1000*3600*24);
@@ -368,7 +386,11 @@ function daysLeft() {
 //Функция для вывода названия
 //----------------------------------------------------------
 function getDealName() {
-	initialize();
+	//Локальные переменные
+	var curDeal = entry();
+	//Поля
+	var fldCategory = curDeal.field (cCategory);
+	var fldName = curDeal.field (cName);
 	return getIcon(fldCategory, fldName);
 }
 
@@ -376,7 +398,10 @@ function getDealName() {
 //Функция для вывода типа
 //----------------------------------------------------------
 function getDealType() {
-	initialize();
+	//Локальные переменные
+	var curDeal = entry();
+	//Поля
+	var fldType = curDeal.field (cType);
 	return getIcon(fldType);
 }
 
@@ -384,7 +409,10 @@ function getDealType() {
 //Функция для вывода статуса
 //----------------------------------------------------------
 function getDealStatus() {
-	initialize();
+	//Локальные переменные
+	var curDeal = entry();
+	//Поля
+	var fldStatus = curDeal.field (cStatus);
 	var ico = getIcon(fldStatus);
 	if (ico=="⏳") {
 		return "";
