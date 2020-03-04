@@ -228,19 +228,21 @@ function isExpired(oEntry) {
 	
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(oEntry)");
 	log("\n*oEntry: " + oEntry.title);
-	log("START: " + oEntry.field(cStartDate));
-	log("END: " + oEntry.field(cEndDate));
+	log("\nSTART: " + oEntry.field(cStartDate));
+	log("\nEND: " + oEntry.field(cEndDate));
 	var strDate = cStartDate;
 	
 	if (oEntry.field(cEndDate) != undefined) {
 		strDate = cEndDate;
 	}
 	
+	var dte = Date();
+	
 	if (oEntry.field(cAuto) == 1 && 
 		oEntry.field(cType)==cPeriod &&
-		oEntry.field(strDate).getFullYear() <= Date().getFullYear() &&
-		oEntry.field(strDate).getMonth() <= Date().getMonth() &&
-		oEntry.field(strDate).getDay() < (Date().getDay)) {
+		oEntry.field(strDate).getFullYear() <= dte.getFullYear() &&
+		oEntry.field(strDate).getMonth() <= dte.getMonth() &&
+		oEntry.field(strDate).getDay() < dte.getDay()) {
 			return true;
 		} else {
 			return false;
