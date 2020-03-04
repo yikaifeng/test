@@ -28,41 +28,9 @@ var cUnit = "Ед.измерения";
 var cAuto = "Автоматически менять дату";
 var cInterval = "Интервал";
 
-//Значения полей
-var fldType;
-var fldStatus;
-var fldCategory;
-var fldStartDate;
-var fldStartTime;
-var fldEndDate;
-var fldEndTime;
-var fldName;
-var fldCount;
-var fldUnit;
-var fldAuto;
-var fldInterval;
-
 //**********************************************************
 //Private functions
 //**********************************************************
-//----------------------------------------------------------
-//Функция для инициализации переменных на поля
-//----------------------------------------------------------
-function initialize() {
-	curDeal = entry();
-	fldType = curDeal.field (cType);
-	fldStatus = curDeal.field (cStatus);
-	fldCategory = curDeal.field(cCategory);
-	fldStartDate = curDeal.field (cStartDate);
-	fldStartTime = curDeal.field (cStartTime);
-	fldEndDate = curDeal.field (cEndDate);
-	fldEndTime = curDeal.field (cEndTime);
-	fldName = curDeal.field (cName);
-	fldCount = curDeal.field (cCount);
-	fldUnit = curDeal.field (cUnit);
-	fldAuto = curDeal.field (cAuto);
-	fldInterval = curDeal.field (cInterval);
-}
 //----------------------------------------------------------
 //Функция для получения иконки
 //----------------------------------------------------------
