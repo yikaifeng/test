@@ -123,6 +123,7 @@ function checkDealsEntry() {
 //Функция переноса даты вперед или назад
 //**********************************************************
 function shiftDate (bForward, oEntry) {
+	log("INSIDE shiftDate: " + bForward);
 	//Локальные переменные
 	var direction = 0;
 	
@@ -208,7 +209,9 @@ function shiftDate (bForward, oEntry) {
 //Функция автоматического сдвига даты
 //**********************************************************
 function shiftAuto () {
+	log("INSIDE shiftAuto");
 	for (var i = 0; i < curLib.entries().length; i++) {
+		log("INSIDE for: " + i);
 		var curRecord = curLib.Entries[i];
 		if (curRecord.field(cAuto) == 1 && 
 			curRecord.field(cType)==cPeriod &&
@@ -218,6 +221,7 @@ function shiftAuto () {
 			curRecord.field("cEndDate").getFullYear() <= Date().getFullYear() &&
 			curRecord.field("cEndDate").getMonth() <= Date().getMonth() &&
 			curRecord.field("cEndDate").getDay() <= (Date().getDay+1)) {
+				log("INSIDE if");
 				shiftDate(true, curRecord);
 		}
 	}
