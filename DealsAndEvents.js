@@ -40,7 +40,7 @@ var fldName;
 var fldCount;
 var fldUnit;
 var fldAuto;
-var fldInterval);
+var fldInterval;
 
 //**********************************************************
 //Private functions
