@@ -4,6 +4,7 @@
 
 //Текущая запись и библиотека
 var curLib = lib();
+var deals = curLib.entries();
 var curEntry = entry();
 
 //Имена полей и значения
@@ -224,12 +225,11 @@ function shiftDate (bForward, oEntry) {
 function shiftAuto () {
 	//Лог
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftAuto()");
-	log("\nБИБЛИОТЕКА: " + curLib.title);
-	log("\n*(" + curLib.entries().length + " записей)");
+	log("\nБИБЛИОТЕКА: " + curLib.title + "\n*(" + deals.length + " записей)");
 	
-	for (var i = 0; i < curLib.entries().length; i++) {
-		log("  for(" + i + "): " + curLib.entries[i].field("Название"));
-		var curRecord = curLib.entries[i];
+	for (var i = 0; i < deals.length; i++) {
+		log("  for(" + i + "): " + deals[i].field("Название"));
+		var curRecord = deals[i];
 		if (curRecord.field(cAuto) == 1 && 
 			curRecord.field(cType)==cPeriod &&
 			curRecord.field("cStartDate").getFullYear() <= Date().getFullYear() &&
