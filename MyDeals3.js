@@ -228,15 +228,14 @@ function isExpired(oEntry) {
 	
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(oEntry)");
 	log("\n*oEntry: " + oEntry.title);
-	log("\nSTART: " + oEntry.field(cStartDate));
-	log("\nEND: " + oEntry.field(cEndDate));
 	var strDate = cStartDate;
 	
 	if (oEntry.field(cEndDate) != undefined) {
 		strDate = cEndDate;
 	}
 	
-	var dte = Date();
+	var dte = new Date();
+	log("\nSTR: " + oEntry.field(cStartDate) + "\nEND: " + oEntry.field(cEndDate) + "\nTDY: " + dte);
 	
 	if (oEntry.field(cAuto) == 1 && 
 		oEntry.field(cType)==cPeriod &&
