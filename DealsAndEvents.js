@@ -224,7 +224,7 @@ function shiftDate(bForward, deal) {
 		fldEndDate = deal.field(cEndDate);
 		fldInterval = deal.field(cInterval);
 	}
-
+	
 	switch (deal.field(cUnit)) {
 
 		case cDay:
@@ -293,11 +293,13 @@ function shiftDate(bForward, deal) {
 		default: break;
 		
 		}
-
+	
+	deal.recalc();
+	
 	if (bShowMessage) {message("✔️ Дата изменена");}
 
 	//Лог
-	log("\nСДВИГ НА:" + direction*fldInterval + " " + fldUnit);
+	log("\nСДВИГ НА:" + direction*deal.field(cInterval) + " " + deal.field(cUnit));
 	
 }
 
