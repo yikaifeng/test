@@ -310,6 +310,8 @@ function shiftAuto() {
 	
 	var count = 0;
 	var loop = 100;
+	var today = new Date();
+	today = today.setHours(0,0,0,0);
 	
 	//Перебираем значения
 	for (var i = 0; i < deals.length; i++) {
@@ -325,19 +327,15 @@ function shiftAuto() {
 			if (deal.field(cEndDate) != undefined) {
 				strDate = cEndDate;
 			}
-			//Ищем просроченное дело
-			log("\n*поле: " + deal.field(strDate));
-			var aa = deal.field(strDate);
-			log("\n*перм: " + aa);
-			
-			if (isExpired(deal.field(strDate))) {
+			//Ищем просроченное дело			
+			if (deal.field(strDate) < today) {
 				//Если событие дело
 				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
 				count = count + 1;
 				
-				while (isExpired(deal.field(strDate)) && loop !=0){
+				while (deal.field(strDate) < today) && loop !=0){
 					log("\nWHILE\n*поле: " + deal.field(strDate));
-					log("\nWHILE\n*перм: " + aa);
+
 					shiftDate(true, deal);
 					loop = loop - 1;
 				}
