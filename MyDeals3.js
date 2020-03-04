@@ -224,8 +224,12 @@ function shiftDate (bForward, oEntry) {
 //Функция автоматического сдвига даты
 //**********************************************************
 //Вспомогательная функция
-function isExpired (oEntry){
+function isExpired(oEntry) {
 	
+	log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(oEntry)");
+	log("\n*oEntry: " + oEntry.title);
+	log("START: " + oEntry.field(cStartDate));
+	log("END: " + oEntry.field(cEndDate));
 	var strDate = cStartDate;
 	
 	if (oEntry.field(cEndDate) != undefined) {
