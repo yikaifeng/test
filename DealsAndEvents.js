@@ -57,7 +57,7 @@ function isExpired(deal1) {
 	if (deal1.field(cEndDate) != undefined) {
 		strDate = cEndDate;
 	}
-	
+	log("*DATE: " + strDate);
 	var dte = new Date();
 	//log("\nSTR: " + deal1.field(cStartDate) + "\nEND: " + deal1.field(cEndDate) + "\nTDY: " + dte);
 	
@@ -319,6 +319,7 @@ function shiftAuto() {
 				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
 				count = count + 1;
 				while (isExpired(deal)){
+					log("DATE1: " + deal.field(cStartDate) + "\nDATE2: " + deal.field(cEndDate));
 					shiftDate(true, deal);
 				}
 		}
