@@ -17,6 +17,7 @@ var cStartDate = "Дата начала";
 var cStartTime = "Время начала";
 var cEndDate = "Дата окончания";
 var cEndTime = "Время окончания";
+var cName = "Название";
 var cCount = "Вычислять периодичность";
 var cUnit = "Ед.измерения";
 	var cDay = "день";
@@ -222,24 +223,38 @@ function shiftDate (bForward, oEntry) {
 //**********************************************************
 //Функция автоматического сдвига даты
 //**********************************************************
+//Вспомогательная функция
+function isExpired (oEntry){
+	
+	var strDate = cStartDate;
+	
+	if (oEntry.field(cEndDate) != undefined) {
+		strDate = cEndDate;
+	}
+	
+	if (curRecord.field(cAuto) == 1 && 
+		curRecord.field(cType)==cPeriod &&
+		curRecord.field(strDate).getFullYear() <= Date().getFullYear() &&
+		curRecord.field(strDate).getMonth() <= Date().getMonth() &&
+		curRecord.field(strDate).getDay() < (Date().getDay)) {
+			return true;
+		} else {
+			return false;
+		}
+}
+
 function shiftAuto () {
 	//Лог
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftAuto()");
 	log("\nБИБЛИОТЕКА: " + curLib.title + "\n*(" + deals.length + " записей)");
 	
 	for (var i = 0; i < deals.length; i++) {
-		log("  for(" + i + "): " + deals[i].field("Название"));
 		var curRecord = deals[i];
-		if (curRecord.field(cAuto) == 1 && 
-			curRecord.field(cType)==cPeriod &&
-			curRecord.field("cStartDate").getFullYear() <= Date().getFullYear() &&
-			curRecord.field("cStartDate").getMonth() <= Date().getMonth() &&
-			curRecord.field("cStartDate").getDay() <= (Date().getDay+1) &&
-			curRecord.field("cEndDate").getFullYear() <= Date().getFullYear() &&
-			curRecord.field("cEndDate").getMonth() <= Date().getMonth() &&
-			curRecord.field("cEndDate").getDay() <= (Date().getDay+1)) {
-				log("  !НАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА");
-				shiftDate(true, curRecord);
+		if (isExpired(curRecord)) {
+				log("\n  !НАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + curRecord.field(cName));
+				while (isExpired(curRecord)){
+					shiftDate(true, curRecord);
+				}
 		}
 	}
 }
