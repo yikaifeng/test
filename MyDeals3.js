@@ -209,9 +209,9 @@ function shiftDate (bForward, oEntry) {
 //Функция автоматического сдвига даты
 //**********************************************************
 function shiftAuto () {
-	log("INSIDE shiftAuto");
+	log("INSIDE shiftAuto: " + curLib.title);
 	for (var i = 0; i < curLib.entries().length; i++) {
-		log("INSIDE for: " + i);
+		log("INSIDE for: " + i + " " + curLib.entries[i].title);
 		var curRecord = curLib.entries[i];
 		if (curRecord.field(cAuto) == 1 && 
 			curRecord.field(cType)==cPeriod &&
