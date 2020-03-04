@@ -62,7 +62,7 @@ function isExpired(dteAuto) {
 	
 	if (dteAuto.getFullYear() <= dte.getFullYear() &&
 		dteAuto.getMonth() <= dte.getMonth() &&
-		dteAuto.getDay() < dte.getDay()) {
+		dteAuto.getDate() < dte.getDate()) {
 			log("TRUE");
 			return true;
 		} else {
