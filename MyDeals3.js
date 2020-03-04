@@ -37,15 +37,13 @@ var fldUnit = curEntry.field (cUnit);
 var fldAuto = curEntry.field (cAuto);
 var fldInterval = curEntry.field (cInterval);
 
-//Лог
-var logMessage = "\nИСПОЛНЯЕМЫЙ СКРИПТ: MyDeals3.js";
 
 //**********************************************************
 //Функция для коррекци неправильного заполнения полей
 //**********************************************************
 function checkDealsEntry() {
-	logMessage += "\nВЫПОЛНЕНИ ФУНКЦИИ checkDealsEntry()";
-	logMessage += "\nИМЯ ЗАПИСИ: " + curEntry.title;
+	log("\nВЫПОЛНЕНИ ФУНКЦИИ checkDealsEntry()");
+	log("\nИМЯ ЗАПИСИ: " + curEntry.title);
 	//Локальные переменные
 	var cResult = "⚠️ Исправлено:";
 	var bEndDate = false;
@@ -121,9 +119,6 @@ function checkDealsEntry() {
 	if (strResult!=cResult) {
 		message(strResult);	
 	}
-	
-	log(logMessage);
-	
 }
 
 //**********************************************************
@@ -131,12 +126,12 @@ function checkDealsEntry() {
 //**********************************************************
 function shiftDate (bForward, oEntry) {
 	//Лог
-	logMessage += "\nВЫПОЛНЕНИ ФУНКЦИИ shiftDate(bForward, oEntry)";
-	logMessage += "\n*bForward= " + bForward;
+	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftDate(bForward, oEntry)");
+	log("\n*bForward= " + bForward);
 	if (oEntry == undefined || oEntry == null) {
-		logMessage += "\n*oEntry= " + oEntry;
+		log("\n*oEntry= " + oEntry);
 	} else {
-		logMessage += "\noEntry= " + oEntry.title;
+		log("\noEntry= " + oEntry.title);
 	}
 
 	//Локальные переменные
@@ -219,8 +214,7 @@ function shiftDate (bForward, oEntry) {
 	message("✔️ Дата изменена");
 
 	//Лог
-	logMessage += "\nСДВИГ НА:" + direction*fldInterval + fldUnit;
-	log(logMessage);
+	log("\nСДВИГ НА:" + direction*fldInterval + " " + fldUnit);
 	
 }
 
@@ -229,12 +223,12 @@ function shiftDate (bForward, oEntry) {
 //**********************************************************
 function shiftAuto () {
 	//Лог
-	logMessage += "\nВЫПОЛНЕНИ ФУНКЦИИ shiftAuto()";
-	logMessage += "\nБИБЛИОТЕКА: " + curLib.title;
-	logMessage += "\n*(" + curLib.entries().length + " записей)";
+	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftAuto()");
+	log("\nБИБЛИОТЕКА: " + curLib.title);
+	log("\n*(" + curLib.entries().length + " записей)");
 	
 	for (var i = 0; i < curLib.entries().length; i++) {
-		logMessage += "  for(" + i + "): " + curLib.entries[i].title;
+		log("  for(" + i + "): " + curLib.entries[i].field("Название"));
 		var curRecord = curLib.entries[i];
 		if (curRecord.field(cAuto) == 1 && 
 			curRecord.field(cType)==cPeriod &&
@@ -248,7 +242,4 @@ function shiftAuto () {
 				shiftDate(true, curRecord);
 		}
 	}
-	
-	log(logMessage);
-	
 }
