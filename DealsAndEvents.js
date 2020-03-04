@@ -307,6 +307,7 @@ function shiftAuto() {
 	log("\nБИБЛИОТЕКА: " + curLib.title + "\n*(" + deals.length + " записей)");
 	
 	var count = 0;
+	var loop = 100;
 	
 	for (var i = 0; i < deals.length; i++) {
 		var deal = deals[i];
@@ -315,13 +316,13 @@ function shiftAuto() {
 			if (deal.field(cEndDate) != undefined) {
 				strDate = cEndDate;
 			}
-			var dteAuto = deal.field(strDate);
-			if (isExpired(dteAuto)) {
+			if (isExpired(deal.field(strDate))) {
 				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
 				count = count + 1;
-				while (isExpired(dteAuto)){
+				while (isExpired(deal.field(strDate)) && loop !=0){
 					log("\nWHILE\nDATE: " + deal.field(strDate));
 					shiftDate(true, deal);
+					loop = loop - 1;
 				}
 			}
 		}		
