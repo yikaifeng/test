@@ -49,6 +49,7 @@ var fldInterval;
 //Функция для инициализации переменных на поля
 //----------------------------------------------------------
 function initialize() {
+	curDeal = entry();
 	fldType = curDeal.field (cType);
 	fldStatus = curDeal.field (cStatus);
 	fldCategory = curDeal.field(cCategory);
