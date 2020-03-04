@@ -37,10 +37,15 @@ var fldUnit = curEntry.field (cUnit);
 var fldAuto = curEntry.field (cAuto);
 var fldInterval = curEntry.field (cInterval);
 
+//Лог
+var logMessage = "\nИСПОЛНЯЕМЫЙ СКРИПТ: MyDeals3.js";
+
 //**********************************************************
 //Функция для коррекци неправильного заполнения полей
 //**********************************************************
 function checkDealsEntry() {
+	logMessage += "\nВЫПОЛНЕНИ ФУНКЦИИ checkDealsEntry()";
+	logMessage += "\nИМЯ ЗАПИСИ: " + curEntry.title;
 	//Локальные переменные
 	var cResult = "⚠️ Исправлено:";
 	var bEndDate = false;
@@ -116,14 +121,24 @@ function checkDealsEntry() {
 	if (strResult!=cResult) {
 		message(strResult);	
 	}
-
+	
+	log(logMessage);
+	
 }
 
 //**********************************************************
 //Функция переноса даты вперед или назад
 //**********************************************************
 function shiftDate (bForward, oEntry) {
-	log("INSIDE shiftDate: " + bForward);
+	//Лог
+	logMessage += "\nВЫПОЛНЕНИ ФУНКЦИИ shiftDate(bForward, oEntry)";
+	logMessage += "\n*bForward= " + bForward;
+	if (oEntry == undefined || oEntry == null) {
+		logMessage += "\n*oEntry= " + oEntry;
+	} else {
+		logMessage += "\noEntry= " + oEntry.title;
+	}
+
 	//Локальные переменные
 	var direction = 0;
 	
@@ -202,6 +217,10 @@ function shiftDate (bForward, oEntry) {
 		}
 
 	message("✔️ Дата изменена");
+
+	//Лог
+	logMessage += "\nСДВИГ НА:" + direction*fldInterval + fldUnit;
+	log(logMessage);
 	
 }
 
@@ -209,9 +228,13 @@ function shiftDate (bForward, oEntry) {
 //Функция автоматического сдвига даты
 //**********************************************************
 function shiftAuto () {
-	log("INSIDE shiftAuto: " + curLib.title);
+	//Лог
+	logMessage += "\nВЫПОЛНЕНИ ФУНКЦИИ shiftAuto()";
+	logMessage += "\nБИБЛИОТЕКА: " + curLib.title;
+	logMessage += "\n*(" + curLib.entries().length + " записей)";
+	
 	for (var i = 0; i < curLib.entries().length; i++) {
-		log("INSIDE for: " + i + " " + curLib.entries[i].title);
+		logMessage += "  for(" + i + "): " + curLib.entries[i].title;
 		var curRecord = curLib.entries[i];
 		if (curRecord.field(cAuto) == 1 && 
 			curRecord.field(cType)==cPeriod &&
@@ -221,8 +244,11 @@ function shiftAuto () {
 			curRecord.field("cEndDate").getFullYear() <= Date().getFullYear() &&
 			curRecord.field("cEndDate").getMonth() <= Date().getMonth() &&
 			curRecord.field("cEndDate").getDay() <= (Date().getDay+1)) {
-				log("INSIDE if");
+				log("  !НАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА");
 				shiftDate(true, curRecord);
 		}
 	}
+	
+	log(logMessage);
+	
 }
