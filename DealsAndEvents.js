@@ -50,7 +50,7 @@ var fldInterval = curEntry.field (cInterval);
 //----------------------------------------------------------
 function isExpired(deal1) {
 	
-	//log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(deal1)");
+	log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(deal1)");
 	//log("\n*deal1: " + deal1.title);
 	var strDate = cStartDate;
 	
@@ -59,8 +59,13 @@ function isExpired(deal1) {
 	}
 	
 	var dte = new Date();
-	log("**DATE: " + deal1.field(strDate) + "\n**TDY: " + dte);
+	//log("**DATE: " + deal1.field(strDate) + "\n**TDY: " + dte);
 	//log("\nSTR: " + deal1.field(cStartDate) + "\nEND: " + deal1.field(cEndDate) + "\nTDY: " + dte);
+	if (deal1.field(cAuto) == 1) {log("\n+авто");}
+	if (deal1.field(cType)==cPeriod) {log("\n+тип");}
+	if (deal1.field(strDate).getFullYear() <= dte.getFullYear()) {log("\n+год");}
+	if (deal1.field(strDate).getMonth() <= dte.getMonth()) {log("\n+месяц");}
+	if (deal1.field(strDate).getDay() < dte.getDay()) {log("\n+день");}	
 	
 	if (deal1.field(cAuto) == 1 && 
 		deal1.field(cType)==cPeriod &&
