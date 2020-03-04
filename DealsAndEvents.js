@@ -290,7 +290,7 @@ function shiftDate(bForward, deal) {
 			}
 			break;
 		
-		case else: break;
+		default: break;
 		
 		}
 
