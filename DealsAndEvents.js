@@ -5,7 +5,7 @@
 //Текущая запись и библиотека
 var curLib = lib();
 var deals = curLib.entries();
-var curEntry = entry();
+var curDeal = entry();
 
 //Имена полей и значения
 var cType = "Тип";
@@ -29,18 +29,18 @@ var cAuto = "Автоматически менять дату";
 var cInterval = "Интервал";
 
 //Значения полей
-var fldType = curEntry.field (cType);
-var fldStatus = curEntry.field (cStatus);
-var fldCategory = curEntry.field(cCategory);
-var fldStartDate = curEntry.field (cStartDate);
-var fldStartTime = curEntry.field (cStartTime);
-var fldEndDate = curEntry.field (cEndDate);
-var fldEndTime = curEntry.field (cEndTime);
-var fldName = curEntry.field (cName);
-var fldCount = curEntry.field (cCount);
-var fldUnit = curEntry.field (cUnit);
-var fldAuto = curEntry.field (cAuto);
-var fldInterval = curEntry.field (cInterval);
+var fldType = curDeal.field (cType);
+var fldStatus = curDeal.field (cStatus);
+var fldCategory = curDeal.field(cCategory);
+var fldStartDate = curDeal.field (cStartDate);
+var fldStartTime = curDeal.field (cStartTime);
+var fldEndDate = curDeal.field (cEndDate);
+var fldEndTime = curDeal.field (cEndTime);
+var fldName = curDeal.field (cName);
+var fldCount = curDeal.field (cCount);
+var fldUnit = curDeal.field (cUnit);
+var fldAuto = curDeal.field (cAuto);
+var fldInterval = curDeal.field (cInterval);
 
 //**********************************************************
 //Private functions
@@ -58,7 +58,7 @@ function isExpired(dteAuto) {
 	
 	//log("**DATE: " + deal1.field(strDate) + "\n**TDY: " + dte);
 	//log("\nSTR: " + deal1.field(cStartDate) + "\nEND: " + deal1.field(cEndDate) + "\nTDY: " + dte);
-	log("\n*dteAuto: " + dteAuto.getDay() + "." + dteAuto.getMonth() + "." + dteAuto.getFullYear());	
+	log("\n*дата: " + dteAuto);	
 	
 	if (dteAuto.getFullYear() <= dte.getFullYear() &&
 		dteAuto.getMonth() <= dte.getMonth() &&
@@ -111,7 +111,7 @@ function getName(strSource) {
 //Функция для коррекци неправильного заполнения полей
 //----------------------------------------------------------
 function checkDeal() {
-	log("\nВЫПОЛНЕНИ ФУНКЦИИ checkDeal()\nИМЯ ЗАПИСИ: " + curEntry.title);
+	log("\nВЫПОЛНЕНИ ФУНКЦИИ checkDeal()\nИМЯ ЗАПИСИ: " + curDeal.title);
 	//Локальные переменные
 	var cResult = "⚠️ Исправлено:";
 	var bEndDate = false;
@@ -123,7 +123,7 @@ function checkDeal() {
 
 	//Проверка соответствия типа и статуса
 	if (fldType==cPeriod && fldStatus==cDone) {
-		curEntry.set(cStatus, cPlan);
+		curDeal.set(cStatus, cPlan);
 		strResult = strResult + "\n*" + cStatus;
 	}
 	//Проверка времени и дат на существование
@@ -134,13 +134,13 @@ function checkDeal() {
 	//Проверка даты окончания
 	if (fldEndDate) {
 		if (fldEndDate<fldStartDate) {
-			curEntry.set(cEndDate, fldStartDate);
+			curDeal.set(cEndDate, fldStartDate);
 			dteEndDate = fldStartDate;
 			strResult = strResult + "\n*" + cEndDate;
 		}
 	} else {
 		if (bEndTime) {
-			curEntry.set(cEndDate, fldStartDate);
+			curDeal.set(cEndDate, fldStartDate);
 			dteEndDate = fldStartDate;
 			strResult = strResult + "\n*" + cEndDate;
 		}
@@ -149,7 +149,7 @@ function checkDeal() {
 	//Проверка времени начала
 	if (!bStartTime) {
 		if(bEndTime) {
-			curEntry.set(cStartTime, fldEndTime);
+			curDeal.set(cStartTime, fldEndTime);
 			dteStartTime = fldEndTime;
 			strResult = strResult + "\n*" + cStartTime;
 		}
@@ -161,28 +161,28 @@ function checkDeal() {
 		dteEndDate.getMonth()==fldStartDate.getMonth() && 
 		dteEndDate.getDate()==fldStartDate.getDate() &&
 		fldEndTime < dteStartTime) {
-			curEntry.set(cEndTime, dteStartTime);
+			curDeal.set(cEndTime, dteStartTime);
 			strResult = strResult + "\n*" + cEndTime;
 		}
 	}
 
 	//Проверка вычисления переодичности и смены дат
 	if (fldType!=cPeriod && fldCount==1) {
-		curEntry.set(cCount, 0);
+		curDeal.set(cCount, 0);
 		strResult = strResult + "\n*" + cCount;
 	}
 	if (fldType!=cPeriod && fldAuto==1) {
-		curEntry.set(cAuto, 0);
+		curDeal.set(cAuto, 0);
 		strResult = strResult + "\n*" + cAuto;
 	}
 
 	//Проверка интервала
 	if (fldInterval!=undefined && fldInterval<0) {
-		curEntry.set(cInterval, Math.abs(fldInterval));
+		curDeal.set(cInterval, Math.abs(fldInterval));
 		strResult = strResult + "\n*" + cInterval;
 	}
 
-	curEntry.recalc();
+	curDeal.recalc();
 
 	if (strResult!=cResult) {
 		message(strResult);	
@@ -197,13 +197,7 @@ function shiftDate(bForward, deal) {
 	//Лог
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftDate(bForward, deal)");
 	
-	//Выход, если не включен счёт переодичности
-	if (!deal.field(cCount)) {
-		message("⚠️ Периодичность не включена");
-		exit();
-	}
-	
-	//Показывать ли сообщение о смене даты
+		//Показывать ли сообщение о смене даты
 	var bShowMessage = true;
 	//Направление сдвига
 	var direction = 0;
@@ -212,7 +206,7 @@ function shiftDate(bForward, deal) {
 	if (bForward != false) {direction = 1;} else {direction = -1;}
 	
 	if (deal == undefined) {
-		deal = curEntry;
+		deal = curDeal;
 		log("\n*deal(cur): " + deal);
 	} else {
 		log("\n*deal(snd): " + deal.title);
@@ -220,6 +214,12 @@ function shiftDate(bForward, deal) {
 		fldStartDate = deal.field(cStartDate);
 		fldEndDate = deal.field(cEndDate);
 		fldInterval = deal.field(cInterval);
+	}
+	
+	//Выход, если не включен счёт переодичности
+	if (!deal.field(cCount)) {
+		message("⚠️ Периодичность не включена");
+		exit();
 	}
 	
 	switch (deal.field(cUnit)) {
@@ -309,18 +309,33 @@ function shiftAuto() {
 	var count = 0;
 	var loop = 100;
 	
+	//Перебираем значения
 	for (var i = 0; i < deals.length; i++) {
+		
+		//Текущее в цикле дело
 		var deal = deals[i];
+		
+		//Если оно переодическое и нужно считать
 		if (deal.field(cAuto) == 1 && deal.field(cType)==cPeriod) {
+			//Считаем по дате начала по умолчанию
 			var strDate = cStartDate;
+			//Если есть дата конца, то по ней
 			if (deal.field(cEndDate) != undefined) {
 				strDate = cEndDate;
 			}
+			//Ищем просроченное дело
+			log("\n*поле: " + deal.field(strDate));
+			var aa = deal.field(strDate);
+			log("\n*перм: " + aa);
+			
 			if (isExpired(deal.field(strDate))) {
+				//Если событие дело
 				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
 				count = count + 1;
+				
 				while (isExpired(deal.field(strDate)) && loop !=0){
-					log("\nWHILE\nDATE: " + deal.field(strDate));
+					log("\nWHILE\n*поле: " + deal.field(strDate));
+					log("\nWHILE\n*перм: " + aa);
 					shiftDate(true, deal);
 					loop = loop - 1;
 				}
