@@ -29,46 +29,38 @@ var cAuto = "Автоматически менять дату";
 var cInterval = "Интервал";
 
 //Значения полей
-var fldType = curDeal.field (cType);
-var fldStatus = curDeal.field (cStatus);
-var fldCategory = curDeal.field(cCategory);
-var fldStartDate = curDeal.field (cStartDate);
-var fldStartTime = curDeal.field (cStartTime);
-var fldEndDate = curDeal.field (cEndDate);
-var fldEndTime = curDeal.field (cEndTime);
-var fldName = curDeal.field (cName);
-var fldCount = curDeal.field (cCount);
-var fldUnit = curDeal.field (cUnit);
-var fldAuto = curDeal.field (cAuto);
-var fldInterval = curDeal.field (cInterval);
+var fldType;
+var fldStatus;
+var fldCategory;
+var fldStartDate;
+var fldStartTime;
+var fldEndDate;
+var fldEndTime;
+var fldName;
+var fldCount;
+var fldUnit;
+var fldAuto;
+var fldInterval);
 
 //**********************************************************
 //Private functions
 //**********************************************************
 //----------------------------------------------------------
-//Вспомогательная функция для shiftAuto
+//Функция для инициализации переменных на поля
 //----------------------------------------------------------
-function isExpired(dteAuto) {
-	
-	log("\nВЫПОЛНЕНИ ФУНКЦИИ isExpired(deal1)");
-	//log("\n*deal1: " + deal1.title);
-	
-	
-	var dte = new Date();
-	
-	//log("**DATE: " + deal1.field(strDate) + "\n**TDY: " + dte);
-	//log("\nSTR: " + deal1.field(cStartDate) + "\nEND: " + deal1.field(cEndDate) + "\nTDY: " + dte);
-	log("\n*дата: " + dteAuto +"\n*сегд: " + dte);	
-	
-	if (dteAuto.getFullYear() <= dte.getFullYear() &&
-		dteAuto.getMonth() <= dte.getMonth() &&
-		dteAuto.getDate() < dte.getDate()) {
-			log("TRUE");
-			return true;
-		} else {
-			log("FALSE");
-			return false;
-		}
+function initialize() {
+	fldType = curDeal.field (cType);
+	fldStatus = curDeal.field (cStatus);
+	fldCategory = curDeal.field(cCategory);
+	fldStartDate = curDeal.field (cStartDate);
+	fldStartTime = curDeal.field (cStartTime);
+	fldEndDate = curDeal.field (cEndDate);
+	fldEndTime = curDeal.field (cEndTime);
+	fldName = curDeal.field (cName);
+	fldCount = curDeal.field (cCount);
+	fldUnit = curDeal.field (cUnit);
+	fldAuto = curDeal.field (cAuto);
+	fldInterval = curDeal.field (cInterval);
 }
 //----------------------------------------------------------
 //Функция для получения иконки
@@ -114,6 +106,7 @@ function getName(strSource) {
 //----------------------------------------------------------
 function checkDeal() {
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ checkDeal()\nИМЯ ЗАПИСИ: " + curDeal.title);
+	initialize();
 	//Локальные переменные
 	var cResult = "⚠️ Исправлено:";
 	var bEndDate = false;
@@ -198,6 +191,7 @@ function shiftDate(bForward, deal) {
 		
 	//Лог
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftDate(bForward, deal)");
+	initialize();
 	
 		//Показывать ли сообщение о смене даты
 	var bShowMessage = true;
@@ -351,9 +345,10 @@ function shiftAuto() {
 //Функция автоматического сдвига даты
 //----------------------------------------------------------
 function daysLeft() {
+	initialize();
 	var res = " дн.";
 	var dteToday = new Date();
-	var dteDiff = (dteTarget - dteToday)/(1000*3600*24);
+	var dteDiff = (fldStartDate - dteToday)/(1000*3600*24);
 	dteDiff = dteDiff.toFixed(0);
 	
 	if (dteDiff<=3 && fldStatus!=cDone) {
@@ -372,6 +367,7 @@ function daysLeft() {
 //Функция для вывода названия
 //----------------------------------------------------------
 function getDealName() {
+	initialize();
 	return getIcon(fldCategory, fldName);
 }
 
@@ -379,6 +375,7 @@ function getDealName() {
 //Функция для вывода типа
 //----------------------------------------------------------
 function getDealType() {
+	initialize();
 	return getIcon(fldType);
 }
 
@@ -386,6 +383,7 @@ function getDealType() {
 //Функция для вывода статуса
 //----------------------------------------------------------
 function getDealStatus() {
+	initialize();
 	var ico = getIcon(fldStatus);
 	if (ico=="⏳") {
 		return "";
