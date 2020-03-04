@@ -58,13 +58,15 @@ function isExpired(dteAuto) {
 	
 	//log("**DATE: " + deal1.field(strDate) + "\n**TDY: " + dte);
 	//log("\nSTR: " + deal1.field(cStartDate) + "\nEND: " + deal1.field(cEndDate) + "\nTDY: " + dte);
-	log("\n*дата: " + dteAuto);	
+	log("\n*дата: " + dteAuto +"\n*сегд: " + dte);	
 	
 	if (dteAuto.getFullYear() <= dte.getFullYear() &&
 		dteAuto.getMonth() <= dte.getMonth() &&
 		dteAuto.getDay() < dte.getDay()) {
+			log("TRUE");
 			return true;
 		} else {
+			log("FALSE");
 			return false;
 		}
 }
