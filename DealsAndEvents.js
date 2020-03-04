@@ -57,8 +57,9 @@ function isExpired(deal1) {
 	if (deal1.field(cEndDate) != undefined) {
 		strDate = cEndDate;
 	}
-	log("*DATE: " + strDate);
+	
 	var dte = new Date();
+	log("**DATE: " + deal1.field(strDate) + "\n**TDY: " + dte);
 	//log("\nSTR: " + deal1.field(cStartDate) + "\nEND: " + deal1.field(cEndDate) + "\nTDY: " + dte);
 	
 	if (deal1.field(cAuto) == 1 && 
@@ -293,8 +294,6 @@ function shiftDate(bForward, deal) {
 		default: break;
 		
 		}
-	
-	deal.recalc();
 	
 	if (bShowMessage) {message("✔️ Дата изменена");}
 
