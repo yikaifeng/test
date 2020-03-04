@@ -225,7 +225,7 @@ function shiftDate(bForward, deal) {
 		fldInterval = deal.field(cInterval);
 	}
 
-	switch (fldUnit) {
+	switch (deal.field(cUnit)) {
 
 		case cDay:
 			fldStartDate.setDate(fldStartDate.getDate() + direction*fldInterval);
@@ -289,6 +289,9 @@ function shiftDate(bForward, deal) {
 				deal.set(cEndDate, fldEndDate);
 			}
 			break;
+		
+		case else: break;
+		
 		}
 
 	if (bShowMessage) {message("✔️ Дата изменена");}
@@ -306,15 +309,21 @@ function shiftAuto() {
 	log("\nВЫПОЛНЕНИ ФУНКЦИИ shiftAuto()");
 	log("\nБИБЛИОТЕКА: " + curLib.title + "\n*(" + deals.length + " записей)");
 	
+	var count = 0;
+	
 	for (var i = 0; i < deals.length; i++) {
 		var deal = deals[i];
 		if (isExpired(deal)) {
 				log("\nНАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
+				count = count + 1;
 				while (isExpired(deal)){
 					shiftDate(true, deal);
 				}
 		}
 	}
+	
+	message("✔️ Перенесены даты: " + count + " (запись)");
+	
 }
 
 //----------------------------------------------------------
