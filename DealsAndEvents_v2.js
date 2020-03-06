@@ -389,6 +389,7 @@ function daysLeft() {
 	
 	//Разница в днях с сейчас
 	var dteDiff = (FStartDate - dteToday)/(1000*3600*24);
+	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
 	//Округляем до целых
 	dteDiff = dteDiff.toFixed(0);
