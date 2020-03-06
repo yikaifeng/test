@@ -46,10 +46,6 @@ const INTERVAL = "Интервал";
 var msgCorrected = ICO_WARNING + " Исправлено:";
 var msgPeriodOff = ICO_WARNING + " Периодичность не включена";
 	
-//Текущая библиотека и её записи
-var libDeals = lib();
-var deals = libDeals.entries();
-	
 //======================================================
 //Закрытые методы
 //======================================================
@@ -325,9 +321,14 @@ function shiftAuto() {
 		
 	log("\n-> shiftAuto()");
 	log("\n  БИБЛИОТЕКА: " + libDeals.title + "\n  *(" + deals.length + " записей)");
-		
+	
+	//Текущая библиотека и её записи
+	var libDeals = lib();
+	var deals = libDeals.entries();	
+	
 	var count = 0;
 	var loop = 100;
+	
 	//Задаем начало сегодняшнего дня
 	var today = new Date();
 	today = today.setHours(0,0,0,0);
