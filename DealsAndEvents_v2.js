@@ -381,6 +381,7 @@ function daysLeft() {
 	
 	//Короткие ссылки на поля
 	var FStartDate = deal.field (START_DATE);
+	var FStatus = deal.field (STATUS);
 	
 	//Прочее
 	var res = "дн.";	
