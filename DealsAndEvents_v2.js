@@ -384,7 +384,7 @@ function daysLeft() {
 	var FStatus = deal.field (STATUS);
 	
 	//Прочее
-	var res = "дн.";	
+	var res = " дн.";	
 	var dteToday = new Date();
 	
 	//Разница в днях с сейчас
