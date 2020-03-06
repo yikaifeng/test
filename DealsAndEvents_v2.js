@@ -16,7 +16,6 @@ const ICO_PLAN = "⏳";
 const ICO_DONE = "✔️";
 const ICO_URGENT = "🔥";
 const ICO_SOON = "⏱️";
-const ICO_PLAN = "⏳";
 	
 //Имена полей и значения
 const TYPE = "Тип";
