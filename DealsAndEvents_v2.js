@@ -414,7 +414,7 @@ function getDealName() {
 	//Поля
 	var FCategory = deal.field (CATEGORY);
 	var FName = deal.field (NAME);
-	return getIcon(FCategory) + " " + getName(FName);
+	return getIcon(FCategory) + " " + FName;
 }
 	
 //----------------------------------------------------------
