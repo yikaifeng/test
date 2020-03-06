@@ -163,7 +163,7 @@ function checkDeal(incomeDeal) {
 		FEndDate.getMonth()==FStartDate.getMonth() && 
 		FEndDate.getDate()==FStartDate.getDate() &&
 		FEndTime < FStartTime) {
-			deal.set(END_TIME, dteStartTime);
+			deal.set(END_TIME, FStartTime);
 			strResult = strResult + "\n*" + END_TIME;
 		}
 	}
