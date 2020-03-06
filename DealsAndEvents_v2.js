@@ -137,11 +137,13 @@ function checkDeal(incomeDeal) {
 	if (bEndDate) {
 		if (FEndDate<FStartDate) {
 			deal.set(END_DATE, FStartDate);
+			FEndDate = deal.field (END_DATE);
 			strResult = strResult + "\n*" + END_DATE;
 		}
 	} else {
 		if (bEndTime) {
 			deal.set(END_DATE, FStartDate);
+			FEndDate = deal.field (END_DATE);
 			strResult = strResult + "\n*" + END_DATE;
 		}
 	}
@@ -150,6 +152,7 @@ function checkDeal(incomeDeal) {
 	if (!bStartTime) {
 		if(bEndTime) {
 			deal.set(START_TIME, FEndTime);
+			FStartTime = deal.field (START_TIME);
 			strResult = strResult + "\n*" + START_TIME;
 		}
 	}
@@ -403,7 +406,7 @@ function daysLeft() {
 //----------------------------------------------------------
 //Функция для вывода названия
 //----------------------------------------------------------
-function getDealName() {
+function getName() {
 	//Обрабатываемое дело
 	var deal = entry();
 	//Поля
@@ -415,7 +418,7 @@ function getDealName() {
 //----------------------------------------------------------
 //Функция для вывода типа
 //----------------------------------------------------------
-function getDealType() {
+function getType() {
 	//Обрабатываемое дело
 	var deal = entry();
 	//Поля
@@ -426,7 +429,7 @@ function getDealType() {
 //----------------------------------------------------------
 //Функция для вывода статуса
 //----------------------------------------------------------
-function getDealStatus() {
+function getStatus() {
 	//Обрабатываемое дело
 	var deal = entry();
 	//Поля
