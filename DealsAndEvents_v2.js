@@ -310,11 +310,11 @@ function shiftDate(bForward, incomeDeal) {
 		}
 		
 	if (bShowMessage) {
-		message(ICO_SUCSEED + "перенесено на " + direction*FInterval + " (" + FUnit + ")");
+		message(ICO_SUCSEED + " Перенесено на " + direction*FInterval + " (" + FUnit + ")");
 	}
 
 	//Лог
-	log("\n  " + deal.title + "\n  СДВИГ НА:" + direction*FInterval + " (" + FUnit + ")");
+	log("\n  " + deal.title + "\n  СДВИГ НА: " + direction*FInterval + " (" + FUnit + ")");
 		
 	}
 	
