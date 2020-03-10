@@ -90,11 +90,16 @@ function getAccountName() {
 	
 	//текущий счёт
 	var account = entry();
+	var res = "";
 	
 	//короткие ссылки на поля
 	var Ftype = account.field(ACCOUNT_TYPE);
 	var FName = account.field(ACCOUNT_NAME);
 	var FCardExists = account.field(CARD_EXISTS);
 	
-	return getIcon(Ftype) + FName + "|" + ICO_CARD;
+	if (FCardExists) {
+		res += "|" + ICO_CARD;
+	}
+	
+	return getIcon(Ftype) + FName + res;
 }
