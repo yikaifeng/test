@@ -90,9 +90,13 @@ function daysLeft(incomeDate) {
 //------------------------------------------------------
 function getAccountName() {
 	
+	log("Account name");
+	
 	//текущий счёт
 	var account = entry();
 	var res = "";
+	
+	log(account.title);
 	
 	//короткие ссылки на поля
 	var FType = account.field(ACCOUNT_TYPE);
