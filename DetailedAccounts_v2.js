@@ -150,7 +150,7 @@ function getCardDaysLeft() {
 	
 	var days = daysLeft(FCardEnd);
 		
-	return res = getIcon(FType) + days + res;
+	return res = ICO_CARD + days + res;
 }
 
 //------------------------------------------------------
