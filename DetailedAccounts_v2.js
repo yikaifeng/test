@@ -113,9 +113,9 @@ function getAccountName2() {
 	
 	//текущий счёт
 	var account = entry();
-	var res = " days";
+	var res = " day";
 			
-	return account.title + res;
+	return account.field("Название") + res;
 }
 
 //------------------------------------------------------
