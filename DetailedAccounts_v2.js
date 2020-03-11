@@ -10,7 +10,6 @@
 
 //Иконки
 const ICO_CARD = "💳";
-const ICO_SOON = "⏱️";
 const ICO_PROBLEM = "⁉️";
 	
 //Имена полей и значения
@@ -116,6 +115,7 @@ function getAccountDaysLeft() {
 	var res = " дн.";
 	
 	//короткие ссылки на поля
+	var FType = account.field(ACCOUNT_TYPE);
 	var FAccountEnd = account.field(ACCOUNT_END);
 	
 	//если дата пустая
@@ -125,14 +125,8 @@ function getAccountDaysLeft() {
 	}
 	
 	var days = daysLeft(FAccountEnd);
-	
-	if (days <= 30) {
-		res = ICO_SOON + days + res;
-	} else {
-		res = days + res;
-	}
-	
-	return res;
+		
+	return res = getIcon(FType) + days + res;
 }
 
 //------------------------------------------------------
@@ -145,6 +139,7 @@ function getCardDaysLeft() {
 	var res = " дн.";
 	
 	//короткие ссылки на поля
+	var FType = account.field(ACCOUNT_TYPE);
 	var FCardEnd = account.field(CARD_END);
 	
 	//если дата пустая
@@ -154,14 +149,8 @@ function getCardDaysLeft() {
 	}
 	
 	var days = daysLeft(FCardEnd);
-	
-	if (days <= 30) {
-		res = ICO_SOON + days + res;
-	} else {
-		res = days + res;
-	}
-	
-	return res;
+		
+	return res = getIcon(FType) + days + res;
 }
 
 //------------------------------------------------------
