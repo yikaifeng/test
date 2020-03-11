@@ -138,7 +138,7 @@ function getAccountDaysLeft() {
 //------------------------------------------------------
 //Функция для вывода остатка дней по сроку карты
 //------------------------------------------------------
-function getAccountDaysLeft() {
+function getCardDaysLeft() {
 	
 	//текущий счёт
 	var account = entry();
