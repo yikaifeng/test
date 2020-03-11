@@ -107,18 +107,6 @@ function getAccountName() {
 }
 
 //------------------------------------------------------
-//Функция для вывода названия
-//------------------------------------------------------
-function getAccountName2() {
-	
-	//текущий счёт
-	var account = entry();
-	var res = " day";
-			
-	return account.field("Название") + res;
-}
-
-//------------------------------------------------------
 //Функция для вывода остатка дней по сроку счета
 //------------------------------------------------------
 function getAccountDaysLeft() {
@@ -127,8 +115,22 @@ function getAccountDaysLeft() {
 	var account = entry();
 	var res = " дн.";
 	
+	//короткие ссылки на поля
+	var FAccountEnd = account.field(ACCOUNT_END);
 	
+	//если дата пустая
+	if (FAccountEnd == undefined) {
+		return "";
+		exit();
+	}
 	
-	return account.title + res;
+	var days = daysLeft(FAccountEnd);
+	
+	if (days <= 30) {
+		res = ICO_SOON + days + res;
+	} else {
+		res = days + res;
+	}
+	
+	return res;
 }
- 
