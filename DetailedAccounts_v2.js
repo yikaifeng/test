@@ -120,7 +120,7 @@ function getAccountDaysLeft() {
 	
 	//если дата пустая
 	if (FAccountEnd == undefined) {
-		return undefined;
+		return "";
 		exit();
 	}
 	
@@ -149,7 +149,7 @@ function getCardDaysLeft() {
 	
 	//если дата пустая
 	if (FCardEnd == undefined) {
-		return undefined;
+		return "";
 		exit();
 	}
 	
@@ -179,25 +179,25 @@ function getStatus() {
 	
 	//если дата пустая
 	if (FCardEnd == undefined && FAccountEnd == undefined) {
-		return undefined;
+		return "";
 		exit();
 	} else is (FCardEnd == undefined && FAccountEnd != undefined) {
 		if (daysLeft(FAccountEnd) <= 30) {
 			return ICO_PROBLEM;
 		} else {
-			return undefined;
+			return "";
 		}
 	} else if (FCardEnd != undefined && FAccountEnd == undefined) {
 		if (daysLeft(FCardEnd) <= 30) {
 			return ICO_PROBLEM;
 		} else {
-			return undefined;
+			return "";
 		}
 	} else {
 		if (daysLeft(FAccountEnd) <= 30 || daysLeft(FCardEnd) <= 30) {
 			return ICO_PROBLEM;
 		} else {
-			return undefined;
+			return "";
 		}
 	}
 
