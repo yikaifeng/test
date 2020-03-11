@@ -134,3 +134,67 @@ function getAccountDaysLeft() {
 	
 	return res;
 }
+
+//------------------------------------------------------
+//Функция для вывода остатка дней по сроку карты
+//------------------------------------------------------
+function getAccountDaysLeft() {
+	
+	//текущий счёт
+	var account = entry();
+	var res = " дн.";
+	
+	//короткие ссылки на поля
+	var FCardEnd = account.field(CARD_END);
+	
+	//если дата пустая
+	if (FCardEnd == undefined) {
+		return "";
+		exit();
+	}
+	
+	var days = daysLeft(FCardEnd);
+	
+	if (days <= 30) {
+		res = ICO_SOON + days + res;
+	} else {
+		res = days + res;
+	}
+	
+	return res;
+}
+
+//------------------------------------------------------
+//Функция для вывода статуса
+//------------------------------------------------------
+function getAccountStatus() {
+	
+	//текущий счёт
+	var account = entry();
+	var res = " дн.";
+	
+	//короткие ссылки на поля
+	var FAccountEnd = account.field(ACCOUNT_END);
+	var FCardEnd = account.field(CARD_END);
+	
+	var last1, last2;
+	
+	//если дата не пустая
+	if (FAccountEnd != undefined) {
+		last1 = daysLeft(FAccountEnd);
+	}
+	if (FCardEnd != undefined) {
+		last1 = daysLeft(FCardEnd);
+	}
+	
+	if (last1 == undefined && last2 == undefined) {
+		return "";
+	} else {
+		if (last1 <= 30 || last2 <= 30) {
+			return ICO_PROBLEM;
+		} else {
+			return "";
+		}
+	}
+	
+}
