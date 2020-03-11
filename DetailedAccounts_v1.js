@@ -9,7 +9,9 @@
 //======================================================
 
 //Иконки
-const ICO_CARD = "💳";
+const ICO_CARD = "⏱️";
+const ICO_SOON = "⏱️";
+const ICO_PROBLEM = "⏱️";
 	
 //Имена полей и значения
 const ACCOUNT_TYPE = "Тип счёта";
@@ -93,13 +95,110 @@ function getAccountName() {
 	var res = "";
 	
 	//короткие ссылки на поля
-	var Ftype = account.field(ACCOUNT_TYPE);
+	var FType = account.field(ACCOUNT_TYPE);
 	var FName = account.field(ACCOUNT_NAME);
 	var FCardExists = account.field(CARD_EXISTS);
 	
 	if (FCardExists) {
-		res += "|" + ICO_CARD;
+		res += " | " + ICO_CARD;
 	}
 	
-	return getIcon(Ftype) + FName + res;
+	return getIcon(Ftype) + " " + FName + res;
+}
+
+//------------------------------------------------------
+//Функция для вывода остатка дней по сроку счета
+//------------------------------------------------------
+function getAccountDaysLeft() {
+	
+	//текущий счёт
+	var account = entry();
+	var res = " дн.";
+	
+	//короткие ссылки на поля
+	var FAccountEnd = account.field(ACCOUNT_END);
+	
+	//если дата пустая
+	if (FAccountEnd == undefined) {
+		return undefined;
+		exit();
+	}
+	
+	var days = daysLeft(FAccountEnd);
+	
+	if (days <= 30) {
+		res = ICO_SOON + days + res;
+	} else {
+		res = days + res;
+	}
+	
+	return res;
+}
+
+//------------------------------------------------------
+//Функция для вывода остатка дней по сроку карты
+//------------------------------------------------------
+function getCardDaysLeft() {
+	
+	//текущий счёт
+	var account = entry();
+	var res = " дн.";
+	
+	//короткие ссылки на поля
+	var FCardEnd = account.field(CARD_END);
+	
+	//если дата пустая
+	if (FCardEnd == undefined) {
+		return undefined;
+		exit();
+	}
+	
+	var days = daysLeft(FCardEnd);
+	
+	if (days <= 30) {
+		res = ICO_SOON + days + res;
+	} else {
+		res = days + res;
+	}
+	
+	return res;
+}
+
+//------------------------------------------------------
+//Функция для вывода скоро ли заканчивается срок
+//------------------------------------------------------
+function getStatus() {
+	
+	//текущий счёт
+	var account = entry();
+	var res = " дн.";
+	
+	//короткие ссылки на поля
+	var FAccountEnd = account.field(ACCOUNT_END);
+	var FCardEnd = account.field(CARD_END);
+	
+	//если дата пустая
+	if (FCardEnd == undefined && FAccountEnd == undefined) {
+		return undefined;
+		exit();
+	} else is (FCardEnd == undefined && FAccountEnd != undefined) {
+		if (daysLeft(FAccountEnd) <= 30) {
+			return ICO_PROBLEM;
+		} else {
+			return undefined;
+		}
+	} else if (FCardEnd != undefined && FAccountEnd == undefined) {
+		if (daysLeft(FCardEnd) <= 30) {
+			return ICO_PROBLEM;
+		} else {
+			return undefined;
+		}
+	} else {
+		if (daysLeft(FAccountEnd) <= 30 || daysLeft(FCardEnd) <= 30) {
+			return ICO_PROBLEM;
+		} else {
+			return undefined;
+		}
+	}
+
 }
