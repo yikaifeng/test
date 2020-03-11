@@ -112,90 +112,11 @@ function getAccountName() {
 function getAccountDaysLeft() {
 	
 	//текущий счёт
+	var account = entry();
 	var res = " дн.";
 	
-	//короткие ссылки на поля
-	var FAccountEnd = field(ACCOUNT_END);
 	
-	//если дата пустая
-	if (FAccountEnd == undefined) {
-		return "";
-		exit();
-	}
 	
-	var days = daysLeft(FAccountEnd);
-	
-	if (days <= 30) {
-		res = ICO_SOON + days + res;
-	} else {
-		res = days + res;
-	}
-	
-	return res;
+	return account.title;
 }
 
-//------------------------------------------------------
-//Функция для вывода остатка дней по сроку карты
-//------------------------------------------------------
-function getCardDaysLeft() {
-	
-	//текущий счёт
-	var res = " дн.";
-	
-	//короткие ссылки на поля
-	var FCardEnd = field(CARD_END);
-	
-	//если дата пустая
-	if (FCardEnd == undefined) {
-		return "";
-		exit();
-	}
-	
-	var days = daysLeft(FCardEnd);
-	
-	if (days <= 30) {
-		res = ICO_SOON + days + res;
-	} else {
-		res = days + res;
-	}
-	
-	return res;
-}
-
-//------------------------------------------------------
-//Функция для вывода скоро ли заканчивается срок
-//------------------------------------------------------
-function getStatus() {
-	
-	//текущий счёт
-	var res = " дн.";
-	
-	//короткие ссылки на поля
-	var FAccountEnd = field(ACCOUNT_END);
-	var FCardEnd = field(CARD_END);
-	
-	//если дата пустая
-	if (FCardEnd == undefined && FAccountEnd == undefined) {
-		return "";
-		exit();
-	} else is (FCardEnd == undefined && FAccountEnd != undefined) {
-		if (daysLeft(FAccountEnd) <= 30) {
-			return ICO_PROBLEM;
-		} else {
-			return "";
-		}
-	} else if (FCardEnd != undefined && FAccountEnd == undefined) {
-		if (daysLeft(FCardEnd) <= 30) {
-			return ICO_PROBLEM;
-		} else {
-			return "";
-		}
-	} else {
-		if (daysLeft(FAccountEnd) <= 30 || daysLeft(FCardEnd) <= 30) {
-			return ICO_PROBLEM;
-		} else {
-			return "";
-		}
-	}
-
-}
