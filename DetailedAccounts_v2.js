@@ -113,7 +113,7 @@ function getAccountName2() {
 	
 	//текущий счёт
 	var account = entry();
-	var res = "";
+	var res = " days";
 			
 	return account.title + res;
 }
