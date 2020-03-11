@@ -320,11 +320,12 @@ function shiftDate(bForward, incomeDeal) {
 function shiftAuto() {
 		
 	log("\n-> shiftAuto()");
-	log("\n  БИБЛИОТЕКА: " + libDeals.title + "\n  *(" + deals.length + " записей)");
-	
+		
 	//Текущая библиотека и её записи
 	var libDeals = lib();
 	var deals = libDeals.entries();	
+	
+	log("\n  БИБЛИОТЕКА: " + libDeals.title + "\n  *(" + deals.length + " записей)");
 	
 	var count = 0;
 	var loop = 100;
