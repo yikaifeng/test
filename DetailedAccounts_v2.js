@@ -184,7 +184,7 @@ function getAccountStatus() {
 		last1 = daysLeft(FAccountEnd);
 	}
 	if (FCardEnd != undefined) {
-		last1 = daysLeft(FCardEnd);
+		last2 = daysLeft(FCardEnd);
 	}
 	
 	if (last1 == undefined && last2 == undefined) {
