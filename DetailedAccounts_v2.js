@@ -132,7 +132,6 @@ function getAccountDaysLeft() {
 	}
 	
 	return res;
-	
 }
 
 //------------------------------------------------------
@@ -140,7 +139,27 @@ function getAccountDaysLeft() {
 //------------------------------------------------------
 function getCardDaysLeft() {
 	
-	return "123";
+	//текущий счёт
+	var res = " дн.";
+	
+	//короткие ссылки на поля
+	var FCardEnd = field(CARD_END);
+	
+	//если дата пустая
+	if (FCardEnd == undefined) {
+		return "";
+		exit();
+	}
+	
+	var days = daysLeft(FCardEnd);
+	
+	if (days <= 30) {
+		res = ICO_SOON + days + res;
+	} else {
+		res = days + res;
+	}
+	
+	return res;
 }
 
 //------------------------------------------------------
@@ -148,6 +167,35 @@ function getCardDaysLeft() {
 //------------------------------------------------------
 function getStatus() {
 	
-	return "123";
+	//текущий счёт
+	var res = " дн.";
+	
+	//короткие ссылки на поля
+	var FAccountEnd = field(ACCOUNT_END);
+	var FCardEnd = field(CARD_END);
+	
+	//если дата пустая
+	if (FCardEnd == undefined && FAccountEnd == undefined) {
+		return "";
+		exit();
+	} else is (FCardEnd == undefined && FAccountEnd != undefined) {
+		if (daysLeft(FAccountEnd) <= 30) {
+			return ICO_PROBLEM;
+		} else {
+			return "";
+		}
+	} else if (FCardEnd != undefined && FAccountEnd == undefined) {
+		if (daysLeft(FCardEnd) <= 30) {
+			return ICO_PROBLEM;
+		} else {
+			return "";
+		}
+	} else {
+		if (daysLeft(FAccountEnd) <= 30 || daysLeft(FCardEnd) <= 30) {
+			return ICO_PROBLEM;
+		} else {
+			return "";
+		}
+	}
 
 }
