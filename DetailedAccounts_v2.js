@@ -111,13 +111,13 @@ function getAccountName() {
 //------------------------------------------------------
 function getAccountDaysLeft() {
 	
-	log ("getAccountsDays");
+	log("getAccountsDays");
 	
 	//текущий счёт
 	var account = entry();
 	var res = " дн.";
 	
-	log (account.title);
+	message(account.title);
 	
 	//короткие ссылки на поля
 	var FAccountEnd = account.field(ACCOUNT_END);
