@@ -111,7 +111,33 @@ function getAccountName() {
 //------------------------------------------------------
 function getAccountDaysLeft() {
 	
-		return "123";
+	log ("getAccountsDays");
+	
+	//текущий счёт
+	var account = entry();
+	var res = " дн.";
+	
+	log (account.title);
+	
+	//короткие ссылки на поля
+	var FAccountEnd = account.field(ACCOUNT_END);
+	
+	//если дата пустая
+	if (FAccountEnd == undefined) {
+		return "";
+		exit();
+	}
+	
+	var days = daysLeft(FAccountEnd);
+	
+	if (days <= 30) {
+		res = ICO_SOON + days + res;
+	} else {
+		res = days + res;
+	}
+	
+	return res;
+	
 }
 
 //------------------------------------------------------
