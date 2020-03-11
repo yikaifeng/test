@@ -103,7 +103,7 @@ function getAccountName() {
 		res += " | " + ICO_CARD;
 	}
 	
-	return getIcon(Ftype) + " " + FName + res;
+	return getIcon(FType) + " " + FName + res;
 }
 
 //------------------------------------------------------
