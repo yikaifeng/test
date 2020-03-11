@@ -120,7 +120,7 @@ function getAccountDaysLeft() {
 	
 	//если дата пустая
 	if (FAccountEnd == undefined) {
-		return "";
+		return null;
 		exit();
 	}
 	
@@ -149,7 +149,7 @@ function getCardDaysLeft() {
 	
 	//если дата пустая
 	if (FCardEnd == undefined) {
-		return "";
+		return null;
 		exit();
 	}
 	
@@ -188,12 +188,12 @@ function getAccountStatus() {
 	}
 	
 	if (last1 == undefined && last2 == undefined) {
-		return "";
+		return null;
 	} else {
 		if (last1 <= 30 || last2 <= 30) {
 			return ICO_PROBLEM;
 		} else {
-			return "";
+			return null;
 		}
 	}
 	
