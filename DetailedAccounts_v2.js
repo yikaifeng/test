@@ -136,7 +136,7 @@ function getAccountDaysLeft() {
 		res = days + res;
 	}
 	
-	message res;
+	message(res)
 	return res;
 	
 }
