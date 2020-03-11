@@ -117,7 +117,7 @@ function getAccountDaysLeft() {
 	var account = entry();
 	var res = " дн.";
 	
-	message(account.title);
+	log(account.title);
 	
 	//короткие ссылки на поля
 	var FAccountEnd = account.field(ACCOUNT_END);
@@ -136,6 +136,7 @@ function getAccountDaysLeft() {
 		res = days + res;
 	}
 	
+	message res;
 	return res;
 	
 }
