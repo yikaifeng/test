@@ -9,25 +9,25 @@
 //======================================================
 
 //Иконки типа
-const ICO_PLUS = "";
-const ICO_MINUS = "";
-const ICO_TRANSACTION = "";
+const ICO_PLUS = "➕";
+const ICO_MINUS = "➖";
+const ICO_TRANSACTION = "💱";
 
 //Иконки прихода
-const ICO_SALARY = "";
-const ICO_ADD_INCOME = "";
+const ICO_SALARY = "💵";
+const ICO_ADD_INCOME = "💸";
 
 //Иконки расхода
-const ICO_FOOD = "";
-const ICO_SERVICE = "";
-const ICO_TRANSPORT = "";
-const ICO_REST = "";
-const ICO_THINGS = "";
-const ICO_HEALTH = "";
+const ICO_FOOD = "🍜";
+const ICO_SERVICE = "🏠";
+const ICO_TRANSPORT = "🚌";
+const ICO_REST = "🧘🏼‍♀️";
+const ICO_THINGS = "📦";
+const ICO_HEALTH = "🏥";
 
 //Общие иконки прихода и расхода
-const ICO_CORRECTION = "";
-const ICO_OTHER = "";
+const ICO_CORRECTION = "🧮";
+const ICO_OTHER = "🏷️";
 
 //Имена полей и значения
 const DATE = "Дата";
