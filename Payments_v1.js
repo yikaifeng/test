@@ -112,6 +112,11 @@ function getPaymentName() {
 	var FType = String(payment.field(TYPE));
 	var ico;
 	
+	log("\nFIELD VALUE\n" + FType);
+	log("\n" + TRANSACTION);
+	log("\n" + INCOME);
+	log("\n" + OUTCOME);
+	
 	switch (FType) {
 		case _TRANSACTION:
 			ico = ICO_TRANSACTION;
