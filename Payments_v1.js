@@ -113,9 +113,9 @@ function getPaymentName() {
 	var ico;
 	
 	log("\nFIELD VALUE\n" + FType);
-	log("\n" + TRANSACTION);
-	log("\n" + INCOME);
-	log("\n" + OUTCOME);
+	log("\n" + _TRANSACTION);
+	log("\n" + _INCOME);
+	log("\n" + _OUTCOME);
 	
 	switch (FType) {
 		case _TRANSACTION:
