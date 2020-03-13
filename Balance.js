@@ -1,3 +1,5 @@
+function refresh() {
+
 var curLib = lib();
 var accounts = curLib.entries();
 
@@ -29,3 +31,5 @@ if (accounts.length >0) {
 } //accounts == 0?
 
 message ("Баланс2 обновлён");
+
+}
