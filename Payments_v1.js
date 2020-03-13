@@ -109,7 +109,7 @@ function getPaymentName() {
 	
 	//ссылки на поля
 	var FName = payment.field(NAME);
-	var FType = payment.field(TYPE);
+	var FType = String(payment.field(TYPE));
 	var ico;
 	
 	switch (FType) {
@@ -140,14 +140,8 @@ function getSum() {
 	var payment = entry();
 	
 	//ссылки на поля
-	var FType = payment.field(TYPE);
+	var FType = String(payment.field(TYPE));
 	var res = "";
-	
-	if (FType == _TRANSACTION) {log(_TRANSACTION);}
-	if (FType == _INCOME) {log(_INCOME);}
-	if (FType == _OUTCOME) {log(_OUTCOME);} else {
-		log("AH!\n" + FType)
-	}
 	
 	switch (FType) {
 		case _TRANSACTION:
