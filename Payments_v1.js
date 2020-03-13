@@ -170,13 +170,13 @@ function getSum() {
 	
 	switch (FType) {
 		case _TRANSACTION:
-			res = ICO_TRANSACTION + trim(formatMoney(payment.field(TRANSACTION))) + rub;
+			res = ICO_TRANSACTION + formatMoney(payment.field(TRANSACTION)).trim() + rub;
 			break;
 		case _INCOME:
-			res = ICO_PLUS + trim(formatMoney(payment.field(INCOME))) + rub;
+			res = ICO_PLUS + formatMoney(payment.field(INCOME)).trim() + rub;
 			break;
 		case _OUTCOME:
-			res = ICO_MINUS + trim(formatMoney(payment.field(OUTCOME))) + rub;
+			res = ICO_MINUS + formatMoney(payment.field(OUTCOME)).trim() + rub;
 			break;
 		default: 
 			res = null;
