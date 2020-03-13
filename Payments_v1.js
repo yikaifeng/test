@@ -116,13 +116,13 @@ function getPaymentName() {
 	var ico;
 	
 	switch (FType) {
-		_TRANSACTION:
+		case _TRANSACTION:
 			ico = ICO_TRANSACTION;
 			break;
-		_INCOME:
+		case _INCOME:
 			ico = getIcon(payment.field(INCOME_CATEGORY));
 			break;
-		_OUTCOME:
+		case _OUTCOME:
 			ico = getIcon(payment.field(OUTCOME_CATEGORY));
 			break;
 		default: 
@@ -147,13 +147,13 @@ function getSum() {
 	var res = "";
 	
 	switch (FType) {
-		_TRANSACTION:
+		case _TRANSACTION:
 			res = ICO_TRANSACTION + payment.field(TRANSACTION);
 			break;
-		_INCOME:
+		case _INCOME:
 			res = ICO_PLUS + payment.field(INCOME);
 			break;
-		_OUTCOME:
+		case _OUTCOME:
 			res = ICO_MINUS + payment.field(OUTCOME);
 			break;
 		default: 
