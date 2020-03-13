@@ -22,7 +22,7 @@ if (accounts.length >0) {
 				balancePlus = payments[i].field ("Приход") + balancePlus;
 			} //перебор payments, i
 			
-			curAccount.set("Баланс",balancePlus - balanceMinus);
+			curAccount.set("Баланс2",balancePlus - balanceMinus);
 			
 		} //payments == 0?
 	} //перебор accounts, j
