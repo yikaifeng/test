@@ -98,7 +98,29 @@ function getName(strSource) {
 		return strName = strName.trim();
 	}
 }
+
+//------------------------------------------------------
+//Функция для форматирования суммы
+//------------------------------------------------------
+function formatMoney(n) {
+
+	var sign = "";
+
+	if (n < 0) {
+		sign = "-";
+		n = Math.abs(n);
+		n = n.toFixed(2);
+	}
+
+	n += "";
+	n = new Array(4 - n.length % 3).join("U") + n;
+	n = n.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
+	n = sign + n;
 	
+	return n;
+	
+}	
+
 //------------------------------------------------------
 //Функция для вывода названия
 //------------------------------------------------------
@@ -142,16 +164,17 @@ function getSum() {
 	//ссылки на поля
 	var FType = String(payment.field(TYPE));
 	var res = "";
+	var rub = "р."
 	
 	switch (FType) {
 		case _TRANSACTION:
-			res = ICO_TRANSACTION + payment.field(TRANSACTION);
+			res = ICO_TRANSACTION + formatMoney(payment.field(TRANSACTION)) + rub;
 			break;
 		case _INCOME:
-			res = ICO_PLUS + payment.field(INCOME);
+			res = ICO_PLUS + formatMoney(payment.field(INCOME)) + rub;
 			break;
 		case _OUTCOME:
-			res = ICO_MINUS + payment.field(OUTCOME);
+			res = ICO_MINUS + formatMoney(payment.field(OUTCOME)) + rub;
 			break;
 		default: 
 			res = null;
@@ -161,5 +184,3 @@ function getSum() {
 	return res;
 	
 }
-
-
