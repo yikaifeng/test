@@ -14,7 +14,7 @@ function test3() {
 	var links = lib.linksTo(en);
 	
 	for (var i =0; i < links.length; i++){
-		res = res + "\n" + links[i].field("NAME");
+		res = res + "\n" + links[i].field(NAME);
 	}
 	
 	en.set(RESULT, res);
