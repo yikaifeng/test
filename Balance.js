@@ -90,7 +90,7 @@ function refresh() {
 		//перебор счетов
 		for (var j = 0; j<accounts.length; j++) {
 			
-			log("\nACCOUNT[" + j + "] " + account.field(ACCOUNT_NAME));
+			log("\nACCOUNT[" + j + "] " + accounts[j].field(ACCOUNT_NAME));
 			
 			var income = 0;
 			var outcome = 0;
