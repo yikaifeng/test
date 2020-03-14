@@ -73,36 +73,7 @@ function getName(strSource) {
 //------------------------------------------------------
 //Функция для обновление баланса
 //------------------------------------------------------
-	
-	//текущий счёт
-	var account = entry();
-	var res = " дн.";
-	
-	//короткие ссылки на поля
-	var FAccountEnd = account.field(ACCOUNT_END);
-	var FCardEnd = account.field(CARD_END);
-	
-	var last1, last2;
-	
-	//если дата не пустая
-	if (FAccountEnd != undefined) {
-		last1 = daysLeft(FAccountEnd);
-	}
-	if (FCardEnd != undefined) {
-		last2 = daysLeft(FCardEnd);
-	}
-	
-	if (last1 == undefined && last2 == undefined) {
-		return null;
-	} else {
-		if (last1 <= 30 || last2 <= 30) {
-			return ICO_PROBLEM;
-		} else {
-			return null;
-		}
-	}
-	
-}
+
 function refresh() {
 
 	var libAccounts = lib();
