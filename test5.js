@@ -13,7 +13,7 @@ function test3() {
 	var lib = libByName("Тест2");
 	var links = lib.linksTo(en);
 	
-	for (i =0; i < links.length; i++){
+	for (var i =0; i < links.length; i++){
 		res = res + "\n" + links[i].field("NAME");
 	}
 	
