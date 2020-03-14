@@ -8,6 +8,9 @@
 
 //Иконки
 
+const ICO_PLUS = "➕";
+const ICO_MINUS = "➖";
+const ICO_TRANSACTION = "💱";
 	
 //Имена библиотек
 const LIB_PAYMENTS = "Платежи2";	
