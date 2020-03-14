@@ -1,3 +1,5 @@
+"use strict";
+
 const LIB1 = "Тест1"；
 const LIB2 = "Тест2"；
 
@@ -5,7 +7,7 @@ const NAME = "Название"；
 const RESULT = "Результат";
 var res = "Результат:";
 
-function test() {
+function test3() {
 	
 	var en = entry();
 	var lib = libByName(LIB2);
