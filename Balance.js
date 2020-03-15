@@ -114,7 +114,8 @@ function refresh() {
 							log("\nTRANSACTION: " + payments[i].field(ACCOUNT_NAME));
 							log("\nCURRENT ACC ID: " + account.id);
 							
-							var account1 = payments[i].field(ACCOUNT);
+							var accounts1 = payments[i].field(ACCOUNT);
+							var account1 = accounts1[0];
 							log("\nFOUND ID: " + account1.id);
 							
 							if(account[i].id == account1.id) {
