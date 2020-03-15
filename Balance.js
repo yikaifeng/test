@@ -112,8 +112,10 @@ function refresh() {
 						case _TRANSACTION:
 							//получаем счёт из поля "счёт" текущего платежа
 							log("\nTRANSACTION: " + payments[i].field(ACCOUNT_NAME));
+							log("\nCURRENT ACC ID: " + account.id);
 							
 							var account1 = payments[i].field(ACCOUNT);
+							log("\nFOUND ID: " + account1.id);
 							
 							if(account[i].id == account1.id) {
 								income = payments[i].field(INCOME) + income;
