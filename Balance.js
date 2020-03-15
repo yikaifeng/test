@@ -119,13 +119,13 @@ function refresh() {
 							log("\nFOUND ID: " + account1.id);
 							
 							if(account.id == account1.id) {
-								log("\n СОВПАДЕНИЕ: " + income);
-								income = payments[i].field(TRANSACTION) + income;
-								log("\n СОВПАДЕНИЕ: " + income);
-							} else {
-								log("\n РАЗНЫЕ: " + outcome);
+								log("\n СОВПАДЕНИЕ: " + outcome);
 								outcome = payments[i].field(TRANSACTION) + outcome;
-								log("\n РАЗНЫЕ: " + outcome);
+								log("\n СОВПАДЕНИЕ: " + outcome);
+							} else {
+								log("\n РАЗНЫЕ: " + income);
+								income = payments[i].field(TRANSACTION) + income;
+								log("\n РАЗНЫЕ: " + income);
 							}
 							
 							break;
