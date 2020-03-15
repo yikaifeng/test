@@ -118,7 +118,7 @@ function refresh() {
 							var account1 = accounts1[0];
 							log("\nFOUND ID: " + account1.id);
 							
-							if(account[i].id == account1.id) {
+							if(account.id == account1.id) {
 								income = payments[i].field(INCOME) + income;
 							} else {
 								outcome = payments[i].field(OUTCOME) + outcome;
