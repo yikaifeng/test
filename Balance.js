@@ -8,18 +8,15 @@
 
 //Иконки
 
-const ICO_PLUS = "➕";
-const ICO_MINUS = "➖";
-const ICO_TRANSACTION = "💱";
 	
 //Имена библиотек
 const LIB_PAYMENTS = "Платежи2";	
 	
-//Имена полей и значения
-const NAME = "Название";
+//Имена полей и значения библиотеки Счета
+const ACCOUNT_NAME = "Название";
 const BALANCE = "Баланс2";
 
-const ACCOUNT_NAME = "Название";
+//Имена полей и значения библиотеки Платежи2
 const ACCOUNT = "Счёт";
 const TYPE = "Тип";
 	const _INCOME = ICO_PLUS + " приход";
@@ -76,7 +73,36 @@ function getName(strSource) {
 //------------------------------------------------------
 //Функция для обновление баланса
 //------------------------------------------------------
-
+	
+	//текущий счёт
+	var account = entry();
+	var res = " дн.";
+	
+	//короткие ссылки на поля
+	var FAccountEnd = account.field(ACCOUNT_END);
+	var FCardEnd = account.field(CARD_END);
+	
+	var last1, last2;
+	
+	//если дата не пустая
+	if (FAccountEnd != undefined) {
+		last1 = daysLeft(FAccountEnd);
+	}
+	if (FCardEnd != undefined) {
+		last2 = daysLeft(FCardEnd);
+	}
+	
+	if (last1 == undefined && last2 == undefined) {
+		return null;
+	} else {
+		if (last1 <= 30 || last2 <= 30) {
+			return ICO_PROBLEM;
+		} else {
+			return null;
+		}
+	}
+	
+}
 function refresh() {
 
 	var libAccounts = lib();
@@ -88,9 +114,9 @@ function refresh() {
 	if (accounts.length >0) {
 		
 		//перебор счетов
-		for (var j = 0; j<accounts.length; j++) {
+		for (j = 0; j<accounts.length; j++) {
 			
-			log("\nACCOUNT[" + j + "] " + accounts[j].field(ACCOUNT_NAME));
+			log("\nACCOUNT[" + j + "] " + account.field(ACCOUNT_NAME));
 			
 			var income = 0;
 			var outcome = 0;
@@ -110,17 +136,17 @@ function refresh() {
 					
 					switch (FType) {
 						case _TRANSACTION:
-							//получаем две записи из библиотеки счетов, связанных с платежом
+							//получаем счёт из поля "счёт" текущего платежа
 							log("\nTRANSACTION: " + payments[i].field(NAME));
 							
-							var twoAccounts = libAccounts.linksTo(payments[i]);
-							for (var z=0; z<2; z++) {
-								if (twoAccounts[z].id == account.id && payments[i].field(ACCOUNT) == twoAccounts[z].field(ACCOUNT_NAME)) {
-									outcome = payments[i].field(TRANSACTION) + outcome;
-								} else {
-									income = payments[i].field(TRANSACTION) + income;
-								}
+							var account1 = payments[i].field(ACCOUNT)[0];
+							
+							if(account[i].id == account1.id) {
+								income = payments[i].field(INCOME) + income;
+							} else {
+								outcome = payments[i].field(OUTCOME) + outcome;
 							}
+							
 							break;
 						case _INCOME:
 							income = payments[i].field(INCOME) + income;
