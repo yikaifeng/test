@@ -88,7 +88,7 @@ function refresh() {
 	if (accounts.length >0) {
 		
 		//перебор счетов
-		for (j = 0; j<accounts.length; j++) {
+		for (var j = 0; j<accounts.length; j++) {
 			
 			log("\nACCOUNT[" + j + "] " + account.field(ACCOUNT_NAME));
 			
