@@ -113,7 +113,7 @@ function refresh() {
 							//получаем счёт из поля "счёт" текущего платежа
 							log("\nTRANSACTION: " + payments[i].field(ACCOUNT_NAME));
 							
-							var account1 = payments[i].field(ACCOUNT)[0];
+							var account1 = payments[i].field(ACCOUNT);
 							
 							if(account[i].id == account1.id) {
 								income = payments[i].field(INCOME) + income;
