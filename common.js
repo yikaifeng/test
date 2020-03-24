@@ -22,7 +22,7 @@ const Edit = {};
 			return null;
 		} else {
 			var separator = " ";
-			sSource = String(sSource);
+			sSource.toString();
 			return sSource.split(separator,1)[0];
 		}
 	}
@@ -33,7 +33,7 @@ const Edit = {};
 			return null;
 		} else {
 			var separator = " ";
-			strSource = String(strSource);
+			sSource.toString();
 			var strIcon = strSource.split(separator,1)[0];
 			var strName = strSource.slice(strIcon.length);
 			return strName = strName.trim();
