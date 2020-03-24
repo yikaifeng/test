@@ -36,7 +36,7 @@ const Edit = {};
 			sSource.toString();
 			var strIcon = strSource.split(separator,1)[0];
 			var strName = strSource.slice(strIcon.length);
-			return strName = strName.trim();
+			return strName.trim();
 		}
 	}
 	
