@@ -18,7 +18,7 @@ const Edit = {};
 	
 	//Получит иконку из начала строки
 	Edit.getIcon = function(sSource) {
-		if (typeof(sSource) != string) {
+		if (typeof(sSource) != String) {
 			return null;
 		} else {
 			var separator = " ";
@@ -29,7 +29,7 @@ const Edit = {};
 	
 	//Получить строку без иконки в начале строки
 	Edit.getText = function (sSource) {	
-		if (typeof(sSource) != string) {
+		if (typeof(sSource) != String) {
 			return null;
 		} else {
 			var separator = " ";
@@ -42,7 +42,7 @@ const Edit = {};
 	
 	//Получить деньги
 	Edit.getMoney = function (nSum, sCurrency) {
-		if (typeof(nSum) != number) {
+		if (typeof(nSum) != Number) {
 			return null;
 		} else {
 			var sign = "";
@@ -57,7 +57,7 @@ const Edit = {};
 			nSum = nSum.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
 			nSum = sign + nSum;
 			nSum = nSum.trim();
-			if (typeof(sCurrency) == string && sCurrency != undefined) {
+			if (typeof(sCurrency) == String && sCurrency != undefined) {
 				return nSum + " " + sCurrency;
 			} else {
 				return nSum;
@@ -68,7 +68,7 @@ const Edit = {};
 	//Название месяца на русском по его номеру
 	Edit.getMonthName = function (nMonthNumber) {
 		
-		if (typeof(nMonthNumber) != number) {
+		if (typeof(nMonthNumber) != Number) {
 			return null;
 		} else {
 			switch (nMonthNumber) {
@@ -120,9 +120,9 @@ const Edit = {};
 	//Сдвиг даты на определенный интервал
 	Edit.shiftDate = function (dDate, nInterval, sUnit, bForward) {
 		
-		if (typeof(dDate) != number || 
-			typeof(nInterval) != number || nInterval < 0 ||
-			typeof(sUnit) != string || sUnit != "d" || sUnit != "w" || sUnit != "m" || sUnit != "y") {
+		if (typeof(dDate) != Number || 
+			typeof(nInterval) != Number || nInterval < 0 ||
+			typeof(sUnit) != String || sUnit != "d" || sUnit != "w" || sUnit != "m" || sUnit != "y") {
 				
 				return null;
 				
@@ -179,17 +179,17 @@ const Edit = {};
 	//Остаток дней
 	Edit.daysLeft = function (dDate, dTarget, nRound) {
 	
-		if (typeof(dDate) != number) {
+		if (typeof(dDate) != Number) {
 			
 			return null;
 			
 		} else {
 			
 			//Если не задана конечная дата, то сегодня
-			if (dTarget == undefined || typeof(dTarget) != number) {
+			if (dTarget == undefined || typeof(dTarget) != Number) {
 				dTarget = new Date();
 			}
-			if (nRound == undefined || nRound < 0 || typeof(nRound) != number) {
+			if (nRound == undefined || nRound < 0 || typeof(nRound) != Number) {
 				nRound = 0;
 			}
 			
