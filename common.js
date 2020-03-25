@@ -141,7 +141,7 @@ const Edit = {};
 		
 		
 		//Проверяем, передана ли число от 1 до 12
-		if (!arrMonthsNumbers.includes(nMonthNumber)) {
+		if (arrMonthsNumbers.indexOf(nMonthNumber) == -1) {
 			var sMessage = "\nОшибка Edit.getMonthName(nMonthNumber):\nnMonthNumber не является номером месяца";
 			throw new Error(sMessage);
 		}		
@@ -180,7 +180,7 @@ const Edit = {};
 		
 		//Проверяем, переданан единицы корректны ли
 		var arrUnits = ["d", "w", "m", "y"];
-		if (!arrUnits.includes(sUnit)) {
+		if (arrUnits.indexOf(sUnit) == -1) {
 			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nsUnit не является d/w/m/y";
 			throw new Error(sMessage);
 		}	
