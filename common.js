@@ -97,6 +97,12 @@ const Edit = {};
 			throw new Error(sMessage);
 		}
 		
+		//Проверяем, передана ли строка в sCurrency
+		if (typeof(sCurrency) != "string" && sCurrency != undefined) {
+			var sMessage = "\nОшибка Edit.getMoney(nSum, sCurrency):\nsCurrency не является строкой";
+			throw new Error(sMessage);
+		}
+		
 		nSum = nSum.toFixed(2);
 		
 		var sign = "";
@@ -112,7 +118,7 @@ const Edit = {};
 		nSum = sign + nSum;
 		nSum = nSum.trim();
 		
-		if (sCurrency != undefined && typeof(sCurrency) == "string") {
+		if (sCurrency != undefined) {
 			return nSum + " " + sCurrency;
 		} else {
 			return nSum;
