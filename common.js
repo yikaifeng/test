@@ -75,8 +75,7 @@ const Edit = {};
 		
 		var separator = " ";
 		var sIcon = sSource.split(separator,1)[0];
-		var sName = sSource.slice(sIcon.length);
-		sName.trim()
+		var sName = sSource.slice(sIcon.length).trim();
 		
 		//Проверяем, не пустая ли строка в результате
 		if (sName.length == 0) {
