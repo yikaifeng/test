@@ -22,19 +22,19 @@ const Edit = {};
 		
 		//Проверяем, передана ли строка
 		if (typeof(sSource) != "string") {
-			var sMessage = "\nОшибка Edit.getIcon(sSource):\nпереданное значение не является строкой";
+			var sMessage = "\nОшибка Edit.getIcon(sSource):\nsSource не является строкой";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, не пустая ли строка
 		if (sSource.length == 0) {
-			var sMessage = "\nОшибка Edit.getIcon(sSource):\nпустая строка";
+			var sMessage = "\nОшибка Edit.getIcon(sSource):\nsSource - пустая строка";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, есть ли хотя бы 1 пробел
 		if (sSource.indexOf(" ") == -1) {
-			var sMessage = "\nОшибка Edit.getIcon(sSource):\nотсутствует пробел в строке";
+			var sMessage = "\nОшибка Edit.getIcon(sSource):\nsSource: отсутствует пробел в строке";
 			throw new Error(sMessage);
 		}
 		
@@ -43,7 +43,7 @@ const Edit = {};
 		
 		//Проверяем, не пустая ли строка в результате
 		if (sIcon.length == 0) {
-			var sMessage = "\nОшибка Edit.getIcon(sSource):\nиконка в строке отсутствует";
+			var sMessage = "\nОшибка Edit.getIcon(sSource):\nsSource: иконка в строке отсутствует";
 			throw new Error(sMessage);
 		}
 		
@@ -57,19 +57,19 @@ const Edit = {};
 	
 		//Проверяем, передана ли строка
 		if (typeof(sSource) != "string") {
-			var sMessage = "\nОшибка Edit.getText(sSource):\nпереданное значение не является строкой";
+			var sMessage = "\nОшибка Edit.getText(sSource):\nsSource не является строкой";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, не пустая ли строка
 		if (sSource.length == 0) {
-			var sMessage = "\nОшибка Edit.getText(sSource):\nпустая строка";
+			var sMessage = "\nОшибка Edit.getText(sSource):\nsSource - пустая строка";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, есть ли хотя бы 1 пробел
 		if (sSource.indexOf(" ") == -1) {
-			var sMessage = "\nОшибка Edit.getText(sSource):\nотсутствует пробел в строке";
+			var sMessage = "\nОшибка Edit.getText(sSource):\nsSource: отсутствует пробел в строке";
 			throw new Error(sMessage);
 		}
 		
@@ -79,7 +79,7 @@ const Edit = {};
 		
 		//Проверяем, не пустая ли строка в результате
 		if (sName.length == 0) {
-			var sMessage = "\nОшибка Edit.getText(sSource):\nназвание в строке отсутствует";
+			var sMessage = "\nОшибка Edit.getText(sSource):\nsSource: название в строке отсутствует";
 			throw new Error(sMessage);
 		}
 		
