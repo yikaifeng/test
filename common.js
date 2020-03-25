@@ -155,14 +155,14 @@ const Edit = {};
 	Edit.shiftDate = function (dDate, nInterval, sUnit, bForward) {
 		
 		//Проверяем, передана ли дата в виде числа
-		if (typeof(dDate) != "number") {
-			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\ndDate не является числом";
+		if (typeof(dDate) != "object") {
+			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\ndDate не является объектом";
 			throw new Error(sMessage);
 		}
 
 		//Проверяем, переданан ли интервал в виде числа
 		if (typeof(nInterval) != "number") {
-			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nnInterval не является числом";
+			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nnInterval не является объектом";
 			throw new Error(sMessage);
 		}
 
@@ -245,14 +245,14 @@ const Edit = {};
 	Edit.daysLeft = function (dDate, dTarget, nRound) {
 	
 		//Проверяем, передана ли дата в виде числа
-		if (typeof(dDate) != "number") {
-			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\ndDate не является числом";
+		if (typeof(dDate) != "object") {
+			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\ndDate не является объектом";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, передана ли дата dTarget в виде числа
-		if (typeof(dTarget) != "number" && dTarget != undefined) {
-			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\ndTarget не является числом";
+		if (typeof(dTarget) != "object" && dTarget != undefined) {
+			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\ndTarget не является объектом";
 			throw new Error(sMessage);
 		}
 		
