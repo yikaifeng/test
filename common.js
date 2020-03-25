@@ -21,7 +21,7 @@ const Edit = {};
 	Edit.getIcon = function (sSource) {
 		
 		//Проверяем, передана ли строка
-		if (typeof(sSource) != String) {
+		if (typeof(sSource) != "string") {
 			var sMessage = "\nОшибка Edit.getIcon(sSource):\nпереданное значение не является строкой";
 			throw new Error(sMessage);
 		}
@@ -56,7 +56,7 @@ const Edit = {};
 	Edit.getText = function (sSource) {	
 	
 		//Проверяем, передана ли строка
-		if (typeof(sSource) != String) {
+		if (typeof(sSource) != "string") {
 			var sMessage = "\nОшибка Edit.getText(sSource):\nпереданное значение не является строкой";
 			throw new Error(sMessage);
 		}
@@ -93,7 +93,7 @@ const Edit = {};
 	Edit.getMoney = function (nSum, sCurrency) {
 		
 		//Проверяем, передана ли число
-		if (typeof(nSum) != Number) {
+		if (typeof(nSum) != "number") {
 			var sMessage = "\nОшибка Edit.getMoney(nSum, sCurrency):\nnSum не является числом";
 			throw new Error(sMessage);
 		}
@@ -113,7 +113,7 @@ const Edit = {};
 		nSum = sign + nSum;
 		nSum = nSum.trim();
 		
-		if (sCurrency != undefined && typeof(sCurrency) == String) {
+		if (sCurrency != undefined && typeof(sCurrency) == "string") {
 			return nSum + " " + sCurrency;
 		} else {
 			return nSum;
@@ -126,8 +126,8 @@ const Edit = {};
 	Edit.getMonthName = function (nMonthNumber) {
 		
 		//Проверяем, передана ли число
-		if (typeof(nMonthNumber) != Number) {
-			var sMessage = "\nОшибка Edit.getMonthName(nMonthNumber):\nnMonthNumber не является числом";
+		if (typeof(nMonthNumber) != "number") {
+			var sMessage = "\nОшибка Edit.getMonthName(nMonth"number"):\nnMonthNumber не является числом";
 			throw new Error(sMessage);
 		}
 		
@@ -150,13 +150,13 @@ const Edit = {};
 	Edit.shiftDate = function (dDate, nInterval, sUnit, bForward) {
 		
 		//Проверяем, передана ли дата в виде числа
-		if (typeof(dDate) != Number) {
+		if (typeof(dDate) != "number") {
 			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\ndDate не является числом";
 			throw new Error(sMessage);
 		}
 
 		//Проверяем, переданан ли интервал в виде числа
-		if (typeof(nInterval) != Number) {
+		if (typeof(nInterval) != "number") {
 			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nnInterval не является числом";
 			throw new Error(sMessage);
 		}
@@ -168,7 +168,7 @@ const Edit = {};
 		}		
 		
 		//Проверяем, переданан единицы сдвига являются ли строкой
-		if (typeof(sUnit) != String) {
+		if (typeof(sUnit) != "string") {
 			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nsUnit не является строкой";
 			throw new Error(sMessage);
 		}		
@@ -181,7 +181,7 @@ const Edit = {};
 		}	
 		
 		//Проверяем, направление логическая ли величина
-		if (typeof(bForward) != Boolean && bForward != undefined) {
+		if (typeof(bForward) != "boolean" && bForward != undefined) {
 			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nbForward не логическая величина";
 			throw new Error(sMessage);
 		}	
@@ -240,19 +240,19 @@ const Edit = {};
 	Edit.daysLeft = function (dDate, dTarget, nRound) {
 	
 		//Проверяем, передана ли дата в виде числа
-		if (typeof(dDate) != Number) {
+		if (typeof(dDate) != "number") {
 			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\ndDate не является числом";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, передана ли дата dTarget в виде числа
-		if (typeof(dTarget) != Number && dTarget != undefined) {
+		if (typeof(dTarget) != "number" && dTarget != undefined) {
 			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\ndTarget не является числом";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, передана ли количество знаков округления nRound в виде числа
-		if (typeof(nRound) != Number && nRound != undefined) {
+		if (typeof(nRound) != "number" && nRound != undefined) {
 			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\nnRound не является числом";
 			throw new Error(sMessage);
 		}
