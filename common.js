@@ -192,7 +192,7 @@ const Edit = {};
 		}	
 		
 		var sign;
-		if (bForward || bForward == undefined) {sign = 1;} else {sign = -1;}
+		if (bForward == true || bForward == undefined) {sign = 1;} else {sign = -1;}
 				
 			switch (sUnit) {
 				
