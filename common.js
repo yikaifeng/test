@@ -191,8 +191,8 @@ const Edit = {};
 			throw new Error(sMessage);
 		}	
 		
-		var sign = 1;
-		if (!bForward) {sign = -1;}
+		var sign;
+		if (bForward || bForward == undefined) {sign = 1;} else {sign = -1;}
 				
 			switch (sUnit) {
 				
