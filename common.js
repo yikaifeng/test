@@ -162,7 +162,7 @@ const Edit = {};
 
 		//Проверяем, переданан ли интервал в виде числа
 		if (typeof(nInterval) != "number") {
-			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nnInterval не является объектом";
+			var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nnInterval не является числом";
 			throw new Error(sMessage);
 		}
 
