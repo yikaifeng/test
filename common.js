@@ -127,7 +127,7 @@ const Edit = {};
 		
 		//Проверяем, передана ли число
 		if (typeof(nMonthNumber) != "number") {
-			var sMessage = "\nОшибка Edit.getMonthName(nMonth"number"):\nnMonthNumber не является числом";
+			var sMessage = "\nОшибка Edit.getMonthName(nMonthNumber):\nnMonthNumber не является числом";
 			throw new Error(sMessage);
 		}
 		
