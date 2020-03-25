@@ -269,13 +269,15 @@ const Edit = {};
 		}
 		
 		//Проверяем, nRound целое ли
-		var test = nRound;
-		test.toFixed(0);
-		if (nRound != test) {
-			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\nnRound не целое";
-			throw new Error(sMessage);
+		if (nRound != undefined) {
+			var test = nRound;
+			test.toFixed(0);
+			if (nRound != test) {
+				var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\nnRound не целое";
+				throw new Error(sMessage);
+			}
 		}
-	
+			
 		//Если не задана конечная дата, то сегодня
 		if (dTarget == undefined) {dTarget = new Date();}
 		if (nRound == undefined) {nRound = 0;}
