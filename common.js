@@ -394,7 +394,7 @@ const Edit = {};
 					var sCondFieldName = Edit.conditions["c"+ (k+1)];
 					var value = oEntry.field(sCondFieldName);
 					//Определяемся с типом условий
-					if (()"n"+ (k+1) in Edit.conditions) {
+					if ("n"+ (k+1) in Edit.conditions) {
 						var normal = Edit.conditions["n"+ (k+1)];
 						//проверка условия
 						if (value != normal) {
