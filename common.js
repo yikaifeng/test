@@ -313,7 +313,7 @@ const Edit = {};
 		}
 		
 		//проверяем является ли первый аргумент пустой строкой
-		if (arguments[0].lenght == 0) {
+		if (arguments[0].length == 0) {
 			var sMessage = "\nОшибка Edit.addCondition(...):\nпервый аргумент - пустая строка";
 			throw new Error(sMessage);
 		}
