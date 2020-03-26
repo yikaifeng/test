@@ -49,7 +49,7 @@ const Edit = {};
 		
 		return sIcon;
 		
-	}
+	};
 	
 	//--------------------------------------------------
 	//Получить строку без иконки в начале строки
@@ -85,7 +85,7 @@ const Edit = {};
 		
 		return sName;
 
-	}
+	};
 	
 	//--------------------------------------------------
 	//Получить деньги
@@ -124,7 +124,7 @@ const Edit = {};
 			return nSum;
 		}		
 			
-	}
+	};
 	
 	//--------------------------------------------------
 	//Название месяца на русском по его номеру
@@ -148,7 +148,7 @@ const Edit = {};
 		
 		return arrMonthsNames[nMonthNumber-1];		
 		
-	}
+	};
 
 	//--------------------------------------------------
 	//Сдвиг даты на определенный интервал
@@ -238,7 +238,7 @@ const Edit = {};
 			
 			}
 		
-	}
+	};
 	
 	//--------------------------------------------------
 	//Остаток дней
@@ -286,11 +286,65 @@ const Edit = {};
 		//Округляем
 		return dDif.toFixed(nRound);
 						
-	}
+	};
 	
 	//--------------------------------------------------
-	//Остаток дней
-	Edit.sumFields = function (arrEntries, sFieldName, sCondFieldName, sCondition) {
+	//Условия для функции sumFields
+	Edit.conditions = {};
+	Edit.countConditions = 0;
+	
+	Edit.refreshConditions = function () {
+		Edit.conditions = {};
+		Edit.countConditions = 0;
+	};
+	
+	Edit.addCondition = function () {
+		
+		//проверяем количество аргументов
+		if (arguments.length != 2 || arguments.length != 3) {
+			var sMessage = "\nОшибка Edit.addCondition(...):\nчисло аргументов отлично от 2 и 3";
+			throw new Error(sMessage);
+		}
+		
+		//проверяем является ли первый аргумент строкой
+		if (typeof(arguments[0]) != "string") {
+			var sMessage = "\nОшибка Edit.addCondition(...):\nпервый аргумент не является строкой";
+			throw new Error(sMessage);
+		}
+		
+		//проверяем является ли первый аргумент пустой строкой
+		if (arguments[0].lenght == 0) {
+			var sMessage = "\nОшибка Edit.addCondition(...):\nпервый аргумент - пустая строка";
+			throw new Error(sMessage);
+		}
+		
+		//Распределяем аргументы 
+		Edit.conditions["c" + (Edit.countConditions + 1)] = arguments[0];
+
+		if (arguments.length != 2) {
+			Edit.conditions["n" + (Edit.countConditions + 1)] = arguments[1];
+		} else {
+			//проверяем является ли второй аргумент числом
+			if (typeof(arguments[1]) != "number") {
+				var sMessage = "\nОшибка Edit.addCondition(...):\nнижний предел не является числом";
+				throw new Error(sMessage);
+			}
+			//проверяем является ли третий аргумент числом
+			if (typeof(arguments[2]) != "number") {
+				var sMessage = "\nОшибка Edit.addCondition(...):\nверхний предел не является числом";
+				throw new Error(sMessage);
+			}
+			Edit.conditions["l" + (Edit.countConditions + 1)] = arguments[1];
+			Edit.conditions["h" + (Edit.countConditions + 1)] = arguments[2];
+		}
+		
+		Edit.countConditions += 1;
+		
+	};
+	
+	//--------------------------------------------------
+	//Сумма по полям с условием
+	Edit.sumFields = function (arrEntries, sFieldName) {
 		
 		//Проверяем, передана ли массив записей
 		if (typeof(arrEntries) != "object") {
@@ -310,44 +364,59 @@ const Edit = {};
 			throw new Error(sMessage);
 		}
 		
-		//Проверяем, является ли sCondFieldName строкой
-		if (typeof(sCondFieldName) != "string" && nRound != undefined) {
-			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\nsCondFieldName не является строкой";
-			throw new Error(sMessage);
-		}
-		
-		//Проверяем, является ли sCondition строкой
-		if (typeof(sCondition) != "string" && nRound != undefined) {
-			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\nsCondition не является строкой";
-			throw new Error(sMessage);
-		}
-		
-		//Проверяем, является ли sCondition пустой
-		if (sCondFieldName.length != 0 && sCondition.length == 0) {
-			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\nsCondition: пустая строка";
-			throw new Error(sMessage);
-		}		
+
 		
 		var sum = 0;
 		
-		if (sCondFieldName == undefined) {
+		if (Edit.countConditions == 0) {
+			
 			//Если нет условия по полю
 			for (var i = 0; i < arrEntries.length; i++) {
 				var oEntry = arrEntries[i];
 				sum += oEntry.field(sFieldName);
 			}
+			
 		} else {
+			
 			//Если есть условия по полю
+			var nNumberOfConditions = Edit.countConditions;
+			
+			//перебор массива записей
 			for (var j = 0; j < arrEntries.length; j++) {
+				
+				//по умолчанию суммировать
+				var bCount = true;
 				var oEntry = arrEntries[j];
-				if (oEntry.field(sCondFieldName) == sCondition) {
+				
+				//проверяем условия
+				for (var k = 0; k < Edit.countConditions; k++) {
+					//Имя поля с наложенным условием
+					var sCondFieldName = Edit.conditions["c"+ (k+1)];
+					var value = oEntry.field(sCondFieldName);
+					//Определяемся с типом условий
+					if (()"n"+ (k+1) in Edit.conditions) {
+						var normal = Edit.conditions["n"+ (k+1)];
+						//проверка условия
+						if (value != normal) {
+							bCount = bCount && false;
+						}
+					} else {
+						var low = Edit.conditions["l"+ (k+1)];
+						var high = Edit.conditions["h"+ (k+1)];
+						//проверка условия
+						if (value < low || value > high) {
+							bCount = bCount && false;
+						}
+					}
+				}
+				
+				if (bCount) {
 					sum += oEntry.field(sFieldName);
 				}
+				
 			}
 		}
 		
 		return sum;
 		
-	}
-	
-Object.freeze(Edit);
+	};
