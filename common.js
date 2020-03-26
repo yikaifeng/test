@@ -270,9 +270,7 @@ const Edit = {};
 		
 		//Проверяем, nRound целое ли
 		if (nRound != undefined) {
-			var test = nRound;
-			test.toFixed(0);
-			if (nRound != test) {
+			if (nRound != nRound.toFixed(0)) {
 				var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\nnRound не целое";
 				throw new Error(sMessage);
 			}
@@ -288,6 +286,68 @@ const Edit = {};
 		//Округляем
 		return dDif.toFixed(nRound);
 						
+	}
+	
+	//--------------------------------------------------
+	//Остаток дней
+	Edit.sumFields = function (arrEntries, sFieldName, sCondFieldName, sCondition) {
+		
+		//Проверяем, передана ли массив записей
+		if (typeof(arrEntries) != "object") {
+			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\narrEntries не является объектом";
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, является ли sFieldName строкой
+		if (typeof(sFieldName) != "string") {
+			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\nsFieldName не является строкой";
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, является ли sFieldName пустой
+		if (sFieldName.length == 0) {
+			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\nsFieldName: пустая строка";
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, является ли sCondFieldName строкой
+		if (typeof(sCondFieldName) != "string" && nRound != undefined) {
+			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\nsCondFieldName не является строкой";
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, является ли sCondition строкой
+		if (typeof(sCondition) != "string" && nRound != undefined) {
+			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\nsCondition не является строкой";
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, является ли sCondition пустой
+		if (sCondFieldName.length != 0 && sCondition.length == 0) {
+			var sMessage = "\nОшибка Edit.sumFields(arrEntries, sFieldName, sCondFieldName, sCondition):\nsCondition: пустая строка";
+			throw new Error(sMessage);
+		}		
+		
+		var sum = 0;
+		
+		if (sCondFieldName == undefined) {
+			//Если нет условия по полю
+			for (var i = 0; i < arrEntries.length; i++) {
+				var oEntry = arrEntries[i];
+				sum += oEntry.field(sFieldName);
+			}
+		} else {
+			//Если есть условия по полю
+			for (var j = 0; j < arrEntries.length; j++) {
+				var oEntry = arrEntries[j];
+				if (oEntry.field(sCondFieldName) == sCondition) {
+					sum += oEntry.field(sFieldName);
+				}
+			}
+		}
+		
+		return sum;
+		
 	}
 	
 Object.freeze(Edit);
