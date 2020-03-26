@@ -301,6 +301,7 @@ const Edit = {};
 	Edit.addCondition = function () {
 		
 		//проверяем количество аргументов
+		message(arguments.length);
 		if (arguments.length != 2 || arguments.length != 3) {
 			var sMessage = "\nОшибка Edit.addCondition(...):\nчисло аргументов отлично от 2 и 3";
 			throw new Error(sMessage);
