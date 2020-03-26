@@ -325,12 +325,12 @@ const Edit = {};
 			Edit.conditions["n" + (Edit.countConditions + 1)] = arguments[1];
 		} else {
 			//проверяем является ли второй аргумент числом
-			if (typeof(arguments[1]) != "number" || typeof(arguments[1]) != "object") {
+			if (!(typeof(arguments[1]) == "number" || typeof(arguments[1]) == "object")) {
 				var sMessage = "\nОшибка Edit.addCondition(...):\nнижний предел не является числом или объектом";
 				throw new Error(sMessage);
 			}
 			//проверяем является ли третий аргумент числом
-			if (typeof(arguments[2]) != "number" || typeof(arguments[2]) != "object") {
+			if (!(typeof(arguments[2]) == "number" || typeof(arguments[2]) == "object")) {
 				var sMessage = "\nОшибка Edit.addCondition(...):\nверхний предел не является числом или объектом";
 				throw new Error(sMessage);
 			}
