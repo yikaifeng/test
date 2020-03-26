@@ -321,7 +321,7 @@ const Edit = {};
 		//Распределяем аргументы 
 		Edit.conditions["c" + (Edit.countConditions + 1)] = arguments[0];
 
-		if (arguments.length != 2) {
+		if (arguments.length == 2) {
 			Edit.conditions["n" + (Edit.countConditions + 1)] = arguments[1];
 		} else {
 			//проверяем является ли второй аргумент числом
