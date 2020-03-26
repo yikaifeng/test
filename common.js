@@ -293,7 +293,7 @@ const Edit = {};
 	Edit.conditions = {};
 	Edit.countConditions = 0;
 	
-	Edit.refreshConditions = function () {
+	Edit.deleteConditions = function () {
 		Edit.conditions = {};
 		Edit.countConditions = 0;
 	};
@@ -377,9 +377,6 @@ const Edit = {};
 			}
 			
 		} else {
-			
-			//Если есть условия по полю
-			var nNumberOfConditions = Edit.countConditions;
 			
 			//перебор массива записей
 			for (var j = 0; j < arrEntries.length; j++) {
