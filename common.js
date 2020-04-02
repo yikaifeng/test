@@ -428,6 +428,8 @@ const Edit = {};
 						log ("\nДВОЙНОЕ УСЛОВИЕ: " + sCondFieldName);
 						var low = Edit.conditions["l"+ k];
 						var high = Edit.conditions["h"+ k];
+						log ("\n  low: " + typeof low + " " + low);
+						log ("\n  high: " + typeof low + " " + high);
 						//проверка условия
 						if (value < low || value > high) {
 							bCount = false;
