@@ -346,11 +346,6 @@ const Edit = {};
 		Edit.conditions["c" + (Edit.countConditions + 1)] = arguments[0];
 
 		if (arguments.length == 2) {
-			//проверяем является ли второй аргумент числом
-			if (arguments[1] == undefined) {
-				var sMessage = "\nОшибка Edit.addCondition(...):\nусловие undefined";
-				throw new Error(sMessage);
-			}
 			Edit.conditions["n" + (Edit.countConditions + 1)] = arguments[1];
 		} else {
 			//проверяем является ли второй аргумент числом
