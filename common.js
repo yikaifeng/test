@@ -393,7 +393,6 @@ const Edit = {};
 		var sum = 0;
 		
 		if (Edit.countConditions == 0) {
-			log ("\nНЕТ УСЛОВИЙ НА ПОЛЯ");
 			//Если нет условия по полю
 			for (var i = 0; i < arrEntries.length; i++) {
 				var oEntry = arrEntries[i];
@@ -401,7 +400,6 @@ const Edit = {};
 			}
 			
 		} else {
-			log ("\nЕСТЬ УСЛОВИЯ НА ПОЛЯ");
 			//перебор массива записей
 			for (var j = 0; j < arrEntries.length; j++) {
 				
@@ -418,18 +416,14 @@ const Edit = {};
 					var value = oEntry.field(sCondFieldName);
 					//Определяемся с типом условий
 					if ("n"+ k in Edit.conditions) {
-						log ("\nПРОСТОЕ УСЛОВИЕ: " + sCondFieldName);
 						var normal = Edit.conditions["n"+ k];
 						//проверка условия
 						if (value != normal) {
 							bCount = false;
 						}
 					} else {
-						log ("\nДВОЙНОЕ УСЛОВИЕ: " + sCondFieldName);
 						var low = Edit.conditions["l"+ k];
 						var high = Edit.conditions["h"+ k];
-						log ("\n  low: " + typeof low + " " + low);
-						log ("\n  high: " + typeof high + " " + high);
 						//проверка условия
 						if (value < low || value > high) {
 							bCount = false;
