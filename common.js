@@ -429,7 +429,7 @@ const Edit = {};
 						var low = Edit.conditions["l"+ k];
 						var high = Edit.conditions["h"+ k];
 						log ("\n  low: " + typeof low + " " + low);
-						log ("\n  high: " + typeof low + " " + high);
+						log ("\n  high: " + typeof high + " " + high);
 						//проверка условия
 						if (value < low || value > high) {
 							bCount = false;
