@@ -242,51 +242,75 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Остаток дней
-	Edit.daysLeft = function (dDate, dTarget, nRound) {
+	Edit.daysLeft = function (dTarget, dReference, nRound) {
 	
 		//Проверяем, передана ли дата в виде числа
-		if (typeof(dDate) != "object") {
-			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\ndDate не является числом объектом";
+		if (typeof(dTarget) != "object") {
+			var sMessage = "\nОшибка Edit.daysLeft(dTarget, dReference, nRound):\ndTarget не является числом объектом";
 			throw new Error(sMessage);
 		}
 		
-		//Проверяем, передана ли дата dTarget в виде числа
-		if (typeof(dTarget)!= "object" && dTarget != undefined) {
-			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\ndTarget не является объектом";
+		//Проверяем, передана ли дата dReference в виде числа
+		if (typeof(dReference)!= "object" && dReference != undefined) {
+			var sMessage = "\nОшибка Edit.daysLeft(dTarget, dReference, nRound):\ndReference не является объектом";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, передана ли количество знаков округления nRound в виде числа
 		if (typeof(nRound) != "number" && nRound != undefined) {
-			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\nnRound не является числом";
+			var sMessage = "\nОшибка Edit.daysLeft(dTarget, dReference, nRound):\nnRound не является числом";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, nRound больше ли 0
 		if (nRound < 0) {
-			var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\nnRound < 0";
+			var sMessage = "\nОшибка Edit.daysLeft(dTarget, dReference, nRound):\nnRound < 0";
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, nRound целое ли
 		if (nRound != undefined) {
 			if (nRound != nRound.toFixed(0)) {
-				var sMessage = "\nОшибка Edit.daysLeft(dDate, dTarget, nRound):\nnRound не целое";
+				var sMessage = "\nОшибка Edit.daysLeft(dTarget, dReference, nRound):\nnRound не целое";
 				throw new Error(sMessage);
 			}
 		}
 			
 		//Если не задана конечная дата, то сегодня
-		if (dTarget == undefined) {dTarget = new Date();}
+		if (dReference == undefined) {dReference = new Date();}
 		if (nRound == undefined) {nRound = 0;}
 			
 		//Разница в днях с сейчас
-		var dDif = (dDate - dTarget)/(1000*3600*24);
+		var dDif = (dTarget - dReference)/(1000*3600*24);
 				
 		//Округляем
 		return dDif.toFixed(nRound);
 						
 	};
+	
+	//--------------------------------------------------
+	//Начало дня 0 часов 0 минут 0 секунд 000 миллисекунд
+	Edit.dayStart = function (dDate) {
+		//Проверяем, передана ли дата dDate в виде числа
+		if (typeof(dDate)!= "object" && dDate != undefined) {
+			var sMessage = "\nОшибка Edit.dayStart(dDate):\ndDate не является объектом";
+			throw new Error(sMessage);
+		}
+		if (dDate == undefined) {dDate = new Date();}
+		return dDate.setHours(0, 0, 0, 0);
+	}
+	
+	//--------------------------------------------------
+	//Конец дня 23 часов 59 минут 59 секунд 999 миллисекунд
+	Edit.dayEnd = function (dDate) {
+		//Проверяем, передана ли дата dDate в виде числа
+		if (typeof(dDate)!= "object" && dDate != undefined) {
+			var sMessage = "\nОшибка Edit.dayEnd(dDate):\ndDate не является объектом";
+			throw new Error(sMessage);
+		}
+		if (dDate == undefined) {dDate = new Date();}
+		return dDate.setHours(23, 59, 59, 999);
+	}
 	
 	//--------------------------------------------------
 	//Условия для функции sumFields
