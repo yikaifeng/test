@@ -297,7 +297,7 @@ const Edit = {};
 			throw new Error(sMessage);
 		}
 		if (dDate == undefined) {dDate = new Date();}
-		return dDate.setHours(0, 0, 0, 0);
+		return new Date(dDate.setHours(0, 0, 0, 0));
 	}
 	
 	//--------------------------------------------------
@@ -309,7 +309,7 @@ const Edit = {};
 			throw new Error(sMessage);
 		}
 		if (dDate == undefined) {dDate = new Date();}
-		return dDate.setHours(23, 59, 59, 999);
+		return new Date(dDate.setHours(23, 59, 59, 999));
 	}
 	
 	//--------------------------------------------------
