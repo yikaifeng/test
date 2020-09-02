@@ -523,7 +523,7 @@ function setNumberOfRequests() {
 		//Считаем незавершенные
 		var result = 0;
 		for (var i=0; i<arrAllRequests.length; i++) {
-			if ((Edit.getText(arrAllRequests[i].field(STATUS)) != _SIGNED)||(Edit.getText(arrAllRequests[i].field(STATUS)) != _CANCELED)) {
+			if (!(Edit.getText(arrAllRequests[i].field(STATUS)) == _SIGNED)||(Edit.getText(arrAllRequests[i].field(STATUS)) == _CANCELED)) {
 				result = result + 1;
 			}
 		}
