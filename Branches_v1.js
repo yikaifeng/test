@@ -490,7 +490,7 @@ function getNumberOfTasks() {
 	for (var j=0; j<arrBranches.length; j++) {
 		var branch = arrBranches[j];
 		log("\n  подразделение: " + branch.name);
-		var arrAllTasks = lTasks.linsTo(branch);
+		var arrAllTasks = lTasks.linksTo(branch);
 		log("\n  всего ссылок: " + arrAllTasks.length);
 		//Считаем незавершенные
 		var result = 0;
@@ -509,24 +509,6 @@ function getNumberOfTasks() {
 //------------------------------------------------------
 function setNumberOfRequests() {
 	//Обрабатываемое подразделение и библиотека
-	var branch = entry();
-	var lRequests = libByName(LIB_REQUESTS);
-	log("\getNumberOfRequests: " + lRequests.name);
-	//Коллекция объектов, ссылающихся на данное подразделение
-	var arrAllRequests = lRequests.linsTo(branch);
-	log("\n  всего ссылок: " + arrAllRequests.length);
-	//Считаем незавершенные
-	var result = 0;
-	for (var i=0; i<arrAllRequests.length; i++) {
-		if ((Edit.getText(arrAllTasks[i].field(STATUS)) != _SIGNED)||(Edit.getText(arrAllTasks[i].field(STATUS)) != _CANCELED)) {
-			result = result + 1;
-		}
-	}
-	return ICO_REQUESTS + result;
-}
-
-function setNumberOfRequests() {
-	//Обрабатываемое подразделение и библиотека
 	var lBranches = lib();
 	var arrBranches = lBranches.entries();
 	var lRequests = libByName(LIB_REQUESTS);
@@ -536,7 +518,7 @@ function setNumberOfRequests() {
 	for (var j=0; j<arrBranches.length; j++) {
 		var branch = arrBranches[j];
 		log("\n  подразделение: " + branch.name);
-		var arrAllRequests = lRequests.linsTo(branch);
+		var arrAllRequests = lRequests.linksTo(branch);
 		log("\n  всего ссылок: " + lRequests.length);
 		//Считаем незавершенные
 		var result = 0;
