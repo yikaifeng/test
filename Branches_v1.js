@@ -479,7 +479,7 @@ function getBranchName() {
 //------------------------------------------------------
 //Функция для подсчёта невыполненных дел
 //------------------------------------------------------
-function getNumberOfTasks() {
+function setNumberOfTasks() {
 	//Обрабатываемое подразделение и библиотека
 	var lBranches = lib();
 	var arrBranches = lBranches.entries();
