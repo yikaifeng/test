@@ -479,7 +479,7 @@ function getBranchName() {
 //------------------------------------------------------
 //Функция для подсчёта невыполненных дел
 //------------------------------------------------------
-function setNumberOfTasks() {
+function getNumberOfTasks() {
 	//Обрабатываемое подразделение и библиотека
 	var lBranches = lib();
 	var arrBranches = lBranches.entries();
@@ -500,7 +500,7 @@ function setNumberOfTasks() {
 			}
 		}
 		log("\n  активных ссылок: " + result);
-		branch.set(TASKS_NUMBER, result);
+		if (result == 0) {branch.set(TASKS_NUMBER, "");} else {branch.set(TASKS_NUMBER, ICO_TASKS + result);}
 	}
 
 }
@@ -528,7 +528,7 @@ function setNumberOfRequests() {
 			}
 		}
 		log("\n  активных ссылок: " + result);
-		branch.set(REQUESTS_NUMBER, result);
+		if (result == 0) {branch.set(REQUESTS_NUMBER, "");} else {branch.set(REQUESTS_NUMBER, ICO_REQUESTS + result);}
 	}
 
 }
