@@ -17,14 +17,16 @@
 //Константы
 //======================================================
 //Иконки
-const ICO_TASKS = "📮";
-const ICO_REQUESTS = "📑";
+const ICO_TASKS = "*";
+const ICO_REQUESTS = "*";
 //Имена библиотек
 const LIB_TASKS = "Задачи";
 const LIB_REQUESTS = "Заявки";
 //Имена полей и значения
 const TYPE = "Тип";
 const SHORT_NAME = "Краткое название";
+const TASKS_NUMBER = "Вывод задач";
+const REQUESTS_NUMBER = "Вывод заявок";
 const STATUS = "Статус";
 	const _DONE = "завершено";
 	const _SIGNED = "подписана";
@@ -479,25 +481,33 @@ function getBranchName() {
 //------------------------------------------------------
 function getNumberOfTasks() {
 	//Обрабатываемое подразделение и библиотека
-	var branch = entry();
+	var lBranches = lib();
+	var arrBranches = lBranches.entries();
 	var lTasks = libByName(LIB_TASKS);
-	log("\ngetNumberOfTasks: " + lTasks.name);
-	//Коллекция объектов, ссылающихся на данное подразделение
-	var arrAllTasks = lTasks.linsTo(branch);
-	log("\n  всего ссылок: " + arrAllTasks.length);
-	//Считаем незавершенные
-	var result = 0;
-	for (var i=0; i<arrAllTasks.length; i++) {
-		if (Edit.getText(arrAllTasks[i].field(STATUS)) == _DONE) {
-			result = result + 1;
+	log("\ngetNumberOfTasks: " + lBranches.name + " " + arrBranches.length);
+	log("\n  " + lTasks.name);
+	//Цикл по подразделениям
+	for (var j=0; j<arrBranches.length; j++) {
+		var branch = arrBranches[j];
+		log("\n  подразделение: " + branch.name);
+		var arrAllTasks = lTasks.linsTo(branch);
+		log("\n  всего ссылок: " + arrAllTasks.length);
+		//Считаем незавершенные
+		var result = 0;
+		for (var i=0; i<arrAllTasks.length; i++) {
+			if (Edit.getText(arrAllTasks[i].field(STATUS)) == _DONE) {
+				result = result + 1;
+			}
 		}
+		log("\n  активных ссылок: " + result);
+		branch.set(TASKS_NUMBER, result);
 	}
-	return ICO_TASKS + result;
+
 }
 //------------------------------------------------------
 //Функция для подсчёта неподписанных заявок
 //------------------------------------------------------
-function getNumberOfRequests() {
+function setNumberOfRequests() {
 	//Обрабатываемое подразделение и библиотека
 	var branch = entry();
 	var lRequests = libByName(LIB_REQUESTS);
@@ -513,4 +523,30 @@ function getNumberOfRequests() {
 		}
 	}
 	return ICO_REQUESTS + result;
+}
+
+function setNumberOfRequests() {
+	//Обрабатываемое подразделение и библиотека
+	var lBranches = lib();
+	var arrBranches = lBranches.entries();
+	var lRequests = libByName(LIB_REQUESTS);
+	log("\ngetNumberOfTasks: " + lBranches.name + " " + arrBranches.length);
+	log("\n  " + lRequests.name);
+	//Цикл по подразделениям
+	for (var j=0; j<arrBranches.length; j++) {
+		var branch = arrBranches[j];
+		log("\n  подразделение: " + branch.name);
+		var arrAllRequests = lRequests.linsTo(branch);
+		log("\n  всего ссылок: " + lRequests.length);
+		//Считаем незавершенные
+		var result = 0;
+		for (var i=0; i<arrAllRequests.length; i++) {
+			if ((Edit.getText(arrAllRequests[i].field(STATUS)) != _SIGNED)||(Edit.getText(arrAllRequests[i].field(STATUS)) != _CANCELED)) {
+				result = result + 1;
+			}
+		}
+		log("\n  активных ссылок: " + result);
+		branch.set(REQUESTS_NUMBER, result);
+	}
+
 }
