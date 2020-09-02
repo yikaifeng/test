@@ -484,22 +484,22 @@ function setNumberOfTasks() {
 	var lBranches = lib();
 	var arrBranches = lBranches.entries();
 	var lTasks = libByName(LIB_TASKS);
-	log("\ngetNumberOfTasks: " + lBranches.name + " " + arrBranches.length);
-	log("\n  " + lTasks.name);
+	//log("\ngetNumberOfTasks: " + lBranches.name + " " + arrBranches.length);
+	//log("\n  " + lTasks.name);
 	//Цикл по подразделениям
 	for (var j=0; j<arrBranches.length; j++) {
 		var branch = arrBranches[j];
-		log("\n  подразделение: " + branch.name);
+		//log("\n  подразделение: " + branch.name);
 		var arrAllTasks = lTasks.linksTo(branch);
-		log("\n  всего ссылок: " + arrAllTasks.length);
+		//log("\n  всего ссылок: " + arrAllTasks.length);
 		//Считаем незавершенные
 		var result = 0;
 		for (var i=0; i<arrAllTasks.length; i++) {
-			if (Edit.getText(arrAllTasks[i].field(STATUS)) == _DONE) {
+			if (!(Edit.getText(arrAllTasks[i].field(STATUS)) == _DONE)) {
 				result = result + 1;
 			}
 		}
-		log("\n  активных ссылок: " + result);
+		//log("\n  активных ссылок: " + result);
 		if (result == 0) {branch.set(TASKS_NUMBER, "");} else {branch.set(TASKS_NUMBER, ICO_TASKS + result);}
 	}
 
@@ -512,14 +512,14 @@ function setNumberOfRequests() {
 	var lBranches = lib();
 	var arrBranches = lBranches.entries();
 	var lRequests = libByName(LIB_REQUESTS);
-	log("\ngetNumberOfTasks: " + lBranches.name + " " + arrBranches.length);
-	log("\n  " + lRequests.name);
+	//log("\ngetNumberOfTasks: " + lBranches.name + " " + arrBranches.length);
+	//log("\n  " + lRequests.name);
 	//Цикл по подразделениям
 	for (var j=0; j<arrBranches.length; j++) {
 		var branch = arrBranches[j];
-		log("\n  подразделение: " + branch.name);
+		//log("\n  подразделение: " + branch.name);
 		var arrAllRequests = lRequests.linksTo(branch);
-		log("\n  всего ссылок: " + lRequests.length);
+		//log("\n  всего ссылок: " + lRequests.length);
 		//Считаем незавершенные
 		var result = 0;
 		for (var i=0; i<arrAllRequests.length; i++) {
@@ -527,7 +527,7 @@ function setNumberOfRequests() {
 				result = result + 1;
 			}
 		}
-		log("\n  активных ссылок: " + result);
+		//log("\n  активных ссылок: " + result);
 		if (result == 0) {branch.set(REQUESTS_NUMBER, "");} else {branch.set(REQUESTS_NUMBER, ICO_REQUESTS + result);}
 	}
 
