@@ -451,7 +451,7 @@ function CreateEvent () {
 		i.data("content://com.android.calendar/events");
 		i.extra("title", "Заголовок");
 		i.extra("description", "описание");
-		i.extraLong("beginTime", Date().getTime());
-		i.extraLong("endTime", (Date()+1).getTime());
+		i.extraLong("beginTime", Date());
+		i.extraLong("endTime", (Date()+1));
 		i.send();
 	}
