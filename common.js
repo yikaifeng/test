@@ -100,7 +100,7 @@ const Edit = {};
 		bSpace = typeof(bSpace) !== undefined ? bSpace : false;
 		
 		//Проверяем, не пустая ли иконка
-		bar sIcon = Edit.getIcon(sSource);
+		var sIcon = Edit.getIcon(sSource);
 		if (sIcon.length == 0) {
 			var sMessage = Edit.createLogMsg(sSrc, "sIcon[" + sIcon + "] - пустая строка", true);
 			throw new Error(sMessage);
