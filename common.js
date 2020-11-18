@@ -31,9 +31,9 @@ const Edit = {};
 		var ICO_ERROR = "⚠️";
 		
 		if (bError) {
-			return ("==========\n" + ICO_ERROR + "ERROR\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
+			return ("\n==========\n" + ICO_ERROR + "ERROR\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
 		} else {
-			return ("==========\n" + ICO_INFO + "INFO\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
+			return ("\n==========\n" + ICO_INFO + "INFO\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
 		}	
 	};
 	//--------------------------------------------------
