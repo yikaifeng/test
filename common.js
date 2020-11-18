@@ -22,9 +22,14 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Формирование сообщения
-	Edit.createLogMsg = function (sSrc, sMsg, bError = false) {
+	Edit.createLogMsg = function (sSrc, sMsg, bError) {
+		
+		//Параметры по умолчанию
+		bError = typeof(bError) !== undefined ? bError : false;
+		
 		var ICO_INFO = "ℹ️";
 		var ICO_ERROR = "⚠️";
+		
 		if (bError) {
 			return ("\n==========\n" + ICO_ERROR + "ERROR\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
 		} else {
@@ -87,9 +92,12 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Получить иконку из начала строки
-	Edit.setIconFrom = function (sSource, sText, bSpace = false) {
+	Edit.setIconFrom = function (sSource, sText, bSpace) {
 		
 		var sSrc = "Edit.setIcon(sSource, sText, bSpace)";
+		
+		//Параметры по умолчанию
+		bSpace = typeof(bSpace) !== undefined ? bSpace : false;
 		
 		//Проверяем, не пустая ли иконка
 		sIcon = Edit.getIcon(sSource);
