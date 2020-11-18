@@ -444,3 +444,14 @@ const Edit = {};
 		return sum;
 		
 	};
+
+function CreateEvent () {
+
+		var i = intent("android.intent.action.INSERT");
+		i.data("content://com.android.calendar/events");
+		i.extra("title", "Заголовок");
+		i.extra("description", "описание");
+		i.extraLong("beginTime", Date().getTime());
+		i.extraLong("endTime", (Date()+1).getTime());
+		i.send();
+	}
