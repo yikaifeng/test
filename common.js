@@ -23,8 +23,8 @@ const Edit = {};
 	//--------------------------------------------------
 	//Формирование сообщения
 	Edit.createLogMsg = function (sSrc, sMsg, bError = false) {
-		var ICO_INFO = "📝";
-		var ICO_ERROR = "📢";
+		var ICO_INFO = "ℹ️";
+		var ICO_ERROR = "⚠️";
 		if (bError) {
 			return ("\n==========\n" + ICO_ERROR + "ERROR\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
 		} else {
