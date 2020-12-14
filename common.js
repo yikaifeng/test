@@ -43,11 +43,11 @@ const Edit = {};
 		var sSrc = "Edit.setLogging(sStatus)";
 		
 		//Проверяем, передано ли логическое значение
-		if (typeof(sStatus) != "boolean") {
-			var sMessage = Edit.createLogMsg(sSrc, "sStatus[" + sStatus + "] не является логическим значением", true);
-			throw new Error(sMessage);
-		}
-		if (sStatus) {Edit.logging = true;} else {Edit.logging = false;}
+		//if (typeof(sStatus) != "boolean") {
+			//var sMessage = Edit.createLogMsg(sSrc, "sStatus[" + sStatus + "] не является логическим значением", true);
+			//throw new Error(sMessage);
+		//}
+		//if (sStatus) {Edit.logging = true;} else {Edit.logging = false;}
 return (typeof (sStatus));
 	};
 	
