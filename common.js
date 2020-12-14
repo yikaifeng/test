@@ -41,7 +41,6 @@ const Edit = {};
 	Edit.setLogging = function (sStatus) {
 		
 		var sSrc = "Edit.setLogging(sStatus)";
-log (typeof sStatus);
 		
 		//Проверяем, передано ли логическое значение
 		if (typeof(sStatus) != "boolean") {
@@ -49,6 +48,7 @@ log (typeof sStatus);
 			throw new Error(sMessage);
 		}
 		if (sStatus) {Edit.logging = true;} else {Edit.logging = false;}
+return (typeof (sStatus));
 	};
 	
 	//--------------------------------------------------
