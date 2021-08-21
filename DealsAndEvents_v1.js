@@ -550,33 +550,34 @@ function shiftDate(bForward, incomeTask) {
 	var FEndDate = task.field(END_DATE);
 	var FUnit = task.field(UNIT);
 	var FInterval = task.field(INTERVAL);
+	var unit;
 	
 	//Обрабатываем перенос
 	switch (FUnit) {
 
 		case "день":
-			FUnit = "d";
+			unit = "d";
 			break;
 
 		case "неделя":
-			FUnit = "w";
+			unit = "w";
 			break;
 
 		case "месяц":
-			FUnit = "m";
+			unit = "m";
 			break;
 
 		case "год":
-			FUnit = "y";
+			unit = "y";
 			break;
 			
 		default: break;
 			
 		}
 		
-	task.set(START_DATE, pShiftDate(FStartDate, FInterval, FUnit, bForward));
+	task.set(START_DATE, pShiftDate(FStartDate, FInterval, unit, bForward));
 	if (FEndDate != undefined) {
-		task.set(END_DATE, pShiftDate(FEndDate, FInterval, FUnit, bForward));
+		task.set(END_DATE, pShiftDate(FEndDate, FInterval, unit, bForward));
 	}
 
 	var direction;
