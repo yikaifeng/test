@@ -622,5 +622,5 @@ function getTaskSum() {
 	var task = entry();
 	//Поля
 	var FSum = task.field (SUM);
-	return pGetMoney = function (FSum, "р.");
+	return pGetMoney(FSum, "р.");
 }
