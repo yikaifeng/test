@@ -11,6 +11,7 @@
 
 //Иконки
 const ICO_TASKS = "💼";
+const ICO_INFO = "ℹ️";
 //Имена библиотек
 const LIB_TASKS = "Задачи";
 const LIB_REQUESTS = "Заявки";
@@ -415,7 +416,7 @@ function setNumberOfTasks() {
 		//log("\n  активных ссылок: " + result);
 		if (result == 0) {branch.set(TASKS_NUMBER, "");} else {branch.set(TASKS_NUMBER, ICO_TASKS + result);}
 	}
-
+	message (ICO_INFO + " обновлено");
 }
 	
 //------------------------------------------------------
