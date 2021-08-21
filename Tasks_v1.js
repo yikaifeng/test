@@ -430,8 +430,8 @@ function checkTask(incomeTask) {
 	}
 		
 	//Короткие ссылки на поля
-	var FType = task.field (TYPE);
-	var FStatus = task.field (STATUS);
+	var FType = pGetText(task.field (TYPE));
+	var FStatus = pGetText(task.field (STATUS));
 	var FStartDate = task.field (START_DATE);
 	var FStartTime = task.field (START_TIME);
 	var FEndDate = task.field (END_DATE);
