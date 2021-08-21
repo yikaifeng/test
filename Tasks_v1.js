@@ -447,6 +447,7 @@ function checkTask(incomeTask) {
 	var strResult = msgCorrected;
 
 	//Проверка соответствия типа и статуса
+	message(FType + " " + FStatus);
 	if (FType==_PERIOD && FStatus==_DONE) {
 		task.set(STATUS, _ACTIVE);
 		strResult = strResult + "\n*" + STATUS;
