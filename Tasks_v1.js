@@ -15,6 +15,7 @@ const ICO_INFO = "ℹ️";
 const ICO_SUCSEED = "✅";
 const ICO_URGENT = "🔥";
 const ICO_SOON = "⏱️";
+const ICO_ACTIVE = "💥";
 	
 //Имена полей и значения
 const TYPE = "Тип";
@@ -447,7 +448,7 @@ function checkTask(incomeTask) {
 
 	//Проверка соответствия типа и статуса
 	if (FType==_PERIOD && FStatus==_DONE) {
-		task.set(STATUS, _ACTIVE);
+		task.set(STATUS, ICO_ACTIVE + " " + _ACTIVE);
 		strResult = strResult + "\n*" + STATUS;
 	}
 		
