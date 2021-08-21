@@ -196,7 +196,7 @@ var msgPeriodOff = ICO_ERROR + " Периодичность не включен�
 		nSum = sign + nSum;
 		nSum = nSum.trim();
 		
-		if (sCurrency != undefined && nSum != "") {
+		if (sCurrency != undefined) {
 			return nSum + " " + sCurrency;
 		} else {
 			return nSum;
@@ -616,5 +616,11 @@ function getTaskSum() {
 	var task = entry();
 	//Поля
 	var FSum = task.field (SUM);
-	return pGetMoney(FSum, "р.");
+	
+	if (FSum != undefined) {
+		return pGetMoney(FSum, "р.");
+	} else {
+		return FSum;
+	}
+	
 }
