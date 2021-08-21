@@ -157,9 +157,9 @@ function checkTask(incomeTask) {
 //----------------------------------------------------------
 //Функция переноса даты вперед или назад
 //----------------------------------------------------------
-function shiftDate(incomeTask, bForward) {
+function shiftDate(bForward, incomeTask) {
 	
-	sSrc = "shiftDate(incomeTask, bForward)";
+	sSrc = "shiftDate(bForward, incomeTask)";
 	log(Edit.createLogMsg(sSrc, "старт функции"));
 	
 	//Показывать ли сообщение о смене даты
