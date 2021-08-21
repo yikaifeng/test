@@ -415,7 +415,7 @@ var msgPeriodOff = ICO_ERROR + " Периодичность не включен�
 function checkTask(incomeTask) {
 	
 	var sSrc = "checkTask(incomeTask)";
-	console.log(pCreateMsg(sSrc, "старт функции"));
+	log(pCreateMsg(sSrc, "старт функции"));
 		
 	//Обрабатываемое дело
 	var task;
@@ -423,10 +423,10 @@ function checkTask(incomeTask) {
 	//Если есть входящий объект, то используем его
 	if (incomeTask == undefined) {
 		task = entry();
-		console.log(pCreateMsg(sSrc, "текущая задача: " + task.title));
+		log(pCreateMsg(sSrc, "текущая задача: " + task.title));
 	} else {
 		task = incomeTask;
-		console.log(pCreateMsg(sSrc, "входящая задача: " + task.title));
+		log(pCreateMsg(sSrc, "входящая задача: " + task.title));
 	}
 		
 	//Короткие ссылки на поля
@@ -518,7 +518,7 @@ function checkTask(incomeTask) {
 function shiftDate(bForward, incomeTask) {
 	
 	var sSrc = "shiftDate(bForward, incomeTask)";
-	console.log(pCreateMsg(sSrc, "старт функции"));
+	log(pCreateMsg(sSrc, "старт функции"));
 	
 	//Показывать ли сообщение о смене даты
 	var bShowMessage = true;
@@ -532,11 +532,11 @@ function shiftDate(bForward, incomeTask) {
 	//Если есть входящий объект, то используем его
 	if (incomeTask == undefined) {
 		task = entry();
-		console.log(pCreateMsg(sSrc, "текущая задача: " + task.title));
+		log(pCreateMsg(sSrc, "текущая задача: " + task.title));
 	} else {
 		task = incomeTask;
 		bShowMessage = false;
-		console.log(pCreateMsg(sSrc, "входящая задача: " + task.title));
+		log(pCreateMsg(sSrc, "входящая задача: " + task.title));
 	}
 	
 	//Выход, если не включен счёт переодичности
@@ -564,7 +564,7 @@ function shiftDate(bForward, incomeTask) {
 	}
 
 	//Лог
-	console.log(pCreateMsg(sSrc, "сдвиг: " + direction*FInterval + " (" + FUnit + ")"));
+	log(pCreateMsg(sSrc, "сдвиг: " + direction*FInterval + " (" + FUnit + ")"));
 		
 	}
 
