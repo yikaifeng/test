@@ -420,7 +420,7 @@ var msgPeriodOff = ICO_WARNING + " Периодичность не включе�
 //------------------------------------------------------
 function checkTask(incomeTask) {
 	
-	sSrc = "checkTask(incomeTask)";
+	var sSrc = "checkTask(incomeTask)";
 	log(pCreateMsg(sSrc, "старт функции"));
 		
 	//Обрабатываемое дело
@@ -523,7 +523,7 @@ function checkTask(incomeTask) {
 //----------------------------------------------------------
 function shiftDate(bForward, incomeTask) {
 	
-	sSrc = "shiftDate(bForward, incomeTask)";
+	var sSrc = "shiftDate(bForward, incomeTask)";
 	log(pCreateMsg(sSrc, "старт функции"));
 	
 	//Показывать ли сообщение о смене даты
