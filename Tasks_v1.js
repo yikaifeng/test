@@ -588,7 +588,7 @@ function getDaysLeft() {
 	
 	//Прочее
 	var res = " дн.";	
-	var dteDiff = pDaysLeft(FStartDate)；
+	var dteDiff = pDaysLeft(FStartDate);
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
 	if (dteDiff<=3 && FStatus!=_DONE) {
