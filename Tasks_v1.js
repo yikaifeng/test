@@ -602,7 +602,7 @@ function getDaysLeft() {
 	
 	//Короткие ссылки на поля
 	var FStartDate = task.field (START_DATE);
-	var FStatus = task.field (STATUS);
+	var FStatus = pGetText(task.field (STATUS));
 	
 	//Прочее
 	var res = " дн.";	
