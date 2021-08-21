@@ -588,7 +588,7 @@ function shiftDate(bForward, incomeTask) {
 //----------------------------------------------------------
 //Функция показывающая остаток дней
 //----------------------------------------------------------
-function daysLeft() {
+function getDaysLeft() {
 	
 	//Обрабатываемое дело
 	var task = entry();
@@ -599,8 +599,7 @@ function daysLeft() {
 	
 	//Прочее
 	var res = " дн.";	
-	var dteDiff;
-	dteDiff = Edit.daysLeft(FStartDate)；
+	var dteDiff = Edit.daysLeft(FStartDate)；
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
 	if (dteDiff<=3 && FStatus!=_DONE) {
