@@ -599,7 +599,8 @@ function daysLeft() {
 	
 	//Прочее
 	var res = " дн.";	
-	var dteDiff = Edit.daysLeft(FStartDate)；
+	var dteDiff;
+	dteDiff = Edit.daysLeft(FStartDate)；
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
 	if (dteDiff<=3 && FStatus!=_DONE) {
