@@ -1,54 +1,96 @@
-//**********************************************************
-//**********************************************************
+//********************************************************************************************************************
+//Tasks - скрипт для иблиотеке "Задачи"
+//********************************************************************************************************************
 "use strict";
 
-//**********************************************************
+//********************************************************************************************************************
+//********************************************************************************************************************
+//======================================================
+//Константы
+//======================================================
+
+//Иконки
+const ICO_WARNING = "⚠️";
+const ICO_INFO = "ℹ️";
+const ICO_ERROR = "⚠️";
+		
+const ICO_SUCSEED = "✔️";
+const ICO_PERIOD = "🗓️";
+const ICO_PLAN = "⏳";
+const ICO_DONE = "✔️";
+const ICO_URGENT = "🔥";
+const ICO_SOON = "⏱️";
+	
+//Имена полей и значения
+const TYPE = "Тип";
+	const _PERIOD = "повтор.";
+const STATUS = "Статус";
+	const _ACTIVE = "активно";
+	const _WAITING = "ожидание";
+	const _DONE = "завершено";
+const SUM = "Сумма";
+const START_DATE = "Дата начала";
+const START_TIME = "Время начала";
+const END_DATE = "Дата окончания";
+const END_TIME = "Время окончания";
+const NAME = "Название";
+const COUNT = "Вычислять периодичность";
+const UNIT = "Ед.измерения";
+	const _DAY = "день";
+	const _WEEK = "неделя";
+	const _MONTH = "месяц";
+	const _YEAR = "год";
+const AUTO = "Автоматически менять дату";
+const INTERVAL = "Интервал";
 
 //======================================================
-//Объект с частыми функциями
-//v3
+//Переменные
 //======================================================
-const Edit = {};
-	
+
+//Сообщения
+var msgCorrected = ICO_WARNING + " Исправлено:";
+var msgPeriodOff = ICO_WARNING + " Периодичность не включена";
+
+//********************************************************************************************************************
+//********************************************************************************************************************
+//======================================================
+//Закрытые фунции
+//======================================================
 	//--------------------------------------------------
-	//Формирование сообщения
-	Edit.createLogMsg = function (sSrc, sMsg, bError) {
-		
+	//Создать сообщение
+	function pCreateMsg(sSrc, sMsg, bError) {
+			
 		//Параметры по умолчанию
 		bError = typeof(bError) !== undefined ? bError : false;
-		
-		var ICO_INFO = "ℹ️";
-		var ICO_ERROR = "⚠️";
-		
+			
 		if (bError) {
 			return ("\n==========\n" + ICO_ERROR + "ERROR\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
 		} else {
 			return ("\n==========\n" + ICO_INFO + "INFO\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
 		}	
 	};		
-
 	
 	//--------------------------------------------------
 	//Получить иконку из начала строки
-	Edit.getIcon = function (sSource) {
+	function pGetIcon(sSource) {
 		
-		var sSrc = "Edit.getIcon(sSource)";
+		var sSrc = "pGetIcon(sSource)";
 		
 		//Проверяем, передана ли строка
 		if (typeof(sSource) != "string") {
-			var sMessage = Edit.createLogMsg(sSrc, "sSource[" + sSource + "] не является строкой", true);
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "] не является строкой", true);
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, не пустая ли строка
 		if (sSource.length == 0) {
-			var sMessage = Edit.createLogMsg(sSrc, "sSource[" + sSource + "] - пустая строка", true);
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "] - пустая строка", true);
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, есть ли хотя бы 1 пробел
 		if (sSource.indexOf(" ") == -1) {
-			var sMessage = Edit.createLogMsg(sSrc, "sSource[" + sSource + "]: отсутствует пробел в строке", true);
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "]: отсутствует пробел в строке", true);
 			throw new Error(sMessage);
 		}
 		
@@ -57,7 +99,7 @@ const Edit = {};
 		
 		//Проверяем, не пустая ли строка в результате
 		if (sIcon.length == 0) {
-			var sMessage = Edit.createLogMsg(sSrc, "sSource[" + sSource + "]: иконка в строке отсутствует", true);
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "]: иконка в строке отсутствует", true);
 			throw new Error(sMessage);
 		}
 		
@@ -67,17 +109,17 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Установить иконку из строки
-	Edit.setIconFrom = function (sSource, sText, bSpace) {
+	function pSetIconFrom(sSource, sText, bSpace) {
 		
-		var sSrc = "Edit.setIcon(sSource, sText, bSpace)";
+		var sSrc = "pSetIconFrom(sSource, sText, bSpace)";
 		
 		//Параметры по умолчанию
 		bSpace = typeof(bSpace) !== undefined ? bSpace : false;
 		
 		//Проверяем, не пустая ли иконка
-		var sIcon = Edit.getIcon(sSource);
+		var sIcon = Edit.pGetIcon(sSource);
 		if (sIcon.length == 0) {
-			var sMessage = Edit.createLogMsg(sSrc, "sIcon[" + sIcon + "] - пустая строка", true);
+			var sMessage = pCreateMsg(sSrc, "sIcon[" + sIcon + "] - пустая строка", true);
 			throw new Error(sMessage);
 		}
 		
@@ -91,25 +133,25 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Получить строку без иконки в начале строки
-	Edit.getText = function (sSource) {	
+	function pGetText(sSource) {	
 	
-		var sSrc = "Edit.getText(sSource)";
+		var sSrc = "pGetText(sSource)";
 	
 		//Проверяем, передана ли строка
 		if (typeof(sSource) != "string") {
-			var sMessage = Edit.createLogMsg(sSrc, "sSource[" + sSource + "] не является строкой", true);
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "] не является строкой", true);
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, не пустая ли строка
 		if (sSource.length == 0) {
-			var sMessage = Edit.createLogMsg(sSrc, "sSource[" + sSource + "] - пустая строка", true);
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "] - пустая строка", true);
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, есть ли хотя бы 1 пробел
 		if (sSource.indexOf(" ") == -1) {
-			var sMessage = Edit.createLogMsg(sSrc, "sSource[" + sSource + "]: отсутствует пробел в строке", true);
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "]: отсутствует пробел в строке", true);
 			throw new Error(sMessage);
 		}
 		
@@ -119,7 +161,7 @@ const Edit = {};
 		
 		//Проверяем, не пустая ли строка в результате
 		if (sName.length == 0) {
-			var sMessage = Edit.createLogMsg(sSrc, "sSource[" + sSource + "]: отсутствует название в строке", true);
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "]: отсутствует название в строке", true);
 			throw new Error(sMessage);
 		}
 		
@@ -129,19 +171,19 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Получить деньги
-	Edit.getMoney = function (nSum, sCurrency) {
+	function pGetMoney(nSum, sCurrency) {
 		
-		var sSrc = "Edit.getMoney(nSum, sCurrency)";
+		var sSrc = "pGetMoney(nSum, sCurrency)";
 		
 		//Проверяем, передана ли число
 		if (typeof(nSum) != "number") {
-			var sMessage = Edit.createLogMsg(sSrc, "nSum[" + nSum + "] не является числом", true);
+			var sMessage = pCreateMsg(sSrc, "nSum[" + nSum + "] не является числом", true);
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, передана ли строка в sCurrency
 		if (typeof(sCurrency) != "string" && sCurrency != undefined) {
-			var sMessage = Edit.createLogMsg(sSrc, "sCurrency[" + sCurrency + "] не является строкой", true);
+			var sMessage = pCreateMsg(sSrc, "sCurrency[" + sCurrency + "] не является строкой", true);
 			throw new Error(sMessage);
 		}
 		
@@ -170,13 +212,13 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Название месяца на русском по его номеру
-	Edit.getMonthName = function (nMonthNumber) {
+	function pGetMonthName(nMonthNumber) {
 		
-		var sSrc = "Edit.getMonthName(nMonthNumber)";
+		var sSrc = "pGetMonthName(nMonthNumber)";
 		
 		//Проверяем, передана ли число
 		if (typeof(nMonthNumber) != "number") {
-			var sMessage = Edit.createLogMsg(sSrc, "nMonthNumber[" + nMonthNumber + "] не является числом", true);
+			var sMessage = pCreateMsg(sSrc, "nMonthNumber[" + nMonthNumber + "] не является числом", true);
 			throw new Error(sMessage);
 		}
 		
@@ -186,7 +228,7 @@ const Edit = {};
 		
 		//Проверяем, передана ли число от 1 до 12
 		if (arrMonthsNumbers.indexOf(nMonthNumber) == -1) {
-			var sMessage = Edit.createLogMsg(sSrc, "nMonthNumber[" + nMonthNumber + "] не является номером месяца", true);
+			var sMessage = pCreateMsg(sSrc, "nMonthNumber[" + nMonthNumber + "] не является номером месяца", true);
 			throw new Error(sMessage);
 		}		
 		
@@ -196,44 +238,44 @@ const Edit = {};
 
 	//--------------------------------------------------
 	//Сдвиг даты на определенный интервал
-	Edit.shiftDate = function (dDate, nInterval, sUnit, bForward) {
+	function pShiftDate(dDate, nInterval, sUnit, bForward) {
 		
-		var sSrc = "Edit.shiftDate(dDate, nInterval, sUnit, bForward)";
+		var sSrc = "pShiftDate(dDate, nInterval, sUnit, bForward)";
 		
 		//Проверяем, передана ли дата в виде числа
 		if (typeof(dDate) != "object") {
-			var sMessage = Edit.createLogMsg(sSrc, "dDate[" + dDate + "] не является объектом", true);
+			var sMessage = pCreateMsg(sSrc, "dDate[" + dDate + "] не является объектом", true);
 			throw new Error(sMessage);
 		}
 
 		//Проверяем, переданан ли интервал в виде числа
 		if (typeof(nInterval) != "number") {
-			var sMessage = Edit.createLogMsg(sSrc, "nInterval[" + nInterval + "] не является числом", true);			
+			var sMessage = pCreateMsg(sSrc, "nInterval[" + nInterval + "] не является числом", true);			
 			throw new Error(sMessage);
 		}
 
 		//Проверяем, переданан интервал больше ли нуля
 		if (nInterval < 0) {
-			var sMessage = Edit.createLogMsg(sSrc, "nInterval[" + nInterval + "] < 0", true);	
+			var sMessage = pCreateMsg(sSrc, "nInterval[" + nInterval + "] < 0", true);	
 			throw new Error(sMessage);
 		}		
 		
 		//Проверяем, переданан единицы сдвига являются ли строкой
 		if (typeof(sUnit) != "string") {
-			var sMessage = Edit.createLogMsg(sSrc, "sUnit[" + sUnit + "] не является строкой", true);	
+			var sMessage = pCreateMsg(sSrc, "sUnit[" + sUnit + "] не является строкой", true);	
 			throw new Error(sMessage);
 		}		
 		
 		//Проверяем, переданан единицы корректны ли
 		var arrUnits = ["d", "w", "m", "y"];
 		if (arrUnits.indexOf(sUnit) == -1) {
-			var sMessage = Edit.createLogMsg(sSrc, "sUnit[" + sUnit + "] не является d/w/m/y", true);	
+			var sMessage = pCreateMsg(sSrc, "sUnit[" + sUnit + "] не является d/w/m/y", true);	
 			throw new Error(sMessage);
 		}	
 		
 		//Проверяем, направление логическая ли величина
 		if (typeof(bForward) != "boolean" && bForward != undefined) {
-			var sMessage = Edit.createLogMsg(sSrc, "bForward[" + bForward + "] не логическое значение", true);	
+			var sMessage = pCreateMsg(sSrc, "bForward[" + bForward + "] не логическое значение", true);	
 			throw new Error(sMessage);
 		}	
 		
@@ -271,7 +313,7 @@ const Edit = {};
 					}
 					//Если прерывание по количеству циклов
 					if (loop <= 0) {
-						var sMessage = "\nОшибка Edit.shiftDate(dDate, nInterval, sUnit, bForward):\nсдвиг месяца прерван по превышению 10 циклов";
+						var sMessage = "\nОшибка Edit.pShiftDate(dDate, nInterval, sUnit, bForward):\nсдвиг месяца прерван по превышению 10 циклов";
 						throw new Error(sMessage);
 					}
 					return dDate;
@@ -288,38 +330,38 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Остаток дней
-	Edit.daysLeft = function (dTarget, dReference, nRound) {
+	function pDaysLeft(dTarget, dReference, nRound) {
 	
-		var sSrc = "Edit.daysLeft(dTarget, dReference, nRound)";
+		var sSrc = "pDaysLeft(dTarget, dReference, nRound)";
 	
 		//Проверяем, передана ли дата в виде числа
 		if (typeof(dTarget) != "object") {
-			var sMessage = Edit.createLogMsg(sSrc, "dTarget[" + dTarget + "] не является объектом", true);	
+			var sMessage = pCreateMsg(sSrc, "dTarget[" + dTarget + "] не является объектом", true);	
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, передана ли дата dReference в виде числа
 		if (typeof(dReference)!= "object" && dReference != undefined) {
-			var sMessage = Edit.createLogMsg(sSrc, "dReference[" + dReference + "] не является объектом", true);	
+			var sMessage = pCreateMsg(sSrc, "dReference[" + dReference + "] не является объектом", true);	
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, передана ли количество знаков округления nRound в виде числа
 		if (typeof(nRound) != "number" && nRound != undefined) {
-			var sMessage = Edit.createLogMsg(sSrc, "nRound[" + nRound + "] не является числом", true);	
+			var sMessage = pCreateMsg(sSrc, "nRound[" + nRound + "] не является числом", true);	
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, nRound больше ли 0
 		if (nRound < 0) {
-			var sMessage = Edit.createLogMsg(sSrc, "nRound[" + nRound + "]  < 0", true);	
+			var sMessage = pCreateMsg(sSrc, "nRound[" + nRound + "]  < 0", true);	
 			throw new Error(sMessage);
 		}
 		
 		//Проверяем, nRound целое ли
 		if (nRound != undefined) {
 			if (nRound != nRound.toFixed(0)) {
-				var sMessage = Edit.createLogMsg(sSrc, "nRound[" + nRound + "]  не целое", true);	
+				var sMessage = pCreateMsg(sSrc, "nRound[" + nRound + "]  не целое", true);	
 				throw new Error(sMessage);
 			}
 		}
@@ -338,13 +380,13 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Начало дня 0 часов 0 минут 0 секунд 000 миллисекунд
-	Edit.dayStart = function (dDate) {
+	function pDayStart(dDate) {
 		
-		var sSrc = "Edit.dayStart(dDate)";
+		var sSrc = "pDayStart(dDate)";
 		
 		//Проверяем, передана ли дата dDate в виде числа
 		if (typeof(dDate)!= "object" && dDate != undefined) {
-			var sMessage = Edit.createLogMsg(sSrc, "dDate[" + dDate + "]  не является объектом", true);
+			var sMessage = pCreateMsg(sSrc, "dDate[" + dDate + "]  не является объектом", true);
 			throw new Error(sMessage);
 		}
 		if (dDate == undefined) {dDate = new Date();}
@@ -353,77 +395,24 @@ const Edit = {};
 	
 	//--------------------------------------------------
 	//Конец дня 23 часов 59 минут 59 секунд 999 миллисекунд
-	Edit.dayEnd = function (dDate) {
+	function pDayEnd(dDate) {
 		
-		var sSrc = "Edit.dayEnd(dDate)";
+		var sSrc = "pDayEnd(dDate)";
 		
 		//Проверяем, передана ли дата dDate в виде числа
 		if (typeof(dDate)!= "object" && dDate != undefined) {
-			var sMessage = Edit.createLogMsg(sSrc, "dDate[" + dDate + "]  не является объектом", true);
+			var sMessage = pCreateMsg(sSrc, "dDate[" + dDate + "]  не является объектом", true);
 			throw new Error(sMessage);
 		}
 		if (dDate == undefined) {dDate = new Date();}
 		return new Date(dDate.setHours(23, 59, 59, 999));
 	};
 	
-	//--------------------------------------------------
-	//Конец дня 23 часов 59 минут 59 секунд 999 миллисекунд
-	Edit.CreateEvent = function (sTitle, sDescription, dBeginTime, dEndTime) {
-		var i = intent("android.intent.action.INSERT");
-		i.data("content://com.android.calendar/events");
-		i.extra("title", sTitle);
-		i.extra("description", sDescription);
-		i.extraLong("beginTime", dBeginTime);
-		i.extraLong("endTime", dEndTime);
-		i.send();
-	};
-
-
-//======================================================
-//Константы
-//======================================================
-
-//Иконки
-const ICO_WARNING = "⚠️";
-const ICO_SUCSEED = "✔️";
-const ICO_PERIOD = "🗓️";
-const ICO_PLAN = "⏳";
-const ICO_DONE = "✔️";
-const ICO_URGENT = "🔥";
-const ICO_SOON = "⏱️";
 	
-//Имена полей и значения
-const TYPE = "Тип";
-	const _PERIOD = "повтор.";
-const STATUS = "Статус";
-	const _ACTIVE = "активно";
-	const _WAITING = "ожидание";
-	const _DONE = "завершено";
-const SUM = "Сумма";
-const START_DATE = "Дата начала";
-const START_TIME = "Время начала";
-const END_DATE = "Дата окончания";
-const END_TIME = "Время окончания";
-const NAME = "Название";
-const COUNT = "Вычислять периодичность";
-const UNIT = "Ед.измерения";
-	const _DAY = "день";
-	const _WEEK = "неделя";
-	const _MONTH = "месяц";
-	const _YEAR = "год";
-const AUTO = "Автоматически менять дату";
-const INTERVAL = "Интервал";
-	
+//********************************************************************************************************************
+//********************************************************************************************************************
 //======================================================
-//Переменные
-//======================================================
-	
-//Сообщения
-var msgCorrected = ICO_WARNING + " Исправлено:";
-var msgPeriodOff = ICO_WARNING + " Периодичность не включена";
-	
-//======================================================
-//Закрытые методы
+//Открытые функции
 //======================================================
 	
 //------------------------------------------------------
@@ -432,7 +421,7 @@ var msgPeriodOff = ICO_WARNING + " Периодичность не включе�
 function checkTask(incomeTask) {
 	
 	sSrc = "checkTask(incomeTask)";
-	log(Edit.createLogMsg(sSrc, "старт функции"));
+	log(pCreateMsg(sSrc, "старт функции"));
 		
 	//Обрабатываемое дело
 	var task;
@@ -440,10 +429,10 @@ function checkTask(incomeTask) {
 	//Если есть входящий объект, то используем его
 	if (incomeTask == undefined) {
 		task = entry();
-		log(Edit.createLogMsg(sSrc, "текущая задача: " + task.title));
+		log(pCreateMsg(sSrc, "текущая задача: " + task.title));
 	} else {
 		task = incomeTask;
-		log(Edit.createLogMsg(sSrc, "входящая задача: " + task.title));
+		log(pCreateMsg(sSrc, "входящая задача: " + task.title));
 	}
 		
 	//Короткие ссылки на поля
@@ -535,7 +524,7 @@ function checkTask(incomeTask) {
 function shiftDate(bForward, incomeTask) {
 	
 	sSrc = "shiftDate(bForward, incomeTask)";
-	log(Edit.createLogMsg(sSrc, "старт функции"));
+	log(pCreateMsg(sSrc, "старт функции"));
 	
 	//Показывать ли сообщение о смене даты
 	var bShowMessage = true;
@@ -549,11 +538,11 @@ function shiftDate(bForward, incomeTask) {
 	//Если есть входящий объект, то используем его
 	if (incomeTask == undefined) {
 		task = entry();
-		log(Edit.createLogMsg(sSrc, "текущая задача: " + task.title));
+		log(pCreateMsg(sSrc, "текущая задача: " + task.title));
 	} else {
 		task = incomeTask;
 		bShowMessage = false;
-		log(Edit.createLogMsg(sSrc, "входящая задача: " + task.title));
+		log(pCreateMsg(sSrc, "входящая задача: " + task.title));
 	}
 	
 	//Выход, если не включен счёт переодичности
@@ -568,9 +557,9 @@ function shiftDate(bForward, incomeTask) {
 	var FUnit = task.field(UNIT);
 	var FInterval = task.field(INTERVAL);
 		
-	task.set(START_DATE, Edit.shiftDate(FStartDate, FInterval, FUnit, bForward));
+	task.set(START_DATE, pShiftDate(FStartDate, FInterval, FUnit, bForward));
 	if (FEndDate != undefined) {
-		task.set(END_DATE, Edit.shiftDate(FEndDate, FInterval, FUnit, bForward));
+		task.set(END_DATE, pShiftDate(FEndDate, FInterval, FUnit, bForward));
 	}
 
 	var direction;
@@ -581,7 +570,7 @@ function shiftDate(bForward, incomeTask) {
 	}
 
 	//Лог
-	log(Edit.createLogMsg(sSrc, "сдвиг: " + direction*FInterval + " (" + FUnit + ")"));
+	log(pCreateMsg(sSrc, "сдвиг: " + direction*FInterval + " (" + FUnit + ")"));
 		
 	}
 
@@ -599,7 +588,7 @@ function getDaysLeft() {
 	
 	//Прочее
 	var res = " дн.";	
-	var dteDiff = Edit.daysLeft(FStartDate)；
+	var dteDiff = pDaysLeft(FStartDate)；
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
 	if (dteDiff<=3 && FStatus!=_DONE) {
@@ -622,7 +611,7 @@ function getTaskType() {
 	var task = entry();
 	//Поля
 	var FType = task.field (TYPE);
-	return Edit.getIcon(FType);
+	return pGetIcon(FType);
 }
 	
 //----------------------------------------------------------
@@ -633,5 +622,5 @@ function getTaskSum() {
 	var task = entry();
 	//Поля
 	var FSum = task.field (SUM);
-	return Edit.getMoney = function (FSum, "р.");
+	return pGetMoney = function (FSum, "р.");
 }
