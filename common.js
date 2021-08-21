@@ -17,10 +17,6 @@
 const Edit = {};
 	
 	//--------------------------------------------------
-	//Писать ли лог
-	Edit.logging = false;
-	
-	//--------------------------------------------------
 	//Формирование сообщения
 	Edit.createLogMsg = function (sSrc, sMsg, bError) {
 		
@@ -35,22 +31,7 @@ const Edit = {};
 		} else {
 			return ("\n==========\n" + ICO_INFO + "INFO\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
 		}	
-	};
-	//--------------------------------------------------
-	//Изменение статуса записи в лог
-	Edit.setLogging = function (sStatus) {
-		
-		var sSrc = "Edit.setLogging(sStatus)";
-		
-		//Проверяем, передано ли логическое значение
-		if (typeof(sStatus) != "boolean") {
-			var sMessage = Edit.createLogMsg(sSrc, "sStatus[" + sStatus + "] не является логическим значением", true);
-			throw new Error(sMessage);
-		}
-		if (sStatus) {Edit.logging = true;} else {Edit.logging = false;}
-	};
-	
-	//--------------------------------------------------
+	};		
 
 	
 	//--------------------------------------------------
@@ -185,7 +166,7 @@ const Edit = {};
 		nSum = sign + nSum;
 		nSum = nSum.trim();
 		
-		if (sCurrency != undefined) {
+		if (sCurrency != undefined && nSum != "") {
 			return nSum + " " + sCurrency;
 		} else {
 			return nSum;
