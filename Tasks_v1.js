@@ -415,7 +415,7 @@ var msgPeriodOff = ICO_ERROR + " Периодичность не включен�
 function checkTask(incomeTask) {
 	
 	var sSrc = "checkTask(incomeTask)";
-	log(pCreateMsg(sSrc, "старт функции"));
+	console.log(pCreateMsg(sSrc, "старт функции"));
 		
 	//Обрабатываемое дело
 	var task;
@@ -423,10 +423,10 @@ function checkTask(incomeTask) {
 	//Если есть входящий объект, то используем его
 	if (incomeTask == undefined) {
 		task = entry();
-		log(pCreateMsg(sSrc, "текущая задача: " + task.title));
+		console.log(pCreateMsg(sSrc, "текущая задача: " + task.title));
 	} else {
 		task = incomeTask;
-		log(pCreateMsg(sSrc, "входящая задача: " + task.title));
+		console.log(pCreateMsg(sSrc, "входящая задача: " + task.title));
 	}
 		
 	//Короткие ссылки на поля
@@ -447,7 +447,6 @@ function checkTask(incomeTask) {
 	var strResult = msgCorrected;
 
 	//Проверка соответствия типа и статуса
-	message(FType + " " + FStatus);
 	if (FType==_PERIOD && FStatus==_DONE) {
 		task.set(STATUS, _ACTIVE);
 		strResult = strResult + "\n*" + STATUS;
@@ -519,7 +518,7 @@ function checkTask(incomeTask) {
 function shiftDate(bForward, incomeTask) {
 	
 	var sSrc = "shiftDate(bForward, incomeTask)";
-	log(pCreateMsg(sSrc, "старт функции"));
+	console.log(pCreateMsg(sSrc, "старт функции"));
 	
 	//Показывать ли сообщение о смене даты
 	var bShowMessage = true;
@@ -533,11 +532,11 @@ function shiftDate(bForward, incomeTask) {
 	//Если есть входящий объект, то используем его
 	if (incomeTask == undefined) {
 		task = entry();
-		log(pCreateMsg(sSrc, "текущая задача: " + task.title));
+		console.log(pCreateMsg(sSrc, "текущая задача: " + task.title));
 	} else {
 		task = incomeTask;
 		bShowMessage = false;
-		log(pCreateMsg(sSrc, "входящая задача: " + task.title));
+		console.log(pCreateMsg(sSrc, "входящая задача: " + task.title));
 	}
 	
 	//Выход, если не включен счёт переодичности
@@ -565,7 +564,7 @@ function shiftDate(bForward, incomeTask) {
 	}
 
 	//Лог
-	log(pCreateMsg(sSrc, "сдвиг: " + direction*FInterval + " (" + FUnit + ")"));
+	console.log(pCreateMsg(sSrc, "сдвиг: " + direction*FInterval + " (" + FUnit + ")"));
 		
 	}
 
