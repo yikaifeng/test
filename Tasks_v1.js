@@ -112,7 +112,7 @@ var msgPeriodOff = ICO_ERROR + " Периодичность не включен�
 		bSpace = typeof(bSpace) !== undefined ? bSpace : false;
 		
 		//Проверяем, не пустая ли иконка
-		var sIcon = Edit.pGetIcon(sSource);
+		var sIcon = pGetIcon(sSource);
 		if (sIcon.length == 0) {
 			var sMessage = pCreateMsg(sSrc, "sIcon[" + sIcon + "] - пустая строка", true);
 			throw new Error(sMessage);
@@ -308,7 +308,7 @@ var msgPeriodOff = ICO_ERROR + " Периодичность не включен�
 					}
 					//Если прерывание по количеству циклов
 					if (loop <= 0) {
-						var sMessage = "\nОшибка Edit.pShiftDate(dDate, nInterval, sUnit, bForward):\nсдвиг месяца прерван по превышению 10 циклов";
+						var sMessage = "\nОшибка pShiftDate(dDate, nInterval, sUnit, bForward):\nсдвиг месяца прерван по превышению 10 циклов";
 						throw new Error(sMessage);
 					}
 					return dDate;
