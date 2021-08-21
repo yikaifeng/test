@@ -43,12 +43,11 @@ const Edit = {};
 		var sSrc = "Edit.setLogging(sStatus)";
 		
 		//Проверяем, передано ли логическое значение
-		//if (typeof(sStatus) != "boolean") {
-			//var sMessage = Edit.createLogMsg(sSrc, "sStatus[" + sStatus + "] не является логическим значением", true);
-			//throw new Error(sMessage);
-		//}
-		//if (sStatus) {Edit.logging = true;} else {Edit.logging = false;}
-return (typeof (sStatus));
+		if (typeof(sStatus) != "boolean") {
+			var sMessage = Edit.createLogMsg(sSrc, "sStatus[" + sStatus + "] не является логическим значением", true);
+			throw new Error(sMessage);
+		}
+		if (sStatus) {Edit.logging = true;} else {Edit.logging = false;}
 	};
 	
 	//--------------------------------------------------
@@ -92,7 +91,7 @@ return (typeof (sStatus));
 	};
 	
 	//--------------------------------------------------
-	//Получить иконку из начала строки
+	//Установить иконку из строки
 	Edit.setIconFrom = function (sSource, sText, bSpace) {
 		
 		var sSrc = "Edit.setIcon(sSource, sText, bSpace)";
@@ -107,7 +106,7 @@ return (typeof (sStatus));
 			throw new Error(sMessage);
 		}
 		
-		//Проверяем, не пустая ли строка в результате
+		//Возвращаем результат
 		if (bSpace) {
 			return sIcon + " " + sText.trim();
 		} else {
@@ -180,9 +179,9 @@ return (typeof (sStatus));
 			nSum = nSum.toFixed(2);
 		}
 		
-		nSum += "";
-		nSum = new Array(4 - nSum.length % 3).join("U") + nSum;
-		nSum = nSum.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
+		nSum += "";
+		nSum = new Array(4 - nSum.length % 3).join("U") + nSum;
+		nSum = nSum.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
 		nSum = sign + nSum;
 		nSum = nSum.trim();
 		
