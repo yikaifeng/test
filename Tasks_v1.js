@@ -437,7 +437,6 @@ function checkTask(incomeTask) {
 	var FEndDate = task.field (END_DATE);
 	var FEndTime = task.field (END_TIME);
 	var FCount = task.field (COUNT);
-	var FAuto = task.field (AUTO);
 	var FInterval = task.field (INTERVAL);
 		
 	//прочее
