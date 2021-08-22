@@ -564,10 +564,10 @@ function getDaysLeft() {
 			res = dteDiff + res;
 		} else if (dteDiff>30 && dteDiff<=365) {
 			dteDiff = dteDiff/30;
-			res = dteDiff.toFixed(1) + " мес."；
+			res = dteDiff.toFixed(1) + " мес.";
 		} else {
 			dteDiff = dteDiff/365;
-			res = dteDiff.toFixed(1) + " г."；
+			res = dteDiff.toFixed(1) + " г.";
 		}
 	}
 	
