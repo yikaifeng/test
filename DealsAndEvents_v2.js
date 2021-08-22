@@ -559,6 +559,7 @@ function getDaysLeft() {
 		} else {
 			res = dteDiff + res;
 		}
+		res = Fstatus + "<>" + _DONE;
 	} else {
 		if (dteDiff<=30) {
 			res = dteDiff + res;
@@ -569,6 +570,7 @@ function getDaysLeft() {
 			dteDiff = dteDiff/365;
 			res = dteDiff.toFixed(1) + " г.";
 		}
+		res = Fstatus + "<>" + _DONE;
 	}
 	
 	return res;
