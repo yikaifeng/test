@@ -609,9 +609,13 @@ function getGarantee() {
 	var deal = entry();
 	//Поля
 	var FGarantee = deal.field (GARANTEE);
-	var dteDiff = pDaysLeft(FGarantee);
-
-	return ICO_GARANTEE + " " + dteDiff;
+	var FCategory = deal.field(CATEGORY);
+	if (pGetText(FCategory) == "покупка" && FGarantee != undefined) {
+		var dteDiff = pDaysLeft(FGarantee);
+		return ICO_GARANTEE + " " + dteDiff;
+	} else {
+		return "";
+	}	
 }
 
 //----------------------------------------------------------
