@@ -623,7 +623,7 @@ function getDaysLeft2() {
 	if (FStatus!=_DONE) {
 		res	+= "Fstatus != _DONE";
 	} else {
-		res	+= "Fstatus != _DONE";
+		res	+= "Fstatus == _DONE";
 	}
 	
 	message (res);
