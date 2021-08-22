@@ -571,7 +571,7 @@ function getDaysLeft() {
 		}
 	}
 	
-	return FStatus;
+	return res;
 		
 }
 	
