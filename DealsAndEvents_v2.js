@@ -111,7 +111,7 @@ var msgPeriodOff = ICO_ERROR + " Периодичность не включен�
 		bSpace = typeof(bSpace) !== undefined ? bSpace : false;
 		
 		//Проверяем, не пустая ли иконка
-		var sIcon = Edit.pGetIcon(sSource);
+		var sIcon = pGetIcon(sSource);
 		if (sIcon.length == 0) {
 			var sMessage = pCreateMsg(sSrc, "sIcon[" + sIcon + "] - пустая строка", true);
 			throw new Error(sMessage);
