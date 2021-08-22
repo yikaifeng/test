@@ -628,8 +628,8 @@ function getGaranteeExist() {
 	var FGarantee = deal.field (GARANTEE);
 	var dteDiff = pDaysLeft(FGarantee);
 	if (dteDiff>=0) {
-		return true;
+		return 1;
 	} else {
-		return false;
+		return 0;
 	}
 }
