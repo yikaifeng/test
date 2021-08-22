@@ -627,9 +627,5 @@ function getGaranteeExist() {
 	//Поля
 	var FGarantee = deal.field (GARANTEE);
 	var dteDiff = pDaysLeft(FGarantee);
-	if (dteDiff>=0) {
-		return "да";
-	} else {
-		return "нет";
-	}
+	return dteDiff;
 }
