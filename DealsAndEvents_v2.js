@@ -550,21 +550,22 @@ function getDaysLeft() {
 	var FStatus = pGetText(deal.field (STATUS));
 	
 	//Прочее
-	var res = " дн.";	
 	var dteDiff = pDaysLeft(FStartDate);
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
 	if (FStatus!=_DONE) {
+		var res = "";
 		if(dteDiff<=3) {
-			res = ICO_URGENT + dteDiff + res;
+			res = ICO_URGENT + dteDiff + " дн.";
 		} else if (dteDiff>3 && dteDiff<=7) {
-			res = ICO_SOON + dteDiff + res;
+			res = ICO_SOON + dteDiff + " дн.";
 		} else {
-			res = dteDiff + res;
+			res = dteDiff + " дн.";
 		}
 	} else {
+		var res = "";
 		if (dteDiff>=-30) {
-			res = dteDiff + res;
+			res = dteDiff + " дн.";
 		} else if (dteDiff>=-365 && dteDiff<-30) {
 			dteDiff = dteDiff/30;
 			res = dteDiff.toFixed(1) + " мес.";
@@ -616,16 +617,4 @@ function getGarantee() {
 	} else {
 		return "";
 	}	
-}
-
-//----------------------------------------------------------
-//Функция для вывода типа
-//----------------------------------------------------------
-function getGaranteeExist() {
-	//Обрабатываемое дело
-	var deal = entry();
-	//Поля
-	var FGarantee = deal.field (GARANTEE);
-	var dteDiff = pDaysLeft(FGarantee);
-	return dteDiff;
 }
