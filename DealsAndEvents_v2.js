@@ -598,4 +598,17 @@ function getDealName() {
 	return pSetIconFrom(FCategory, FName, true);
 }
 
-
+//----------------------------------------------------------
+//Функция для вывода типа
+//----------------------------------------------------------
+function getGarantee() {
+	//Обрабатываемое дело
+	var deal = entry();
+	//Поля
+	var FGarantee = deal.field (GARANTEE);
+	if (FGarantee == undefined) {
+		return "";
+	} else {
+		return FGarantee;
+	}
+}
