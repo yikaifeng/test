@@ -15,6 +15,7 @@ const ICO_INFO = "ℹ️";
 const ICO_PLAN = "⏳";
 const ICO_URGENT = "🔥";
 const ICO_SOON = "⏱️";
+const ICO_GARANTEE = "🛡️";
 
 	
 //Имена полей и значения
@@ -37,6 +38,7 @@ const UNIT = "Ед.измерения";
 	const _MONTH = "месяц";
 	const _YEAR = "год";
 const INTERVAL = "Интервал";
+const GARANTEE_EXIST = "На гарантии";
 
 //======================================================
 //Переменные
@@ -607,13 +609,11 @@ function getGarantee() {
 	var deal = entry();
 	//Поля
 	var FGarantee = deal.field (GARANTEE);
-	if (FGarantee == undefined) {
-		return "";
+	var dteDiff = pDaysLeft(FGarantee);
+	if (dteDiff>=0) {
+		deal.set(GARANTEE_EXIST, true);
 	} else {
-		var dteDate = FGarantee.getDate();
-		var dteMonth = FGarantee.getMonth();
-		if (dteMonth <10) {dteMonth = "0" + dteMonth;}
-		var dteYear = FGarantee.getYear();
-		return dteDate + "." + dteMonth + "." + dteYear;
+		deal.set(GARANTEE_EXIST, false);
 	}
+	return ICO_GARANTEE + " " + dteDiff;
 }
