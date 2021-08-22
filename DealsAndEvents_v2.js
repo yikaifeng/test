@@ -610,6 +610,10 @@ function getGarantee() {
 	if (FGarantee == undefined) {
 		return "";
 	} else {
-		return FGarantee;
+		var dteDate = FGarantee.getDate();
+		var dteMonth = FGarantee.getMonth();
+		if (dteMonth <10) {dteMonth = "0" + dteMonth;}
+		var dteYear = FGarantee.getYear();
+		return dteDate + "." + dteMonth + "." + dteYear;
 	}
 }
