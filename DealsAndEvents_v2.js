@@ -1,28 +1,28 @@
-//**********************************************************
-//**********************************************************
+//********************************************************************************************************************
+//DealsAndEvents - скрипт для иблиотеке "Дела и события"
+//********************************************************************************************************************
 "use strict";
 
-//**********************************************************
-
+//********************************************************************************************************************
+//********************************************************************************************************************
 //======================================================
 //Константы
 //======================================================
 
 //Иконки
-const ICO_WARNING = "⚠️";
-const ICO_SUCSEED = "✔️";
-const ICO_PERIOD = "🗓️";
+const ICO_ERROR = "⚠️";
+const ICO_INFO = "ℹ️";	
 const ICO_PLAN = "⏳";
-const ICO_DONE = "✔️";
 const ICO_URGENT = "🔥";
 const ICO_SOON = "⏱️";
+
 	
 //Имена полей и значения
 const TYPE = "Тип";
-	const _PERIOD = ICO_PERIOD + " повтор.";
+	const _PERIOD = "повтор.";
 const STATUS = "Статус";
-	const _PLAN = ICO_PLAN + " в плане";
-	const _DONE = ICO_DONE + " завершено";
+	const _PLAN = "план";
+	const _DONE = "завершено";
 const CATEGORY = "Категория";
 const START_DATE = "Дата начала";
 const START_TIME = "Время начала";
@@ -35,59 +35,330 @@ const UNIT = "Ед.измерения";
 	const _WEEK = "неделя";
 	const _MONTH = "месяц";
 	const _YEAR = "год";
-const AUTO = "Автоматически менять дату";
 const INTERVAL = "Интервал";
-	
+
 //======================================================
 //Переменные
 //======================================================
-	
+
 //Сообщения
-var msgCorrected = ICO_WARNING + " Исправлено:";
-var msgPeriodOff = ICO_WARNING + " Периодичность не включена";
-	
+var msgCorrected = ICO_ERROR + " Исправлено:";
+var msgPeriodOff = ICO_ERROR + " Периодичность не включена";
+
+//********************************************************************************************************************
+//********************************************************************************************************************
 //======================================================
-//Закрытые методы
+//Закрытые фунции
 //======================================================
+	//--------------------------------------------------
+	//Создать сообщение
+	function pCreateMsg(sSrc, sMsg, bError) {
+			
+		//Параметры по умолчанию
+		bError = typeof(bError) !== undefined ? bError : false;
+			
+		if (bError) {
+			return ("\n==========\n" + ICO_ERROR + "ERROR\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
+		} else {
+			return ("\n==========\n" + ICO_INFO + "INFO\n  [src]: " + sSrc + "\n  [msg]: " + sMsg);
+		}	
+	};		
 	
-//------------------------------------------------------
-//Функция для получения иконки
-//------------------------------------------------------
-function getIcon(strSource) {
+	//--------------------------------------------------
+	//Получить иконку из начала строки
+	function pGetIcon(sSource) {
 		
-	//проверка, не пустая ли строка источника
-	if (strSource == undefined) {
-		return "";
-	} else {
+		var sSrc = "pGetIcon(sSource)";
+		
+		//Проверяем, передана ли строка
+		if (typeof(sSource) != "string") {
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "] не является строкой", true);
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, не пустая ли строка
+		if (sSource.length == 0) {
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "] - пустая строка", true);
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, есть ли хотя бы 1 пробел
+		if (sSource.indexOf(" ") == -1) {
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "]: отсутствует пробел в строке", true);
+			throw new Error(sMessage);
+		}
+		
 		var separator = " ";
-		strSource = String(strSource);
-		return strSource.split(separator,1)[0];
-	}
-}
+		var sIcon = sSource.split(separator,1)[0];
+		
+		//Проверяем, не пустая ли строка в результате
+		if (sIcon.length == 0) {
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "]: иконка в строке отсутствует", true);
+			throw new Error(sMessage);
+		}
+		
+		return sIcon;
+		
+	};
 	
-//------------------------------------------------------
-//Функция для получения названия без иконки
-//------------------------------------------------------
-function getName(strSource) {
+	//--------------------------------------------------
+	//Установить иконку из строки
+	function pSetIconFrom(sSource, sText, bSpace) {
+		
+		var sSrc = "pSetIconFrom(sSource, sText, bSpace)";
+		
+		//Параметры по умолчанию
+		bSpace = typeof(bSpace) !== undefined ? bSpace : false;
+		
+		//Проверяем, не пустая ли иконка
+		var sIcon = Edit.pGetIcon(sSource);
+		if (sIcon.length == 0) {
+			var sMessage = pCreateMsg(sSrc, "sIcon[" + sIcon + "] - пустая строка", true);
+			throw new Error(sMessage);
+		}
+		
+		//Возвращаем результат
+		if (bSpace) {
+			return sIcon + " " + sText.trim();
+		} else {
+			return sIcon + sText.trim();
+		}	
+	};
 	
-	//проверка, не пустая ли строка источника
-	if (strSource == undefined) {
-		return "";
-	} else {
+	//--------------------------------------------------
+	//Получить строку без иконки в начале строки
+	function pGetText(sSource) {	
+	
+		var sSrc = "pGetText(sSource)";
+	
+		//Проверяем, передана ли строка
+		if (typeof(sSource) != "string") {
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "] не является строкой", true);
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, не пустая ли строка
+		if (sSource.length == 0) {
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "] - пустая строка", true);
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, есть ли хотя бы 1 пробел
+		if (sSource.indexOf(" ") == -1) {
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "]: отсутствует пробел в строке", true);
+			throw new Error(sMessage);
+		}
+		
 		var separator = " ";
-		strSource = String(strSource);
-		var strIcon = strSource.split(separator,1)[0];
-		var strName = strSource.slice(strIcon.length);
-		return strName = strName.trim();
-	}
-}
+		var sIcon = sSource.split(separator,1)[0];
+		var sName = sSource.slice(sIcon.length).trim();
+		
+		//Проверяем, не пустая ли строка в результате
+		if (sName.length == 0) {
+			var sMessage = pCreateMsg(sSrc, "sSource[" + sSource + "]: отсутствует название в строке", true);
+			throw new Error(sMessage);
+		}
+		
+		return sName;
+
+	};
+	
+	//--------------------------------------------------
+	//Получить деньги
+	function pGetMoney(nSum, sCurrency) {
+		
+		var sSrc = "pGetMoney(nSum, sCurrency)";
+		
+		//Проверяем, передана ли число
+		if (typeof(nSum) != "number") {
+			var sMessage = pCreateMsg(sSrc, "nSum[" + nSum + "] не является числом", true);
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, передана ли строка в sCurrency
+		if (typeof(sCurrency) != "string" && sCurrency != undefined) {
+			var sMessage = pCreateMsg(sSrc, "sCurrency[" + sCurrency + "] не является строкой", true);
+			throw new Error(sMessage);
+		}
+		
+		nSum = nSum.toFixed(2);
+		
+		var sign = "";
+		if (nSum < 0) {
+			sign = "-";
+			nSum = Math.abs(nSum);
+			nSum = nSum.toFixed(2);
+		}
+		
+		nSum += "";
+		nSum = new Array(4 - nSum.length % 3).join("U") + nSum;
+		nSum = nSum.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
+		nSum = sign + nSum;
+		nSum = nSum.trim();
+		
+		if (sCurrency != undefined) {
+			return nSum + " " + sCurrency;
+		} else {
+			return nSum;
+		}		
+			
+	};
+	
+	//--------------------------------------------------
+	//Сдвиг даты на определенный интервал
+	function pShiftDate(dDate, nInterval, sUnit, bForward) {
+		
+		var sSrc = "pShiftDate(dDate, nInterval, sUnit, bForward)";
+		
+		//Проверяем, передана ли дата в виде числа
+		if (typeof(dDate) != "object") {
+			var sMessage = pCreateMsg(sSrc, "dDate[" + dDate + "] не является объектом", true);
+			throw new Error(sMessage);
+		}
+
+		//Проверяем, переданан ли интервал в виде числа
+		if (typeof(nInterval) != "number") {
+			var sMessage = pCreateMsg(sSrc, "nInterval[" + nInterval + "] не является числом", true);			
+			throw new Error(sMessage);
+		}
+
+		//Проверяем, переданан интервал больше ли нуля
+		if (nInterval < 0) {
+			var sMessage = pCreateMsg(sSrc, "nInterval[" + nInterval + "] < 0", true);	
+			throw new Error(sMessage);
+		}		
+		
+		//Проверяем, переданан единицы сдвига являются ли строкой
+		if (typeof(sUnit) != "string") {
+			var sMessage = pCreateMsg(sSrc, "sUnit[" + sUnit + "] не является строкой", true);	
+			throw new Error(sMessage);
+		}		
+		
+		//Проверяем, переданан единицы корректны ли
+		var arrUnits = ["d", "w", "m", "y"];
+		if (arrUnits.indexOf(sUnit) == -1) {
+			var sMessage = pCreateMsg(sSrc, "sUnit[" + sUnit + "] не является d/w/m/y", true);	
+			throw new Error(sMessage);
+		}	
+		
+		//Проверяем, направление логическая ли величина
+		if (typeof(bForward) != "boolean" && bForward != undefined) {
+			var sMessage = pCreateMsg(sSrc, "bForward[" + bForward + "] не логическое значение", true);	
+			throw new Error(sMessage);
+		}	
+		
+		var sign;
+		if (bForward == true || bForward == undefined) {sign = 1;} else {sign = -1;}
+				
+			switch (sUnit) {
+				
+				case "d":
+					dDate.setDate(dDate.getDate() + sign*nInterval);
+					return dDate;
+					break;
+					
+				case "w":
+					dDate.setDate(dDate.getDate() + sign*nInterval*7);
+					return dDate;
+					break;
+					
+				case "m":
+					//сохраняем дату и устанавливаем 1 число месяца
+					var nOriginalDate = dDate.getDate();
+					dDate.setDate(1);
+						
+					//Прибавляем нужное число месяцев
+					dDate.setMonth(dDate.getMonth() + sign*nInterval);
+					var nNewMonth = dDate.getMonth();
+					
+					//Восстанавливаем дату без перескока месяца
+					dDate.setDate(nOriginalDate);
+						
+					var loop = 10;
+					while (nNewMonth != dDate.getMonth() && loop>=0) {
+						dDate.setDate(dDate.getDate()-1);
+						loop = loop - 1;
+					}
+					//Если прерывание по количеству циклов
+					if (loop <= 0) {
+						var sMessage = "\nОшибка Edit.pShiftDate(dDate, nInterval, sUnit, bForward):\nсдвиг месяца прерван по превышению 10 циклов";
+						throw new Error(sMessage);
+					}
+					return dDate;
+					break;
+					
+				case "y":
+					dDate.setFullYear(dDate.getFullYear() + sign*nInterval);
+					return dDate;
+					break;
+			
+			}
+		
+	};
+	
+	//--------------------------------------------------
+	//Остаток дней
+	function pDaysLeft(dTarget, dReference, nRound) {
+	
+		var sSrc = "pDaysLeft(dTarget, dReference, nRound)";
+	
+		//Проверяем, передана ли дата в виде числа
+		if (typeof(dTarget) != "object") {
+			var sMessage = pCreateMsg(sSrc, "dTarget[" + dTarget + "] не является объектом", true);	
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, передана ли дата dReference в виде числа
+		if (typeof(dReference)!= "object" && dReference != undefined) {
+			var sMessage = pCreateMsg(sSrc, "dReference[" + dReference + "] не является объектом", true);	
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, передана ли количество знаков округления nRound в виде числа
+		if (typeof(nRound) != "number" && nRound != undefined) {
+			var sMessage = pCreateMsg(sSrc, "nRound[" + nRound + "] не является числом", true);	
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, nRound больше ли 0
+		if (nRound < 0) {
+			var sMessage = pCreateMsg(sSrc, "nRound[" + nRound + "]  < 0", true);	
+			throw new Error(sMessage);
+		}
+		
+		//Проверяем, nRound целое ли
+		if (nRound != undefined) {
+			if (nRound != nRound.toFixed(0)) {
+				var sMessage = pCreateMsg(sSrc, "nRound[" + nRound + "]  не целое", true);	
+				throw new Error(sMessage);
+			}
+		}
+			
+		//Если не задана конечная дата, то сегодня
+		if (dReference == undefined) {dReference = new Date();}
+		if (nRound == undefined) {nRound = 0;}
+			
+		//Разница в днях с сейчас
+		var dDif = (dTarget - dReference)/(1000*3600*24);
+				
+		//Округляем
+		return dDif.toFixed(nRound);
+						
+	};
+	
+//********************************************************************************************************************
+//********************************************************************************************************************
+//======================================================
+//Открытые функции
+//======================================================
 	
 //------------------------------------------------------
 //Функция для коррекци неправильного заполнения полей
 //------------------------------------------------------
 function checkDeal(incomeDeal) {
-		
-	log("\n-> checkDeal(incomeDeal)");
+	
+	var sSrc = "checkDeal(incomeDeal)";
+	log(pCreateMsg(sSrc, "старт функции"));
 		
 	//Обрабатываемое дело
 	var deal;
@@ -95,21 +366,20 @@ function checkDeal(incomeDeal) {
 	//Если есть входящий объект, то используем его
 	if (incomeDeal == undefined) {
 		deal = entry();
-		log("\n  *deal(cur): " + deal.title);
+		log(pCreateMsg(sSrc, "текущая задача: " + deal.title));
 	} else {
 		deal = incomeDeal;
-		log("\n  *deal(inc): " + deal.title);
+		log(pCreateMsg(sSrc, "входящая задача: " + deal.title));
 	}
 		
 	//Короткие ссылки на поля
-	var FType = deal.field (TYPE);
-	var FStatus = deal.field (STATUS);
+	var FType = pGetText(deal.field (TYPE));
+	var FStatus = pGetText(deal.field (STATUS));
 	var FStartDate = deal.field (START_DATE);
 	var FStartTime = deal.field (START_TIME);
 	var FEndDate = deal.field (END_DATE);
 	var FEndTime = deal.field (END_TIME);
 	var FCount = deal.field (COUNT);
-	var FAuto = deal.field (AUTO);
 	var FInterval = deal.field (INTERVAL);
 		
 	//прочее
@@ -120,7 +390,7 @@ function checkDeal(incomeDeal) {
 
 	//Проверка соответствия типа и статуса
 	if (FType==_PERIOD && FStatus==_DONE) {
-		deal.set(STATUS, _PLAN);
+		deal.set(STATUS, ICO_PLAN + " " + _PLAN);
 		strResult = strResult + "\n*" + STATUS;
 	}
 		
@@ -169,10 +439,7 @@ function checkDeal(incomeDeal) {
 		deal.set(COUNT, 0);
 		strResult = strResult + "\n*" + COUNT;
 	}
-	if (FType!=_PERIOD && FAuto==1) {
-		deal.set(AUTO, 0);
-		strResult = strResult + "\n*" + AUTO;
-	}
+
 
 	//Проверка интервала
 	if (FInterval!=undefined && FInterval<0) {
@@ -192,7 +459,11 @@ function checkDeal(incomeDeal) {
 //----------------------------------------------------------
 function shiftDate(bForward, incomeDeal) {
 	
-	log("\n-> shiftDate(bForward, incomeDeal)");
+	var sSrc = "shiftDate(bForward, incomeDeal)";
+	log(pCreateMsg(sSrc, "старт функции"));
+	
+	//Показывать ли сообщение о смене даты
+	var bShowMessage = true;
 
 	//Обрабатываемое дело
 	var deal;
@@ -202,221 +473,106 @@ function shiftDate(bForward, incomeDeal) {
 		
 	//Если есть входящий объект, то используем его
 	if (incomeDeal == undefined) {
-			deal = entry();
-			log("\n  *deal(cur): " + deal.title);
-		} else {
-			deal = incomeDeal;
-			bShowMessage = false;
-			log("\n  *deal(inc): " + deal.title);
+		deal = entry();
+		log(pCreateMsg(sSrc, "текущая задача: " + deal.title));
+	} else {
+		deal = incomeDeal;
+		bShowMessage = false;
+		log(pCreateMsg(sSrc, "входящая задача: " + deal.title));
 	}
-		
-	//Направление сдвига
-	var direction;
-	if (bForward != false) {direction = 1;} else {direction = -1;}
-		
-	//Короткие ссылки на поля
-	var FStartDate = deal.field(START_DATE);
-	var FEndDate = deal.field(END_DATE);
-	var FUnit = deal.field(UNIT);
-	var FInterval = deal.field(INTERVAL);
-		
+	
 	//Выход, если не включен счёт переодичности
 	if (!deal.field(COUNT)) {
 		message(msgPeriodOff);
 		exit();
 	}
 		
+	//Короткие ссылки на поля
+	var FStartDate = deal.field(START_DATE);
+	var FEndDate = deal.field(END_DATE);
+	var FUnit = deal.field(UNIT);
+	var FInterval = deal.field(INTERVAL);
+	var unit;
+	
 	//Обрабатываем перенос
 	switch (FUnit) {
 
-		case _DAY:
-			FStartDate.setDate(FStartDate.getDate() + direction*FInterval);
-			deal.set(START_DATE, FStartDate);
-			if (FEndDate != undefined) {
-				FEndDate.setDate(FEndDate.getDate() + direction*FInterval);
-				deal.set(END_DATE, FEndDate);
-			}
+		case "день":
+			unit = "d";
 			break;
 
-		case _WEEK:
-			FStartDate.setDate(FStartDate.getDate() + direction*FInterval*7);
-			deal.set(START_DATE, FStartDate);
-			if (FEndDate != undefined) {
-				FEndDate.setDate(FEndDate.getDate() + direction*FInterval*7);
-				deal.set(END_DATE, FEndDate);
-			}
+		case "неделя":
+			unit = "w";
 			break;
 
-		case _MONTH:
-		
-			//сохраняем дату и устанавливаем 1 число месяца
-			var nDate = FStartDate.getDate();
-			FStartDate.setDate(1);
-				
-			//Прибавляем нужное число месяцев
-			FStartDate.setMonth(FStartDate.getMonth() + direction*FInterval);
-				
-			//Восстанавливаем дату без перескока месяца
-			var nMonth = FStartDate.getMonth();
-
-			FStartDate.setDate(nDate);
-				
-			var loop = 10;
-			while (nMonth != FStartDate.getMonth() && loop>0) {
-				FStartDate.setDate(FStartDate.getDate()-1);
-				loop = loop - 1;
-			}
-
-			deal.set(START_DATE, FStartDate);
-
-			//дата окончания
-			if (FEndDate != undefined) {
-				nDate = FEndDate.getDate();
-				FEndDate.setDate(1);
-					
-				//Прибавляем нужное число месяцев
-				FEndDate.setMonth(FEndDate.getMonth() + direction*FInterval);
-				
-				//Восстанавливаем дату без перескока месяца
-				nMonth = FEndDate.getMonth();
-
-				FEndDate.setDate(nDate);
-					
-				loop = 10;
-				while (nMonth != FEndDate.getMonth() && loop>0) {
-					FEndDate.setDate(FEndDate.getDate()-1);
-					loop = loop - 1;
-				}
-
-				deal.set(END_DATE, FEndDate);
-			}
+		case "месяц":
+			unit = "m";
 			break;
 
-		case _YEAR:
-			FStartDate.setFullYear(FStartDate.getFullYear() + direction*FInterval);
-			deal.set(START_DATE, FStartDate);
-			if (FEndDate != undefined) {
-				FEndDate.setFullYear(FEndDate.getFullYear() + direction*FInterval);
-				deal.set(END_DATE, FEndDate);
-			}
+		case "год":
+			unit = "y";
 			break;
 			
 		default: break;
 			
 		}
 		
+	deal.set(START_DATE, pShiftDate(FStartDate, FInterval, unit, bForward));
+	if (FEndDate != undefined) {
+		deal.set(END_DATE, pShiftDate(FEndDate, FInterval, unit, bForward));
+	}
+
+	var direction;
+	if (bForward != false) {direction = 1;} else {direction = -1;}
+	
 	if (bShowMessage) {
-		message(ICO_SUCSEED + " Перенесено на " + direction*FInterval + " (" + FUnit + ")");
+		message(ICO_INFO + " Перенесено на " + direction*FInterval + " (" + FUnit + ")");
 	}
 
 	//Лог
-	log("\n  " + deal.title + "\n  СДВИГ НА: " + direction*FInterval + " (" + FUnit + ")");
+	log(pCreateMsg(sSrc, "сдвиг: " + direction*FInterval + " (" + FUnit + ")"));
 		
 	}
-	
-//----------------------------------------------------------
-//Функция автоматического сдвига даты
-//----------------------------------------------------------
-function shiftAuto() {
-		
-	log("\n-> shiftAuto()");
-		
-	//Текущая библиотека и её записи
-	var libDeals = lib();
-	var deals = libDeals.entries();	
-	
-	log("\n  БИБЛИОТЕКА: " + libDeals.title + "\n  *(" + deals.length + " записей)");
-	
-	var count = 0;
-	var loop = 100;
-	
-	//Задаем начало сегодняшнего дня
-	var today = new Date();
-	today = today.setHours(0,0,0,0);
-		
-	//Перебираем значения
-	for (var i = 0; i < deals.length; i++) {
-			
-		//Текущее в цикле дело
-		var deal = deals[i];
-			
-		//Если оно переодическое и нужно считать
-		if (deal.field(AUTO) == 1 && deal.field(TYPE)==_PERIOD) {
-				
-			//Считаем по дате начала по умолчанию
-			var selectedDate = START_DATE;
-				
-			//Если есть дата конца, то по ней
-			if (deal.field(END_DATE) != undefined) {
-				selectedDate = END_DATE;
-			}
-				
-			//Ищем просроченное дело			
-			if (deal.field(selectedDate) < today) {
-					
-				//Если событие дело
-				log("\n  НАЙДЕНА ЗАПИСЬ ДЛЯ ПЕРЕНОСА: " + deal.title);
-				count = count + 1;
-					
-				while (deal.field(selectedDate) < today && loop > 0){
-					shiftDate(true, deal);
-					loop = loop - 1;
-				}
-			}
-		}		
-	}
-		
-	message(ICO_DONE + " Перенесены даты: " + count + " (запись)");
-		
-	log("  ПЕРЕНЕСЕНО: " + count + " (запись)");
-		
-}
 
 //----------------------------------------------------------
 //Функция показывающая остаток дней
 //----------------------------------------------------------
-function daysLeft() {
+function getDaysLeft() {
 	
 	//Обрабатываемое дело
 	var deal = entry();
 	
 	//Короткие ссылки на поля
 	var FStartDate = deal.field (START_DATE);
-	var FStatus = deal.field (STATUS);
+	var FStatus = pGetText(deal.field (STATUS));
 	
 	//Прочее
 	var res = " дн.";	
-	var dteToday = new Date();
-	
-	//Разница в днях с сейчас
-	var dteDiff = (FStartDate - dteToday)/(1000*3600*24);
-		
-	//Округляем до целых
-	dteDiff = dteDiff.toFixed(0);
+	var dteDiff = pDaysLeft(FStartDate);
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
-	if (dteDiff<=3 && FStatus!=_DONE) {
-		res = ICO_URGENT + dteDiff + res;
-	} else if (dteDiff>3 && dteDiff<=7 && FStatus!=_DONE) {
-		res = ICO_SOON + dteDiff + res;
+	if (FStatus!=_DONE) {
+		if(dteDiff<=3) {
+			res = ICO_URGENT + dteDiff + res;
+		} else if (dteDiff>3 && dteDiff<=7) {
+			res = ICO_SOON + dteDiff + res;
+		} else {
+			res = dteDiff + res;
+		}
 	} else {
-		res = dteDiff + res;
+		if (dteDiff<=30) {
+			res = dteDiff + res;
+		} else if (dteDiff>30 && dteDiff<=365) {
+			dteDiff = dteDiff/30;
+			res = dteDiff.toFixed(1) + " мес."；
+		} else {
+			dteDiff = dteDiff/365;
+			res = dteDiff.toFixed(1) + " г."；
+		}
 	}
 	
 	return res;
 		
-}
-	
-//----------------------------------------------------------
-//Функция для вывода названия
-//----------------------------------------------------------
-function getDealName() {
-	//Обрабатываемое дело
-	var deal = entry();
-	//Поля
-	var FCategory = deal.field (CATEGORY);
-	var FName = deal.field (NAME);
-	return getIcon(FCategory) + " " + FName;
 }
 	
 //----------------------------------------------------------
@@ -427,21 +583,17 @@ function getDealType() {
 	var deal = entry();
 	//Поля
 	var FType = deal.field (TYPE);
-	return getIcon(FType);
+	return pGetIcon(FType);
 }
-	
+
 //----------------------------------------------------------
-//Функция для вывода статуса
+//Функция для вывода типа
 //----------------------------------------------------------
-function getDealStatus() {
+function getDealName() {
 	//Обрабатываемое дело
 	var deal = entry();
 	//Поля
-	var FStatus = deal.field (STATUS);
-	var ico = getIcon(FStatus);
-	if (ico==ICO_PLAN) {
-		return "";
-	} else {
-		return ico;
-	}
+	var FName = deal.field (NAME);
+	var FCategory = deal.field (CATEGORY);
+	return pSetIconFrom(FCategory, FName, true);
 }
