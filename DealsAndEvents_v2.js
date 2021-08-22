@@ -560,9 +560,9 @@ function getDaysLeft() {
 			res = dteDiff + res;
 		}
 	} else {
-		if (dteDiff<=30) {
+		if (dteDiff>=-30) {
 			res = dteDiff + res;
-		} else if (dteDiff>30 && dteDiff<=365) {
+		} else if (dteDiff>=-365 && dteDiff<-30) {
 			dteDiff = dteDiff/30;
 			res = dteDiff.toFixed(1) + " мес";
 		} else {
@@ -598,34 +598,4 @@ function getDealName() {
 	return pSetIconFrom(FCategory, FName, true);
 }
 
-//----------------------------------------------------------
-//Функция показывающая остаток дней
-//----------------------------------------------------------
-function getDaysLeft2() {
-	
-	//Обрабатываемое дело
-	var deal = entry();
-	
-	//Короткие ссылки на поля
-	var FStartDate = deal.field (START_DATE);
-	var FStatus = pGetText(deal.field (STATUS));
-	
-	//Прочее
-	var res = "";
-	res	+= "Fstatus: " + FStatus + "\n";
-	res	+= "_DONE: " + _DONE + "\n";
-	
-	var dteDiff = pDaysLeft(FStartDate);
-	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
-	
-	res	+= "dif: " + dteDiff + "\n";
-	
-	if (FStatus!=_DONE) {
-		res	+= "Fstatus != _DONE";
-	} else {
-		res	+= "Fstatus == _DONE";
-	}
-	
-	message (res);
-		
-}
+
