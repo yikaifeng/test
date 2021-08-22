@@ -553,7 +553,7 @@ function getDaysLeft() {
 	var dteDiff = pDaysLeft(FStartDate);
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
-	if (FStatus!=_DONE) {
+	if (!(FStatus == _DONE)) {
 		var res = "";
 		if(dteDiff<=3) {
 			res = ICO_URGENT + dteDiff + " дн.";
