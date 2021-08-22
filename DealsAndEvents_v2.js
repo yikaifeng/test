@@ -612,7 +612,7 @@ function getGarantee() {
 	var FCategory = deal.field(CATEGORY);
 	if (pGetText(FCategory) == "покупка" && FGarantee != undefined) {
 		var dteDiff = pDaysLeft(FGarantee);
-		return ICO_GARANTEE + " " + dteDiff;
+		return ICO_GARANTEE + " " + dteDiff + " дн.";
 	} else {
 		return "";
 	}	
