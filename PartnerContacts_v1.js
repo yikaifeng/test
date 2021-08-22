@@ -15,7 +15,7 @@ const ICO_INFO = "ℹ️";
 
 //Имена полей и значения
 const TYPE = "Тип контакта";
-const NUMBER = "Телефон//факс";
+const NUMBER = "Телефон\/факс";
 const OTHER = "Другой";
 const MAIL = "E-mail";
 
