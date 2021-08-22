@@ -610,10 +610,22 @@ function getGarantee() {
 	//Поля
 	var FGarantee = deal.field (GARANTEE);
 	var dteDiff = pDaysLeft(FGarantee);
-	if (dteDiff>=0) {
-		deal.set(GARANTEE_EXIST, true);
-	} else {
-		deal.set(GARANTEE_EXIST, false);
-	}
+
 	return ICO_GARANTEE + " " + dteDiff;
+}
+
+//----------------------------------------------------------
+//Функция для вывода типа
+//----------------------------------------------------------
+function getGaranteeExist() {
+	//Обрабатываемое дело
+	var deal = entry();
+	//Поля
+	var FGarantee = deal.field (GARANTEE);
+	var dteDiff = pDaysLeft(FGarantee);
+	if (dteDiff>=0) {
+		return true;
+	} else {
+		return false;
+	}
 }
