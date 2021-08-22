@@ -111,7 +111,7 @@ var msgPeriodOff = ICO_ERROR + " Периодичность не включен�
 		bSpace = typeof(bSpace) !== undefined ? bSpace : false;
 		
 		//Проверяем, не пустая ли иконка
-		var sIcon = pGetIcon(sSource);
+		var sIcon = Edit.pGetIcon(sSource);
 		if (sIcon.length == 0) {
 			var sMessage = pCreateMsg(sSrc, "sIcon[" + sIcon + "] - пустая строка", true);
 			throw new Error(sMessage);
@@ -559,18 +559,16 @@ function getDaysLeft() {
 		} else {
 			res = dteDiff + res;
 		}
-		res = Fstatus + "<>" + _DONE;
 	} else {
 		if (dteDiff<=30) {
 			res = dteDiff + res;
 		} else if (dteDiff>30 && dteDiff<=365) {
 			dteDiff = dteDiff/30;
-			res = dteDiff.toFixed(1) + " мес.";
+			res = dteDiff.toFixed(1) + " мес";
 		} else {
 			dteDiff = dteDiff/365;
 			res = dteDiff.toFixed(1) + " г.";
 		}
-		res = Fstatus + "<>" + _DONE;
 	}
 	
 	return res;
@@ -598,4 +596,36 @@ function getDealName() {
 	var FName = deal.field (NAME);
 	var FCategory = deal.field (CATEGORY);
 	return pSetIconFrom(FCategory, FName, true);
+}
+
+//----------------------------------------------------------
+//Функция показывающая остаток дней
+//----------------------------------------------------------
+function getDaysLeft2() {
+	
+	//Обрабатываемое дело
+	var deal = entry();
+	
+	//Короткие ссылки на поля
+	var FStartDate = deal.field (START_DATE);
+	var FStatus = pGetText(deal.field (STATUS));
+	
+	//Прочее
+	var res = "";
+	res	+= "Fstatus: " + FStatus + "\n";
+	res	+= "_DONE: " + _DONE + "\n";
+	
+	var dteDiff = pDaysLeft(FStartDate);
+	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
+	
+	res	+= "dif: " + dteDiff + "\n";
+	
+	if (FStatus!=_DONE) {
+		res	+= "Fstatus != _DONE";
+	} else {
+		res	+= "Fstatus != _DONE";
+	}
+	
+	message (res);
+		
 }
