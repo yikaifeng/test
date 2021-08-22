@@ -29,6 +29,7 @@ const START_TIME = "Время начала";
 const END_DATE = "Дата окончания";
 const END_TIME = "Время окончания";
 const NAME = "Название";
+const GARANTEE = "Гарантия до";
 const COUNT = "Вычислять периодичность";
 const UNIT = "Ед.измерения";
 	const _DAY = "день";
