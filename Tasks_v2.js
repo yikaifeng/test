@@ -677,7 +677,7 @@ function getColor() {
 			if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 			if (dteDiff <= 1) {
 				color = "#F44336";
-			} elseif (dteDiff>1 && dteDiff<=3) {
+			} else if (dteDiff>1 && dteDiff<=3) {
 				color = "#FFC107";
 			} else {
 				color = "#FFEB3B";
