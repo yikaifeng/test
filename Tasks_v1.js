@@ -678,9 +678,9 @@ function getColor() {
 			//Прочее
 			var dteDiff = pDaysLeft(FStartDate);
 			if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
-			if (dteDiff <= 1) {
+			if (dteDiff < 1) {
 				color = "#F44336";
-			} else if (dteDiff>1 && dteDiff<=3) {
+			} else if (dteDiff>=1 && dteDiff<=3) {
 				color = "#FFAE00";
 			} else if (dteDiff>3 && dteDiff<=7) {
 				color = "#FFEB3B";
