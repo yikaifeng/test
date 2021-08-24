@@ -652,34 +652,3 @@ function getTaskSum() {
 //----------------------------------------------------------
 //Функция для вывода статуса
 //----------------------------------------------------------
-function getColor() {
-	//Обрабатываемое дело
-	var task = entry();
-	//Поля
-	var FStatus = pGetText(task.field (STATUS));
-	
-	switch (FStatus) {
-		case _DONE: 
-			return "#009688";
-			break;
-		case _WAITING: 
-			return "#03A9F4";
-			break;
-		case _ACTIVE: 
-			var FStartDate = task.field (START_DATE);
-			var FStatus = pGetText(task.field (STATUS));
-			//Прочее
-			var dteDiff = pDaysLeft(FStartDate);
-			if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
-			if (dteDiff <= 1) {
-				return "#F44336";
-			} elseif (dteDiff>1 && dteDiff<=3) {
-				return "#FFC107";
-			} else {
-				return "#FFEB3B";
-			}
-			
-			break;
-	}
-	
-}
