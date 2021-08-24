@@ -652,3 +652,46 @@ function getTaskSum() {
 //----------------------------------------------------------
 //Функция для вывода статуса
 //----------------------------------------------------------
+//----------------------------------------------------------
+//Функция для вывода статуса
+//----------------------------------------------------------
+function getColor() {
+	//Обрабатываемое дело
+	var task = entry();
+	//Поля
+	var FStatus = pGetText(task.field (STATUS));
+  	var FStartDate = task.field (START_DATE);
+	var color = "";
+	
+	switch (FStatus) {
+      
+		case _DONE: 
+			color = "#9E9E9E";
+			break;
+      
+		case _WAITING: 
+			color = "#03A9F4";
+			break;
+      
+		case _ACTIVE: 
+
+			//Прочее
+			var dteDiff = pDaysLeft(FStartDate);
+			if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
+			if (dteDiff <= 1) {
+				color = "#F44336";
+			} else if (dteDiff>1 && dteDiff<=3) {
+				color = "#FFAE00";
+			} else if (dteDiff>3 && dteDiff<=7) {
+				color = "#FFEB3B";
+			} else {
+				color = "#8BC34A";
+			}
+			
+			break;
+      
+      		default: break;
+	}
+	
+	return color;
+}
