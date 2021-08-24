@@ -661,7 +661,7 @@ function getDivision() {
 	if (FDivision.length > 1) {
 		return "i " + FDivision.length;
 	} else {
-		return FDivision;
+		return FDivision.field("Вывод краткого названия");
 	}
 	
 }
