@@ -657,7 +657,7 @@ function getColor() {
 	var task = entry();
 	//Поля
 	var FStatus = pGetText(task.field (STATUS));
-  	var FStartDate = task.field (START_DATE);
+  	var FStartDate = pDayEnd(task.field (START_DATE));
 	var color = "";
 	
 	switch (FStatus) {
