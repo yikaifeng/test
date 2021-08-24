@@ -648,3 +648,20 @@ function getTaskSum() {
 	}
 	
 }
+
+//----------------------------------------------------------
+//Функция для вывода статуса
+//----------------------------------------------------------
+function getDivision() {
+	//Обрабатываемое дело
+	var task = entry();
+	//Поля
+	var FDivision = task.field ("Подразделение");
+	
+	if (FDivision.length > 1) {
+		return "i " + FDivision.length;
+	} else {
+		return FDivision;
+	}
+	
+}
