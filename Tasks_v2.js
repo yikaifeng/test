@@ -663,11 +663,11 @@ function getColor() {
 	switch (FStatus) {
       
 		case _DONE: 
-			color = "#009688";
+			color = "#B0BEC5";
 			break;
       
 		case _WAITING: 
-			color = "#03A9F4";
+			color = "#57C6F8";
 			break;
       
 		case _ACTIVE: 
@@ -676,11 +676,13 @@ function getColor() {
 			var dteDiff = pDaysLeft(FStartDate);
 			if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 			if (dteDiff <= 1) {
-				color = "#F44336";
+				color = "#F66257";
 			} else if (dteDiff>1 && dteDiff<=3) {
-				color = "#FFC107";
+				color = "#FFBA55";
+			} else if (dteDiff>3 && dteDiff<=7) {
+				color = "#FFF27C";
 			} else {
-				color = "#FFEB3B";
+				color = "#B2D786";
 			}
 			
 			break;
