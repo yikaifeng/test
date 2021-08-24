@@ -526,9 +526,6 @@ function shiftDate(bForward, incomeTask) {
 	//Обрабатываемое дело
 	var task;
 		
-	//Показывать ли сообщение о смене даты
-	var bShowMessage = true;
-		
 	//Если есть входящий объект, то используем его
 	if (incomeTask == undefined) {
 		task = entry();
@@ -695,3 +692,46 @@ function getColor() {
 	
 	return color;
 }
+
+//----------------------------------------------------------
+//Функция переноса даты вперед или назад
+//----------------------------------------------------------
+function addDay(incomeTask) {
+	
+	var sSrc = "addDay(incomeTask)";
+	log(pCreateMsg(sSrc, "старт функции"));
+	
+	//Показывать ли сообщение о смене даты
+	var bShowMessage = true;
+
+	//Обрабатываемое дело
+	var task;
+		
+	//Если есть входящий объект, то используем его
+	if (incomeTask == undefined) {
+		task = entry();
+		log(pCreateMsg(sSrc, "текущая задача: " + task.title));
+	} else {
+		task = incomeTask;
+		bShowMessage = false;
+		log(pCreateMsg(sSrc, "входящая задача: " + task.title));
+	}
+	
+	//Короткие ссылки на поля
+	var FStartDate = task.field(START_DATE);
+	var FEndDate = task.field(END_DATE);
+			
+	task.set(START_DATE, pShiftDate(FStartDate, 1, "d", true));
+	if (FEndDate != undefined) {
+		task.set(END_DATE, pShiftDate(FEndDate, 1, "d", true));
+	}
+
+	if (bShowMessage) {
+		message(ICO_SUCSEED + " Перенесено на 1 день");
+	}
+
+	//Лог
+	log(pCreateMsg(sSrc, "сдвиг: на 1 день"));
+		
+	}
+
