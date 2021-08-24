@@ -657,16 +657,17 @@ function getColor() {
 	var task = entry();
 	//Поля
 	var FStatus = pGetText(task.field (STATUS));
-  var FStartDate = task.field (START_DATE);
+  	var FStartDate = task.field (START_DATE);
+	var color = "";
 	
 	switch (FStatus) {
       
 		case _DONE: 
-			return "#009688";
+			color = "#009688";
 			break;
       
 		case _WAITING: 
-			return "#03A9F4";
+			color = "#03A9F4";
 			break;
       
 		case _ACTIVE: 
@@ -675,16 +676,17 @@ function getColor() {
 			var dteDiff = pDaysLeft(FStartDate);
 			if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 			if (dteDiff <= 1) {
-				return "#F44336";
+				color = "#F44336";
 			} elseif (dteDiff>1 && dteDiff<=3) {
-				return "#FFC107";
+				color = "#FFC107";
 			} else {
-				return "#FFEB3B";
+				color = "#FFEB3B";
 			}
 			
 			break;
       
-      default: break;
+      		default: break;
 	}
 	
+	return color;
 }
