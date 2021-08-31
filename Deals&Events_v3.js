@@ -633,11 +633,9 @@ function addDays(nDays) {
   nDays = Math.abs(nDays);
   nDays = nDays.toFixed(0);
 
-  message(typeof(Number(nDays)));
-
-	/*deal.set(START_DATE, pShiftDate(FStartDate, nDays, "d", true));
+	deal.set(START_DATE, pShiftDate(FStartDate, Number(nDays), "d", true));
 	if (FEndDate != undefined) {
-		deal.set(END_DATE, pShiftDate(FEndDate, nDays, "d", true));
+		deal.set(END_DATE, pShiftDate(FEndDate, Number(nDays), "d", true));
 	}
 
 	var direction;
@@ -646,7 +644,7 @@ function addDays(nDays) {
 	message("ℹ️ перенесено на " + direction*nDays + " (день)");
 
 	//Лог
-	log(pCreateMsg(sSrc, "сдвиг: " + direction*nDays + " (день)"));*/
+	log(pCreateMsg(sSrc, "сдвиг: " + direction*nDays + " (день)"));
 		
 }
 
@@ -816,5 +814,5 @@ function getDealColor() {
     } else {
       return BLUE;
     }
-}
+  }
 }
