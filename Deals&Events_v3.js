@@ -802,11 +802,11 @@ function getDealColor() {
   } else if (FStatus == _PLAN) {
     if (dteDiff<1) {
       return RED;
-    } else if (dteDiff>=1 && dteDiff<3) {
+    } else if (dteDiff>=1 && dteDiff<=3) {
       return ORANGE;
-    } else if (dteDiff>=3 && dteDiff<7) {
+    } else if (dteDiff>3 && dteDiff<=7) {
       return YELLOW;
-    } else if (dteDiff>=7 && dteDiff<30) {
+    } else if (dteDiff>7 && dteDiff<=30) {
       return GREEN;
     } else {
       return BLUE;
