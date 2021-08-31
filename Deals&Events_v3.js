@@ -612,23 +612,13 @@ function shiftDate(bForward, incomeDeal) {
 function addDays(nDays) {
 	
 	//название функции
-  var sSrc = "shiftDate(bForward, incomeDeal)";
+  var sSrc = "addDays(nDays)";
 	log(pCreateMsg(sSrc, "старт функции"));
 	
 	//Обрабатываемое дело
-	var deal;
+	var deal = entry();
 
-	//Сообщения
-  var msgPeriodOff = "⚠️ периодичность не включена";  
-		
-	//Если есть входящий объект, то используем его
-	if (incomeDeal == undefined) {
-		deal = entry();
-		log(pCreateMsg(sSrc, "текущая задача: " + deal.title));
-	} else {
-		deal = incomeDeal;
-		log(pCreateMsg(sSrc, "входящая задача: " + deal.title));
-	}
+
 	
 	//Короткие ссылки на поля
 	var FStartDate = deal.field(START_DATE);
