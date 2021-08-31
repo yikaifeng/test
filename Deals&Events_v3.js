@@ -633,7 +633,9 @@ function addDays(nDays) {
   nDays = Math.abs(nDays);
   nDays = nDays.toFixed(0);
 
-	deal.set(START_DATE, pShiftDate(FStartDate, nDays, "d", true));
+  message(typeof(nDays));
+
+	/*deal.set(START_DATE, pShiftDate(FStartDate, nDays, "d", true));
 	if (FEndDate != undefined) {
 		deal.set(END_DATE, pShiftDate(FEndDate, nDays, "d", true));
 	}
@@ -644,7 +646,7 @@ function addDays(nDays) {
 	message("ℹ️ перенесено на " + direction*nDays + " (день)");
 
 	//Лог
-	log(pCreateMsg(sSrc, "сдвиг: " + direction*nDays + " (день)"));
+	log(pCreateMsg(sSrc, "сдвиг: " + direction*nDays + " (день)"));*/
 		
 }
 
