@@ -797,7 +797,7 @@ function getDealColor() {
   const ORANGE = "#FFAE00";
   const YELLOW = "#FFEB3B";
   const GREEN = "#8BC34A";
-  const BLUE = "2DB7F6";
+  const BLUE = "#2DB7F6";
   const GREY = "#9E9E9E";
 
   if (FStatus == _DONE) {
