@@ -800,25 +800,18 @@ function getDealColor() {
   const BLUE = "#2DB7F6";
   const GREY = "#9E9E9E";
 
-  switch (FStatus) {
-    case _DONE:
-      return GREY;
-      break;
-    case _PLAN:
-      if (dteDiff<1) {
-        return RED;
-      } else if (dteDiff>=1 && dteDiff<3) {
-        return ORANGE;
-      } else if (dteDiff>=3 && dteDiff<7) {
-        return YELLOW;
-      } else if (dteDiff>=7 && dteDiff<30) {
-        return GREEN;
-      } else {
-        return BLUE;
-      }
-      break;
-    case default:
-      return GREY;
-      break;
-  }
+  if (FStatus == _DONE) {
+    return GREY;
+  } else if (FStatus == _PLAN) {
+    if (dteDiff<1) {
+      return RED;
+    } else if (dteDiff>=1 && dteDiff<3) {
+      return ORANGE;
+    } else if (dteDiff>=3 && dteDiff<7) {
+      return YELLOW;
+    } else if (dteDiff>=7 && dteDiff<30) {
+      return GREEN;
+    } else {
+      return BLUE;
+    }
 }
