@@ -9,14 +9,6 @@
 //Константы
 //======================================================
 
-//Иконки
-const ICO_INFO = "ℹ️";	
-const ICO_PLAN = "⏳";
-const ICO_URGENT = "🔥";
-const ICO_SOON = "⏱️";
-const ICO_WARRANTY = "🛡️";
-
-	
 //Имена полей и значения
 const TYPE = "Тип";
   const _ONCE = "разовое";
@@ -459,6 +451,9 @@ function checkDeal(incomeDeal) {
   //название функции
 	var sSrc = "checkDeal(incomeDeal)";
 	log(pCreateMsg(sSrc, "старт функции"));
+
+  //Иконки
+  const ICO_PLAN = "⏳";
 		
 	//Обрабатываемое дело
 	var deal;
@@ -665,48 +660,67 @@ function addDays(nDays) {
 
 //----------------------------------------------------------
 //Функция показывающая остаток дней
+//31.08.2021 проверена
+//Зависит от pDayEnd, pGetText, pDaysLeft
 //----------------------------------------------------------
 function getDaysLeft() {
-	
+
 	//Обрабатываемое дело
 	var deal = entry();
 	
 	//Короткие ссылки на поля
-	var FStartDate = deal.field (START_DATE);
+	var FStartDate = pDayEnd(deal.field (START_DATE));
 	var FStatus = pGetText(deal.field (STATUS));
 	
-	//Прочее
+	//Разница с сегодня 
 	var dteDiff = pDaysLeft(FStartDate);
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
-	if (!(FStatus == _DONE)) {
-		var res = "";
-		if(dteDiff<=3) {
-			res = ICO_URGENT + dteDiff + " дн.";
-		} else if (dteDiff>3 && dteDiff<=7) {
-			res = ICO_SOON + dteDiff + " дн.";
-		} else {
+  var res = "";
+  /*Если завершено*/
+  if (FStatus == _DONE) {
+    /*до месяца*/
+    if (dteDiff>=-30) {
 			res = dteDiff + " дн.";
-		}
-	} else {
-		var res = "";
-		if (dteDiff>=-30) {
-			res = dteDiff + " дн.";
+    /*до года*/
 		} else if (dteDiff>=-365 && dteDiff<-30) {
-			dteDiff = dteDiff/30;
-			res = dteDiff.toFixed(1) + " мес.";
+      var dteMonth = dteDiff/30;
+      dteMonth = dteMonth.toFixed(0);
+      var dteDays = dteDiff%30;
+			if (dteDays<7.5) {
+        res = dteMonth + " мес.";
+      } else if (dteDays>=7.5 && dteDays<15) {
+        res = dteMonth + "¼ мес.";
+      } else if (dteDays>=15 && dteDays<22.5) {
+        res = dteMonth + "½ мес.";
+      } else {
+        res = dteMonth + "¾ мес.";
+      }
+    /*больше года*/
 		} else {
-			dteDiff = dteDiff/365;
-			res = dteDiff.toFixed(1) + " г.";
+      var dteYear = dteDiff/365;
+      dteYear = dteYear.toFixed(0);
+			var dteMonth = (dteDiff%365)/30;
+      dteMonth = dteMonth.toFixed(0);
+      if (dteMonth != 0) {
+        res = dteYear + " г." + dteMonth + " мес.";
+      } else {
+        res = dteYear + " г.";
+      }
 		}
-	}
-	
-	return res;
+  /*Если незавершено*/
+  } else {
+    res = dteDiff + " дн.";
+  }
+
+ 	return res;
 		
 }
 	
 //----------------------------------------------------------
 //Функция для вывода типа
+//31.08.2021 проверена
+//Зависит от pGetIcon
 //----------------------------------------------------------
 function getDealType() {
 	//Обрабатываемое дело
@@ -717,7 +731,9 @@ function getDealType() {
 }
 
 //----------------------------------------------------------
-//Функция для вывода типа
+//Функция для вывода названия
+//31.08.2021 проверена
+//Зависит от pSetIconFrom
 //----------------------------------------------------------
 function getDealName() {
 	//Обрабатываемое дело
@@ -729,17 +745,35 @@ function getDealName() {
 }
 
 //----------------------------------------------------------
-//Функция для вывода типа
+//Функция для стоимости
+//31.08.2021 проверена
+//Зависит от pGetMoney
 //----------------------------------------------------------
-function getWARRANTY() {
+function getDealCost() {
 	//Обрабатываемое дело
 	var deal = entry();
 	//Поля
-	var FWARRANTY = deal.field (WARRANTY);
+	var FCost = deal.field (COST);
+	return pGetMoney(FCost, "руб.");
+}
+
+//----------------------------------------------------------
+//Функция для вывода типа
+//31.08.2021 проверена
+//Зависит от pDaysLeft, pDayEnd
+//----------------------------------------------------------
+function getDealWarranty() {
+
+	//Обрабатываемое дело
+	var deal = entry();
+  const ICO_WARRANTY = "🛡️";
+	//Поля
+	var FWarranty = pDayEnd(deal.field (WARRANTY));
 	var FCategory = deal.field(CATEGORY);
-	if (pGetText(FCategory) == "покупка" && FWARRANTY != undefined) {
-		var dteDiff = pDaysLeft(FWARRANTY);
-		return ICO_WARRANTY + " " + dteDiff + " дн.";
+
+	if (FWarranty != undefined) {
+		var dteDiff = pDaysLeft(FWarranty);
+    if (dteDiff >=0) {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
 		return "";
 	}	
