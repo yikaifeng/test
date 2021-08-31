@@ -815,3 +815,4 @@ function getDealColor() {
       return BLUE;
     }
 }
+}
