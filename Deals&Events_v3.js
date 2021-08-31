@@ -778,3 +778,46 @@ function getDealWarranty() {
 		return "";
 	}	
 }
+
+//----------------------------------------------------------
+//Функция показывающая цвет
+//31.08.2021 проверена
+//Зависит от pDayEnd, pGetText, pDaysLeft
+//----------------------------------------------------------
+function getDealColor() {
+
+	//Обрабатываемое дело
+	var deal = entry();
+	
+	//Короткие ссылки на поля
+	var FStartDate = pDayEnd(deal.field (START_DATE));
+	var FStatus = pGetText(deal.field (STATUS));
+	
+	//Разница с сегодня 
+	var dteDiff = pDaysLeft(FStartDate);
+	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
+	
+  const RED = "#F44336";
+  const ORANGE = "#FFAE00";
+  const YELLOW = "#FFEB3B";
+  const GREEN = "#8BC34A";
+  const BLUE = "2DB7F6";
+  const GREY = "#9E9E9E";
+
+  if (FStatus == _DONE) {
+    return GREY;
+  } else {
+    if (dteDiff<1) {
+      return RED;
+    } else if (dteDiff>=1 && dteDiff<3) {
+      return ORANGE;
+    } else if (dteDiff>=3 && dteDiff<7) {
+      return YELLOW;
+    } else if (dteDiff>=7 && dteDiff<30) {
+      return GREEN;
+    } else if (dteDiff>=30) {
+      return BLUE;
+    }
+  }
+		
+}
