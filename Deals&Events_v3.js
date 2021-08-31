@@ -638,13 +638,10 @@ function addDays(nDays) {
 		deal.set(END_DATE, pShiftDate(FEndDate, Number(nDays), "d", true));
 	}
 
-	var direction;
-	if (bForward != false) {direction = 1;} else {direction = -1;}
-	
-	message("ℹ️ перенесено на " + direction*nDays + " (день)");
+	message("ℹ️ перенесено на " + nDays + " (день)");
 
 	//Лог
-	log(pCreateMsg(sSrc, "сдвиг: " + direction*nDays + " (день)"));
+	log(pCreateMsg(sSrc, "сдвиг: " + nDays + " (день)"));
 		
 }
 
