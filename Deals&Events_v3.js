@@ -633,7 +633,7 @@ function addDays(nDays) {
   nDays = Math.abs(nDays);
   nDays = nDays.toFixed(0);
 
-  message(typeof(nDays));
+  message(typeof(Number(nDays)));
 
 	/*deal.set(START_DATE, pShiftDate(FStartDate, nDays, "d", true));
 	if (FEndDate != undefined) {
