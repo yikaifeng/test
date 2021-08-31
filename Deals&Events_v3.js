@@ -677,6 +677,7 @@ function getDaysLeft() {
       var dteMonth = dteDiff/30;
       dteMonth = dteMonth.toFixed(0);
       var dteDays = dteDiff%30;
+      dteDays = Math.abs(dteDays);
 			if (dteDays<7.5) {
         res = dteMonth + " мес.";
       } else if (dteDays>=7.5 && dteDays<15) {
@@ -693,7 +694,7 @@ function getDaysLeft() {
 			var dteMonth = (dteDiff%365)/30;
       dteMonth = dteMonth.toFixed(0);
       if (dteMonth != 0) {
-        res = dteYear + " г." + dteMonth + " мес.";
+        res = dteYear + " г." + Math.abs(dteMonth) + " мес.";
       } else {
         res = dteYear + " г.";
       }
@@ -744,7 +745,11 @@ function getDealCost() {
 	var deal = entry();
 	//Поля
 	var FCost = deal.field (COST);
-	return pGetMoney(FCost, "руб.");
+  if (FCost != undefined) {
+    return pGetMoney(FCost, "руб.");
+  } else {
+    return "";
+  }
 }
 
 //----------------------------------------------------------
@@ -758,10 +763,11 @@ function getDealWarranty() {
 	var deal = entry();
   const ICO_WARRANTY = "🛡️";
 	//Поля
-	var FWarranty = pDayEnd(deal.field (WARRANTY));
+	var FWarranty = deal.field (WARRANTY);
 	var FCategory = deal.field(CATEGORY);
 
 	if (FWarranty != undefined) {
+    FWarranty = pDayEnd(deal.field (WARRANTY));
 		var dteDiff = pDaysLeft(FWarranty);
     if (dteDiff >=0) {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
@@ -805,7 +811,7 @@ function getDealColor() {
       return YELLOW;
     } else if (dteDiff>=7 && dteDiff<30) {
       return GREEN;
-    } else if (dteDiff>=30) {
+    } else {
       return BLUE;
     }
   }
