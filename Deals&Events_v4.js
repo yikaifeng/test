@@ -286,10 +286,10 @@ function pDaysLeft(dTarget, dReference, nRound) {
 	var dDif = (dteTarget - dteReference)/(1000*3600*24);
 				
 	//Округляем
-  dDif = dDif*(10**round);
+  dDif = dDif*(pow(10, round));
   dDif = Math.floor(dDif);
 
-	return dDif/(10**round);
+	return dDif/(pow(10, round));
 						
 }
 
