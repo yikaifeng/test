@@ -713,7 +713,7 @@ function getDealWarranty() {
 		var dteDiff = pDaysLeft(FWarranty);
     if (dteDiff >=0 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
-		return " ";
+		return "-";
 	}	
 }
 
