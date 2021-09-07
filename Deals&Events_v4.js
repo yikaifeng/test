@@ -627,7 +627,7 @@ function getDaysLeft() {
 	var deal = entry();
 	
 	//Короткие ссылки на поля
-	var FStartDate = pDayEnd(deal.field (START_DATE));
+	var FStartDate = deal.field (START_DATE);
 	var FStatus = pGetText(deal.field (STATUS));
 	
 	//Разница с сегодня 
@@ -735,7 +735,7 @@ function getDealWarranty() {
 	var FCategory = deal.field(CATEGORY);
 
 	if (FWarranty != undefined) {
-    FWarranty = pDayEnd(deal.field (WARRANTY));
+    FWarranty = deal.field (WARRANTY);
 		var dteDiff = pDaysLeft(FWarranty);
     if (dteDiff >=0) {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
@@ -754,7 +754,7 @@ function getDealColor() {
 	var deal = entry();
 	
 	//Короткие ссылки на поля
-	var FStartDate = pDayEnd(deal.field (START_DATE));
+	var FStartDate = deal.field (START_DATE);
 	var FStatus = pGetText(deal.field (STATUS));
 	
 	//Разница с сегодня 
