@@ -126,7 +126,7 @@ function pGetText(sSource) {
 
   //Заменяем пустой строкой первую группу символов
   var regexp = /\s*\S+\s*/;
-  var sText = sSource.replace(r, "");
+  var sText = sSource.replace(regexp, "");
   sText = sText.trim();
 
   return sText;
