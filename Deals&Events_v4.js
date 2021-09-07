@@ -414,15 +414,11 @@ function pShiftDate(dDate, nInterval, sUnit, bForward) {
 //======================================================
 //------------------------------------------------------
 //Функция для коррекци неправильного заполнения полей
-//30.08.2021 проверена
-//Зависит от pCreateMsg, pGetText
+//07.09.2021 проверена
+//Зависит от pGetText
 //------------------------------------------------------
 function checkDeal(incomeDeal) {
 	
-  //название функции
-	var sSrc = "checkDeal(incomeDeal)";
-	log(pCreateMsg(sSrc, "старт функции"));
-
   //Иконки
   const ICO_PLAN = "⏳";
 		
@@ -432,10 +428,8 @@ function checkDeal(incomeDeal) {
 	//Если есть входящий объект, то используем его
 	if (incomeDeal == undefined) {
 		deal = entry();
-		log(pCreateMsg(sSrc, "текущая задача: " + deal.title));
 	} else {
 		deal = incomeDeal;
-		log(pCreateMsg(sSrc, "входящая задача: " + deal.title));
 	}
 		
 	//Короткие ссылки на поля
@@ -449,7 +443,7 @@ function checkDeal(incomeDeal) {
 	var FInterval = deal.field (INTERVAL);
 
   //Сообщения
-  var msgCorrected = "⚠️ исправлено:"; 	
+  var msgCorrected = "⚠️ Исправлено:"; 	
 
 	//прочее
 	var bEndDate = false;
@@ -524,34 +518,28 @@ function checkDeal(incomeDeal) {
 
 //----------------------------------------------------------
 //Функция переноса даты вперед или назад
-//30.08.2021 проверена
-//Зависит от pCreateMsg, pShiftDate
+//07.09.2021 проверена
+//Зависит от pShiftDate
 //----------------------------------------------------------
 function shiftDate(bForward, incomeDeal) {
-	
-	//название функции
-  var sSrc = "shiftDate(bForward, incomeDeal)";
-	log(pCreateMsg(sSrc, "старт функции"));
 	
 	//Обрабатываемое дело
 	var deal;
 
 	//Сообщения
-  var msgPeriodOff = "⚠️ периодичность не включена";  
+  var msgPeriodOff = "⚠️ Периодичность не включена";  
 		
 	//Если есть входящий объект, то используем его
 	if (incomeDeal == undefined) {
 		deal = entry();
-		log(pCreateMsg(sSrc, "текущая задача: " + deal.title));
 	} else {
 		deal = incomeDeal;
-		log(pCreateMsg(sSrc, "входящая задача: " + deal.title));
 	}
 	
 	//Выход, если не включен счёт переодичности
 	if (!deal.field(COUNT)) {
 		message(msgPeriodOff);
-		exit();
+		return;
 	}
 		
 	//Короткие ссылки на поля
@@ -568,58 +556,47 @@ function shiftDate(bForward, incomeDeal) {
 	var direction;
 	if (bForward != false) {direction = 1;} else {direction = -1;}
 	
-	message("ℹ️ перенесено на " + direction*FInterval + " (" + FUnit + ")");
-
-	//Лог
-	log(pCreateMsg(sSrc, "сдвиг: " + direction*FInterval + " (" + FUnit + ")"));
-		
+	message("ℹ️ Перенесено на " + direction*FInterval + " (" + FUnit + ")");
+	
 }
 
 //----------------------------------------------------------
 //Функция переноса даты несколько дней вперёд
-//30.08.2021 проверена
-//Зависит от pCreateMsg, pShiftDate
+//07.09.2021 проверена
+//Зависит от pShiftDate
 //----------------------------------------------------------
 function addDays(nDays) {
 	
-	//название функции
-  var sSrc = "addDays(nDays)";
-	log(pCreateMsg(sSrc, "старт функции"));
-	
 	//Обрабатываемое дело
 	var deal = entry();
-
-
 	
 	//Короткие ссылки на поля
 	var FStartDate = deal.field(START_DATE);
 	var FEndDate = deal.field(END_DATE);
 
 	//Проверяем, передана ли число
-	if (typeof(nDays) != "number") {
-		var sMessage = pCreateMsg(sSrc, "nDays[" + nDays + "] не является числом", true);
-		throw new Error(sMessage);
-	}
-
-  nDays = Math.abs(nDays);
-  nDays = nDays.toFixed(0);
+	if (nDays == undefined || nDays == "") {
+		return;
+	} else {
+    nDays = Number(nDays);
+    if(isNaN(nDays)) { return; }
+    nDays = Math.abs(nDays);
+    nDays = nDays.toFixed(0);
+  }
 
 	deal.set(START_DATE, pShiftDate(FStartDate, Number(nDays), "d", true));
 	if (FEndDate != undefined) {
 		deal.set(END_DATE, pShiftDate(FEndDate, Number(nDays), "d", true));
 	}
 
-	message("ℹ️ перенесено на " + nDays + " (день)");
-
-	//Лог
-	log(pCreateMsg(sSrc, "сдвиг: " + nDays + " (день)"));
+	message("ℹ️ Перенесено на " + nDays + " (день)");
 		
 }
 
 //----------------------------------------------------------
 //Функция показывающая остаток дней
-//31.08.2021 проверена
-//Зависит от pDayEnd, pGetText, pDaysLeft
+//07.09.2021 проверена
+//Зависит от pGetText, pDaysLeft
 //----------------------------------------------------------
 function getDaysLeft() {
 
@@ -643,7 +620,7 @@ function getDaysLeft() {
     /*до года*/
 		} else if (dteDiff>=-365 && dteDiff<-30) {
       var dteMonth = dteDiff/30;
-      dteMonth = dteMonth.toFixed(0);
+      dteMonth = Math.ceil(dteMonth);
       var dteDays = dteDiff%30;
       dteDays = Math.abs(dteDays);
 			if (dteDays<7.5) {
@@ -658,11 +635,12 @@ function getDaysLeft() {
     /*больше года*/
 		} else {
       var dteYear = dteDiff/365;
-      dteYear = dteYear.toFixed(0);
+      dteYear = Math.ceil(dteYear);
 			var dteMonth = (dteDiff%365)/30;
-      dteMonth = dteMonth.toFixed(0);
+      dteMonth = Math.ceil(dteMonth);
+      dteMonth = Math.abs(dteMonth);
       if (dteMonth != 0) {
-        res = dteYear + " г." + Math.abs(dteMonth) + " мес.";
+        res = dteYear + " г. " + dteMonth + " мес.";
       } else {
         res = dteYear + " г.";
       }
@@ -678,7 +656,7 @@ function getDaysLeft() {
 	
 //----------------------------------------------------------
 //Функция для вывода типа
-//31.08.2021 проверена
+//07.09.2021 проверена
 //Зависит от pGetIcon
 //----------------------------------------------------------
 function getDealType() {
@@ -691,7 +669,7 @@ function getDealType() {
 
 //----------------------------------------------------------
 //Функция для вывода названия
-//31.08.2021 проверена
+//07.09.2021 проверена
 //Зависит от pSetIconFrom
 //----------------------------------------------------------
 function getDealName() {
@@ -705,7 +683,7 @@ function getDealName() {
 
 //----------------------------------------------------------
 //Функция для стоимости
-//31.08.2021 проверена
+//07.09.2021 проверена
 //Зависит от pGetMoney
 //----------------------------------------------------------
 function getDealCost() {
@@ -713,17 +691,14 @@ function getDealCost() {
 	var deal = entry();
 	//Поля
 	var FCost = deal.field (COST);
-  if (FCost != undefined) {
-    return pGetMoney(FCost, "руб.");
-  } else {
-    return "";
-  }
+
+  return pGetMoney(FCost, "руб.");
 }
 
 //----------------------------------------------------------
 //Функция для вывода типа
-//31.08.2021 проверена
-//Зависит от pDaysLeft, pDayEnd
+//07.09.2021 проверена
+//Зависит от pDaysLeft
 //----------------------------------------------------------
 function getDealWarranty() {
 
@@ -732,12 +707,11 @@ function getDealWarranty() {
   const ICO_WARRANTY = "🛡️";
 	//Поля
 	var FWarranty = deal.field (WARRANTY);
-	var FCategory = deal.field(CATEGORY);
 
 	if (FWarranty != undefined) {
     FWarranty = deal.field (WARRANTY);
 		var dteDiff = pDaysLeft(FWarranty);
-    if (dteDiff >=0) {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
+    if (dteDiff >=0 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
 		return "";
 	}	
@@ -745,8 +719,8 @@ function getDealWarranty() {
 
 //----------------------------------------------------------
 //Функция показывающая цвет
-//31.08.2021 проверена
-//Зависит от pDayEnd, pGetText, pDaysLeft
+//07.09.2021 проверена
+//Зависит от pGetText, pDaysLeft
 //----------------------------------------------------------
 function getDealColor() {
 
@@ -782,5 +756,7 @@ function getDealColor() {
     } else {
       return BLUE;
     }
+  } else {
+    return GREY;
   }
 }
