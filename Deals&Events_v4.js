@@ -773,6 +773,6 @@ function getDealWarranty2() {
   const ICO_WARRANTY = "🛡️";
 	//Поля
 	var FWarranty = deal.field (WARRANTY);
-  return pDaysLeft(FWarranty);
+  return FWarranty;
 
 }
