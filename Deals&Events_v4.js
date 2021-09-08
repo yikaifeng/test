@@ -770,7 +770,7 @@ function updateWarranty() {
 
 	//Обрабатываемое дело
 	var curLib = lib();
-  var arrDeals = lib.entries();
+  var arrDeals = curLib.entries();
   const ICO_WARRANTY = "🛡️";
 
   for (var i=0; i<arrDeals.length; i++) {
