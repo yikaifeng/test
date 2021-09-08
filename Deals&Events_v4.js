@@ -782,6 +782,7 @@ function updateWarranty() {
     if (FWarranty != undefined) {
       FWarranty = deal.field (WARRANTY);
 		  var dteDiff = pDaysLeft(FWarranty);
+	    console.log(dteDiff);
       if (dteDiff > -2 && dteDiff != "") {
         deal.set(SHOWWARRANTY, ICO_WARRANTY + " " + dteDiff + " дн.");
       } else {
