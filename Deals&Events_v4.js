@@ -791,5 +791,5 @@ function updateWarranty() {
 		  deal.set(SHOWWARRANTY, "");
 	  }	
   }
-	
+	message("ℹ️ Остаток гарантии обновлён");	
 }
