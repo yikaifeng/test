@@ -760,3 +760,19 @@ function getDealColor() {
     return GREY;
   }
 }
+
+//----------------------------------------------------------
+//Функция для вывода типа
+//07.09.2021 проверена
+//Зависит от pDaysLeft
+//----------------------------------------------------------
+function getDealWarranty2() {
+
+	//Обрабатываемое дело
+	var deal = entry();
+  const ICO_WARRANTY = "🛡️";
+	//Поля
+	var FWarranty = deal.field (WARRANTY);
+  return pDaysLeft(FWarranty);
+
+}
