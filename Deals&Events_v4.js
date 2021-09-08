@@ -772,7 +772,18 @@ function getDealWarranty2() {
 	var deal = entry();
   const ICO_WARRANTY = "🛡️";
 	//Поля
-	var FWarranty = deal.field (WARRANTY);
-  return FWarranty;
+  try {
+
+    if (FWarranty != undefined) {
+      FWarranty = deal.field (WARRANTY);
+		  var dteDiff = pDaysLeft(FWarranty);
+      if (dteDiff >=0 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
+	  } else {
+		  return "";
+	  }	
+  }
+  catch(e) {
+    return "";
+  }
 
 }
