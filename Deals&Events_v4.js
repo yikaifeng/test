@@ -24,7 +24,7 @@ const END_DATE = "Дата окончания";
 const END_TIME = "Время окончания";
 const NAME = "Название";
 const COST = "Стоимость";
-const WARRANTY = "Гарантия до";
+const WARRANTY = "Гарантия";
 const COUNT = "Вычислять периодичность";
 const UNIT = "Ед.измерения";
 const INTERVAL = "Интервал";
@@ -779,11 +779,11 @@ function getDealWarranty2() {
 		  var dteDiff = pDaysLeft(FWarranty);
       if (dteDiff >=0 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	  } else {
-		  return "";
+		  return "undef";
 	  }	
   }
   catch(e) {
-    return "";
+    return "err";
   }
 
 }
