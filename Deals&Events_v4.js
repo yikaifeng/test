@@ -783,12 +783,15 @@ function updateWarranty() {
       FWarranty = deal.field (WARRANTY);
 		  var dteDiff = pDaysLeft(FWarranty);
 	    log(dteDiff);
-      if (dteDiff > -2 && dteDiff != "") {
+      if (dteDiff >=0 && dteDiff != "") {
+	       log("dteDiff>=0");
         deal.set(SHOWWARRANTY, ICO_WARRANTY + " " + dteDiff + " дн.");
       } else {
+	      log("dteDiff<0");
         deal.set(SHOWWARRANTY, "");
       }
 	  } else {
+		  log("undef");
 		  deal.set(SHOWWARRANTY, "");
 	  }	
   }
