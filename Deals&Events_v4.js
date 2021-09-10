@@ -66,7 +66,7 @@ function pGetIcon(sSource) {
 	if (sIcon == null) {
 		return "";
 	} else {
-    return sIcon[0];
+		return sIcon[0];
 	}
 					
 }
