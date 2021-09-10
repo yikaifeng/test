@@ -799,7 +799,7 @@ function updateWarranty() {
   const ICO_WARRANTY = "🛡️";
 
 	//Поля
-  for (i=0; i<deals.length; i++) {
+  for (var i=0; i<deals.length; i++) {
 
     var deal = deals[i];
     var FWarranty = deal.field (WARRANTY);
