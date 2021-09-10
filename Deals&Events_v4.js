@@ -818,5 +818,5 @@ function updateWarranty() {
       deal.set(WARRANTY_DAYS, "");
     }
   }
-	
+	message("ℹ️ Гарантия обновлена");	
 }
