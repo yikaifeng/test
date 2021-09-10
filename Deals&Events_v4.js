@@ -804,11 +804,11 @@ function getDealWarranty2() {
 		res = res + "FWarranty_2 != -1";
 		var dteDiff = pDaysLeft2(FWarranty_2);
 		res = res + "\ndteDiff: [" + dteDiff +"]";
-		//message(res);
+		message(res);
     if (dteDiff >=-1 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
 		res = res + "FWarranty_2 == -1";
-		//message(res);
+		message(res);
 		return "";
 	}	
 }
