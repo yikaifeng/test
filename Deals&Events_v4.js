@@ -12,7 +12,7 @@
 
 //Имена полей и значения
 const TYPE = "Тип";
-  const _ONCE = "разовое";
+	const _ONCE = "разовое";
 	const _PERIOD = "повтор.";
 const STATUS = "Статус";
 	const _PLAN = "план";
@@ -48,26 +48,26 @@ const WARRANTY_DAYS = "Вывод гарантии";
 //--------------------------------------------------
 function pGetIcon(sSource) {
 	
-  //Выход, если нет значения
-  if (sSource == undefined) {
-    return "";
-  }
+	//Выход, если нет значения
+	if (sSource == undefined) {
+		return "";
+	}
 
-  //Пробуем привести к строке
-  sSource = String(sSource);
+	//Пробуем привести к строке
+	sSource = String(sSource);
 
-  //Шаблон поиска иконки: первая группа символов не из пробелов
-  var regexp = /\S+/;
+	//Шаблон поиска иконки: первая группа символов не из пробелов
+	var regexp = /\S+/;
 
-  //Ищем первую группу символов, не являющимися пробелами. Если не найдено - null
-  var sIcon = sSource.match(regexp);
+	//Ищем первую группу символов, не являющимися пробелами. Если не найдено - null
+	var sIcon = sSource.match(regexp);
 
 	//Если иконки нет - пустая строка
 	if (sIcon == null) {
 		return "";
 	} else {
     return sIcon[0];
-  }
+	}
 					
 }
 	
@@ -78,35 +78,35 @@ function pGetIcon(sSource) {
 //--------------------------------------------------
 function pSetIconFrom(sSource, sText, bSpace) {
 		
-  //Если нет значения - пустая строка
-  if (sSource == undefined) {
-    sSource = "";
-  }
+	//Если нет значения - пустая строка
+	if (sSource == undefined) {
+		sSource = "";
+	}
 
-  //Пробуем привести к строке
-  sSource = String(sSource);	
-  sText = String(sText);
+	//Пробуем привести к строке
+	sSource = String(sSource);	
+	sText = String(sText);
 
 	//Параметры по умолчанию: ставить пробел
-  var bSp = true;
-  if (bSpace != undefined) { bSp = bSpace; }
+	var bSp = true;
+	if (bSpace != undefined) { bSp = bSpace; }
 
-  //Шаблон поиска иконки: первая группа символов не из пробелов
-  var regexp = /\S+/;
+	//Шаблон поиска иконки: первая группа символов не из пробелов
+	var regexp = /\S+/;
 
-  //Ищем первую группу символов, не являющимися пробелами. Если не найдено - null
-  var sIcon = sSource.match(regexp);
+	//Ищем первую группу символов, не являющимися пробелами. Если не найдено - null
+	var sIcon = sSource.match(regexp);
 
 	//Если иконки нет - толко текст
 	if (sIcon == null) {
 		return sText.trim();
 	} else {
-    if (bSp) {
-		  return sIcon[0] + " " + sText.trim();
-	  } else {
-		  return sIcon[0] + sText.trim();
-	  }
-  }
+		if (bSp) {
+			  return sIcon[0] + " " + sText.trim();
+		} else {
+			  return sIcon[0] + sText.trim();
+		}
+	}
 
 }
 	
@@ -117,22 +117,22 @@ function pSetIconFrom(sSource, sText, bSpace) {
 //--------------------------------------------------
 function pGetText(sSource) {	
     
-  //Выход, если нет значения
-  if (sSource == undefined) {
-    return "";
-  }
+	//Выход, если нет значения
+	if (sSource == undefined) {
+		return "";
+	}
 	
-  //Пробуем привести к строке
-  sSource = String(sSource);
+	//Пробуем привести к строке
+	sSource = String(sSource);
 
-  //Заменяем пустой строкой первую группу символов
-  var regexp = /\s*\S+\s*/;
-  var sText = sSource.replace(regexp, "");
-  sText = sText.trim();
+	//Заменяем пустой строкой первую группу символов
+	var regexp = /\s*\S+\s*/;
+	var sText = sSource.replace(regexp, "");
+	sText = sText.trim();
 
-  return sText;
+	return sText;
 
-};
+}
 	
 //--------------------------------------------------
 //Получить деньги в удобном формате
@@ -142,22 +142,22 @@ function pGetText(sSource) {
 function pGetMoney(nSum, sCurrency) {
 		
 	//Выход, если нет значения
-  if (nSum == undefined || nSum == "") {
-    return "";
-  }
-		
-  //Пробуем привести к числу
-  nSum = Number(nSum);
-
-  //Если числа нет - вернуть пустую строку
-  if (isNaN(nSum)) {
+	if (nSum == undefined || nSum == "") {
 		return "";
-  }
+	}
+		
+	//Пробуем привести к числу
+	nSum = Number(nSum);
 
-  //Округляем до двух знаков
+	//Если числа нет - вернуть пустую строку
+	if (isNaN(nSum)) {
+		return "";
+	}
+
+	//Округляем до двух знаков
 	nSum = nSum.toFixed(2);
 
-  //Определяем знак	
+	//Определяем знак	
 	var sign = "";
 	if (nSum < 0) {
 		sign = "-";
@@ -165,7 +165,7 @@ function pGetMoney(nSum, sCurrency) {
 		nSum = nSum.toFixed(2);
 	}
 
-  //Форматируем	
+	//Форматируем	
 	nSum += "";
 	nSum = new Array(4 - nSum.length % 3).join("U") + nSum;
 	nSum = nSum.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
@@ -173,7 +173,7 @@ function pGetMoney(nSum, sCurrency) {
 	nSum = nSum.trim();
 		
 	//Добавляем единицы измерения
-  if (sCurrency != undefined) {
+	if (sCurrency != undefined) {
 		return nSum + " " + String(sCurrency);
 	} else {
 		return nSum;
@@ -188,20 +188,20 @@ function pGetMoney(nSum, sCurrency) {
 //--------------------------------------------------  
 function pDayStart(dDate) {
 
-  if (dDate == undefined || dDate == "")	{
-    return "";
-  } else {
-    try {
-      var dte = new Date(dDate);
-      if (isNaN(dte)) {
-        return "";
-      }
-      return new Date(dte.setHours(0, 0, 0, 0));
-    }
-    catch (e) {
-      return "";
-    }
-  }
+	if (dDate == undefined || dDate == "")	{
+		return "";
+	} else {
+		try {
+			var dte = new Date(dDate);
+			if (isNaN(dte)) {
+				return "";
+			}
+			return new Date(dte.setHours(0, 0, 0, 0));
+		}
+		catch (e) {
+			return "";
+		}
+	}
 
 }
 	
@@ -212,20 +212,20 @@ function pDayStart(dDate) {
 //--------------------------------------------------
 function pDayEnd(dDate) {
 		
-  if (dDate == undefined || dDate == "")	{
-    return "";
-  } else {
-    try {
-      var dte = new Date(dDate);
-      if (isNaN(dte)) {
-        return "";
-      }
-      return new Date(dte.setHours(23, 59, 59, 999));
-    }
-    catch (e) {
-       return "";
-    }
-  }
+	if (dDate == undefined || dDate == "")	{
+		return "";
+	} else {
+		try {
+			var dte = new Date(dDate);
+			if (isNaN(dte)) {
+				return "";
+			}
+			return new Date(dte.setHours(23, 59, 59, 999));
+		}
+		catch (e) {
+			return "";
+		}
+	}
 
 }
 
@@ -236,59 +236,59 @@ function pDayEnd(dDate) {
 //--------------------------------------------------
 function pDaysLeft(dTarget, dReference, nRound) {
 	
-  //Если нет целевой даты, то ничего
+	//Если нет целевой даты, то ничего
 	if (dTarget == undefined || dTarget == "") {
 		return "";
 	} else {
-    try {
-      var dteTarget = new Date(dTarget);
-      if (isNaN(dteTarget)) {
-        return "";
-      }
-    }
-    catch (e) {
-      return "";
-    }
+		try {
+			var dteTarget = new Date(dTarget);
+			if (isNaN(dteTarget)) {
+				return "";
+			}
+		}
+		catch (e) {
+			return "";
+		}
   }
 
-  //Если нет отсчётной даты, то сегодня
+	//Если нет отсчётной даты, то сегодня
 	if (dReference == undefined || dReference == "") {
 		var dteReference = new Date();
-    dteReference = dteReference.setHours(0, 0, 0, 0);
+		dteReference = dteReference.setHours(0, 0, 0, 0);
 	} else {
-    try {
-      var dteReference = new Date(dReference);
-      if (isNaN(dteReference)) {
-        dteReference = new Date();
-        dteReference = dteReference.setHours(0, 0, 0, 0);
-      }
-      dteReference = dteReference.setHours(0, 0, 0, 0);
-    }
-    catch (e) {
+		try {
+			var dteReference = new Date(dReference);
+			if (isNaN(dteReference)) {
+				dteReference = new Date();
+				dteReference = dteReference.setHours(0, 0, 0, 0);
+			}
+			dteReference = dteReference.setHours(0, 0, 0, 0);
+		}
+		catch (e) {
 			var dteReference = new Date();
-      dteReference = dteReference.setHours(0, 0, 0, 0);
-    }
-  }
+			dteReference = dteReference.setHours(0, 0, 0, 0);
+		}
+	}
 
-  //Если не передано округление, то до целых
-  if (nRound == undefined || nRound == "") {
-    var round = 0;
-  } else {
-    var round = Number(nRound);
-    if (isNaN(round)) {
-      round = 0;
-    } else {
-      round = Math.abs(round);
-      round = round.toFixed(0);
-    }
-  }
+	//Если не передано округление, то до целых
+	if (nRound == undefined || nRound == "") {
+		var round = 0;
+	} else {
+		var round = Number(nRound);
+		if (isNaN(round)) {
+			round = 0;
+		} else {
+			round = Math.abs(round);
+			round = round.toFixed(0);
+		}
+	}
 
 	//Разница в днях с сейчас
 	var dDif = (dteTarget - dteReference)/(1000*3600*24);
 
 	//Округляем
-  dDif = dDif*(Math.pow(10, round));
-  dDif = Math.floor(dDif);
+	dDif = dDif*(Math.pow(10, round));
+	dDif = Math.floor(dDif);
 
 	return dDif/(Math.pow(10, round));
 						
@@ -309,54 +309,54 @@ function pShiftDate(dDate, nInterval, sUnit, bForward) {
     if (isNaN(dDate)) { return; }
   }
 
-  //Проверяем, переданан ли интервал в виде числа
-  if (nInterval == undefined || nInterval == "") {
-    return;
-  } else {
-    nInterval = Number(nInterval);
-    if (isNaN(nInterval)) { return; }
-    nInterval = Math.abs(nInterval);
-    nInterval = nInterval.toFixed(0);
-  }
+	//Проверяем, переданан ли интервал в виде числа
+	if (nInterval == undefined || nInterval == "") {
+		return;
+	} else {
+		nInterval = Number(nInterval);
+		if (isNaN(nInterval)) { return; }
+		nInterval = Math.abs(nInterval);
+		nInterval = nInterval.toFixed(0);
+	}
 	
-  //Проверяем единицы сдвига
-  if (sUnit == undefined || sUnit == "") { return; }
+	//Проверяем единицы сдвига
+	if (sUnit == undefined || sUnit == "") { return; }
 		
 	//Проверяем, переданан единицы корректны ли
-  var arrDay = ["d", "day", "days", "д", "д.", "дн", "дн.", "день", "дни", "дня", "дней"];
-  var arrWeek = ["w", "week", "weeks", "н", "н.", "нед", "нед.", "неделя", "недели", "неделей"];
-  var arrMonth = ["m", "month", "months", "м", "м.", "мес", "мес.", "месяц", "месяцы", "месяца", "месяцев"];
-  var arrYear = ["y", "year", "years", "г", "г.", "л", "л.", "год", "лет", "года", "годы"];
+	var arrDay = ["d", "day", "days", "д", "д.", "дн", "дн.", "день", "дни", "дня", "дней"];
+	var arrWeek = ["w", "week", "weeks", "н", "н.", "нед", "нед.", "неделя", "недели", "неделей"];
+	var arrMonth = ["m", "month", "months", "м", "м.", "мес", "мес.", "месяц", "месяцы", "месяца", "месяцев"];
+	var arrYear = ["y", "year", "years", "г", "г.", "л", "л.", "год", "лет", "года", "годы"];
 
 	var arrUnits = [].concat(arrDay, arrWeek, arrMonth, arrYear);
 		
-  if (arrUnits.indexOf(sUnit) == -1) { return; }
+	if (arrUnits.indexOf(sUnit) == -1) { return; }
 		
 	//Проверяем, направление логическая ли величина
 	if (bForward == undefined) {
 		bForward = true;
 	}	else {
-    bForward = Boolean(bForward);
-  }
+		bForward = Boolean(bForward);
+	}
 		
-  //выбираем направление сдвига
+	//выбираем направление сдвига
 	var sign;
 	if (bForward) {sign = 1;} else {sign = -1;}
 
-  //Осуществляем сдвиг
+	//Осуществляем сдвиг
 
-  //Дни
-  if (arrDay.indexOf(sUnit) != -1) {
-    dDate.setDate(dDate.getDate() + sign*nInterval);
+	//Дни
+	if (arrDay.indexOf(sUnit) != -1) {
+		dDate.setDate(dDate.getDate() + sign*nInterval);
 	}
 
-  //Недели
-  if (arrWeek.indexOf(sUnit) != -1) {
-    dDate.setDate(dDate.getDate() + sign*nInterval*7);
+	//Недели
+	if (arrWeek.indexOf(sUnit) != -1) {
+		dDate.setDate(dDate.getDate() + sign*nInterval*7);
 	}
 
-  //Месяцы
-  if (arrMonth.indexOf(sUnit) != -1) {
+	//Месяцы
+	if (arrMonth.indexOf(sUnit) != -1) {
     //сохраняем дату и устанавливаем 1 число месяца
 		var nOriginalDate = dDate.getDate();
 		dDate.setDate(1);
@@ -379,8 +379,8 @@ function pShiftDate(dDate, nInterval, sUnit, bForward) {
 		}
 	}
 
-  //Годы
-  if (arrYear.indexOf(sUnit) != -1) {
+	//Годы
+	if (arrYear.indexOf(sUnit) != -1) {
     //сохраняем дату и устанавливаем 1 число месяца
 		var nOriginalDate = dDate.getDate();
 		dDate.setDate(1);
@@ -420,8 +420,8 @@ function pShiftDate(dDate, nInterval, sUnit, bForward) {
 //------------------------------------------------------
 function checkDeal(incomeDeal) {
 	
-  //Иконки
-  const ICO_PLAN = "⏳";
+	//Иконки
+	const ICO_PLAN = "⏳";
 		
 	//Обрабатываемое дело
 	var deal;
@@ -443,8 +443,8 @@ function checkDeal(incomeDeal) {
 	var FCount = deal.field (COUNT);
 	var FInterval = deal.field (INTERVAL);
 
-  //Сообщения
-  var msgCorrected = "⚠️ Исправлено:"; 	
+	//Сообщения
+	var msgCorrected = "⚠️ Исправлено:"; 	
 
 	//прочее
 	var bEndDate = false;
@@ -528,7 +528,7 @@ function shiftDate(bForward, incomeDeal) {
 	var deal;
 
 	//Сообщения
-  var msgPeriodOff = "⚠️ Периодичность не включена";  
+	var msgPeriodOff = "⚠️ Периодичность не включена";  
 		
 	//Если есть входящий объект, то используем его
 	if (incomeDeal == undefined) {
@@ -579,11 +579,11 @@ function addDays(nDays) {
 	if (nDays == undefined || nDays == "") {
 		return;
 	} else {
-    nDays = Number(nDays);
-    if(isNaN(nDays)) { return; }
-    nDays = Math.abs(nDays);
-    nDays = nDays.toFixed(0);
-  }
+		nDays = Number(nDays);
+		if(isNaN(nDays)) { return; }
+		nDays = Math.abs(nDays);
+		nDays = nDays.toFixed(0);
+	}
 
 	deal.set(START_DATE, pShiftDate(FStartDate, Number(nDays), "d", true));
 	if (FEndDate != undefined) {
@@ -612,44 +612,44 @@ function getDaysLeft() {
 	var dteDiff = pDaysLeft(FStartDate);
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
-  var res = "";
-  /*Если завершено*/
-  if (FStatus == _DONE) {
+	var res = "";
+	/*Если завершено*/
+	if (FStatus == _DONE) {
     /*до месяца*/
     if (dteDiff>=-30) {
 			res = dteDiff + " дн.";
     /*до года*/
-		} else if (dteDiff>=-365 && dteDiff<-30) {
-      var dteMonth = dteDiff/30;
-      dteMonth = Math.ceil(dteMonth);
-      var dteDays = dteDiff%30;
-      dteDays = Math.abs(dteDays);
-			if (dteDays<7.5) {
-        res = dteMonth + " мес.";
-      } else if (dteDays>=7.5 && dteDays<15) {
-        res = dteMonth + "¼ мес.";
-      } else if (dteDays>=15 && dteDays<22.5) {
-        res = dteMonth + "½ мес.";
-      } else {
-        res = dteMonth + "¾ мес.";
-      }
-    /*больше года*/
+	} else if (dteDiff>=-365 && dteDiff<-30) {
+		var dteMonth = dteDiff/30;
+		dteMonth = Math.ceil(dteMonth);
+		var dteDays = dteDiff%30;
+		dteDays = Math.abs(dteDays);
+		if (dteDays<7.5) {
+			res = dteMonth + " мес.";
+		} else if (dteDays>=7.5 && dteDays<15) {
+			res = dteMonth + "¼ мес.";
+		} else if (dteDays>=15 && dteDays<22.5) {
+			res = dteMonth + "½ мес.";
 		} else {
-      var dteYear = dteDiff/365;
-      dteYear = Math.ceil(dteYear);
-			var dteMonth = (dteDiff%365)/30;
-      dteMonth = Math.ceil(dteMonth);
-      dteMonth = Math.abs(dteMonth);
-      if (dteMonth != 0) {
-        res = dteYear + " г. " + dteMonth + " мес.";
-      } else {
-        res = dteYear + " г.";
-      }
+			res = dteMonth + "¾ мес.";
 		}
-  /*Если незавершено*/
-  } else {
-    res = dteDiff + " дн.";
-  }
+    /*больше года*/
+	} else {
+		var dteYear = dteDiff/365;
+		dteYear = Math.ceil(dteYear);
+		var dteMonth = (dteDiff%365)/30;
+		dteMonth = Math.ceil(dteMonth);
+		dteMonth = Math.abs(dteMonth);
+		if (dteMonth != 0) {
+			res = dteYear + " г. " + dteMonth + " мес.";
+		} else {
+			res = dteYear + " г.";
+		}
+	}
+	/*Если незавершено*/
+	} else {
+		res = dteDiff + " дн.";
+	}
 
  	return res;
 		
@@ -697,52 +697,6 @@ function getDealCost() {
 }
 
 //----------------------------------------------------------
-//Функция для вывода срока гарантии
-//10.09.2021 проверена
-//Независимая
-//----------------------------------------------------------
-function getDealWarrantyDate() {
-
-	//Обрабатываемое дело
-	var deal = entry();
-
-	//Поля
-  try {
-    var FWarranty = deal.field (WARRANTY);
-    if (FWarranty == undefined || FWarranty == "") {
-      return "no";
-    } else {
-      return FWarranty.toString();
-    }
-  }
-  catch(e) {
-    return "no";
-  }
-
-}
-
-//----------------------------------------------------------
-//Функция для вывода типа
-//07.09.2021 проверена
-//Зависит от pDaysLeft
-//----------------------------------------------------------
-function getDealWarranty() {
-
-	//Обрабатываемое дело
-	var deal = entry();
-  const ICO_WARRANTY = "🛡️";
-	//Поля
-	var FWarranty_2 = deal.field (WARRANTY_2);
-
-	if (FWarranty_2 != "no") {
-		var dteDiff = pDaysLeft(FWarranty_2);
-    if (dteDiff >-1) {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
-	} else {
-		return;
-	}	
-}
-
-//----------------------------------------------------------
 //Функция показывающая цвет
 //07.09.2021 проверена
 //Зависит от pGetText, pDaysLeft
@@ -760,35 +714,35 @@ function getDealColor() {
 	var dteDiff = pDaysLeft(FStartDate);
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
-  const RED = "#F44336";
-  const ORANGE = "#FFAE00";
-  const YELLOW = "#FFEB3B";
-  const GREEN = "#8BC34A";
-  const BLUE = "#2DB7F6";
-  const GREY = "#9E9E9E";
+	const RED = "#F44336";
+	const ORANGE = "#FFAE00";
+	const YELLOW = "#FFEB3B";
+	const GREEN = "#8BC34A";
+	const BLUE = "#2DB7F6";
+	const GREY = "#9E9E9E";
 
-  if (FStatus == _DONE) {
-    return GREY;
-  } else if (FStatus == _PLAN) {
-    if (dteDiff<1) {
-      return RED;
-    } else if (dteDiff>=1 && dteDiff<=3) {
-      return ORANGE;
-    } else if (dteDiff>3 && dteDiff<=7) {
-      return YELLOW;
-    } else if (dteDiff>7 && dteDiff<=30) {
-      return GREEN;
-    } else {
-      return BLUE;
-    }
-  } else {
-    return GREY;
-  }
+	if (FStatus == _DONE) {
+		return GREY;
+	} else if (FStatus == _PLAN) {
+		if (dteDiff<1) {
+			return RED;
+		} else if (dteDiff>=1 && dteDiff<=3) {
+			return ORANGE;
+		} else if (dteDiff>3 && dteDiff<=7) {
+			return YELLOW;
+		} else if (dteDiff>7 && dteDiff<=30) {
+			return GREEN;
+		} else {
+			return BLUE;
+		}
+	} else {
+		return GREY;
+	}
 }
 
 //----------------------------------------------------------
-//Функция для вывода типа
-//07.09.2021 проверена
+//Функция для вывода гарантии
+//10.09.2021 проверена
 //Зависит от pDaysLeft
 //----------------------------------------------------------
 function updateWarranty() {
@@ -796,27 +750,28 @@ function updateWarranty() {
 	//Обрабатываемое дело
 	var deals = lib().entries();
 
-  const ICO_WARRANTY = "🛡️";
+	const ICO_WARRANTY = "🛡️";
 
 	//Поля
-  for (var i=0; i<deals.length; i++) {
+	for (var i=0; i<deals.length; i++) {
 
-    var deal = deals[i];
-    var FWarranty = deal.field (WARRANTY);
+		var deal = deals[i];
+		var FWarranty = deal.field (WARRANTY);
 
-    if (FWarranty != undefined) {
+		if (FWarranty != undefined) {
 
-      var dteDiff = pDaysLeft(FWarranty);
+			var dteDiff = pDaysLeft(FWarranty);
 
-      if (dteDiff >-1) {
-        deal.set(WARRANTY_DAYS, ICO_WARRANTY + " " + dteDiff + " дн.");
-      } else {
-        deal.set(WARRANTY_DAYS, "");
-      }
+			if (dteDiff >-1) {
+				deal.set(WARRANTY_DAYS, ICO_WARRANTY + " " + dteDiff + " дн.");
+			} else {
+				deal.set(WARRANTY_DAYS, "");
+			}
 
-    } else {
-      deal.set(WARRANTY_DAYS, "");
-    }
-  }
+		} else {
+			deal.set(WARRANTY_DAYS, "");
+		}
+	}
+	
 	message("ℹ️ Гарантия обновлена");	
 }
