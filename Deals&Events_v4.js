@@ -819,7 +819,7 @@ function getDealWarranty2() {
 //Независимая
 //--------------------------------------------------
 function pDaysLeft2(dTarget, dReference, nRound) {
-	var res = "dTarget[" + dTarget + "]\ndReference[" + dReference + "]\nnRound[" + "]";	
+	var res = "dTarget[" + dTarget + "]\ndReference[" + dReference + "]\nnRound[" + nRound + "]";	
 	message(res);
   //Если нет целевой даты, то ничего
 	if (dTarget == undefined || dTarget == "") {
