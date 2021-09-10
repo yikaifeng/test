@@ -710,13 +710,13 @@ function getDealWarrantyDate() {
   try {
     var FWarranty = deal.field (WARRANTY);
     if (FWarranty == undefined || FWarranty == "") {
-      return -1;
+      return "no";
     } else {
-      return Number(FWarranty);
+      return FWarranty.toString();
     }
   }
   catch(e) {
-    return -1;
+    return "no";
   }
 
 }
@@ -734,7 +734,7 @@ function getDealWarranty() {
 	//Поля
 	var FWarranty_2 = deal.field (WARRANTY_2);
 
-	if (FWarranty_2 != -1) {
+	if (FWarranty_2 != "no") {
 		var dteDiff = pDaysLeft(FWarranty_2);
     if (dteDiff >=-1 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
