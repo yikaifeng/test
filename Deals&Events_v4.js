@@ -24,7 +24,7 @@ const END_DATE = "Дата окончания";
 const END_TIME = "Время окончания";
 const NAME = "Название";
 const COST = "Стоимость";
-const WARRANTY = "Гарантия";
+const WARRANTY = "Гарантия до";
 const COUNT = "Вычислять периодичность";
 const UNIT = "Ед.измерения";
 const INTERVAL = "Интервал";
@@ -800,23 +800,26 @@ function updateWarranty() {
 
 
 //----------------------------------------------------------
-//Функция для вывода типа
-//07.09.2021 проверена
-//Зависит от pDaysLeft
+//Функция для вывода срока гарантии
+//10.09.2021 проверена
+//Независимая
 //----------------------------------------------------------
-function getDealWarranty2() {
+function getDealWarrantyDate() {
 
 	//Обрабатываемое дело
 	var deal = entry();
-  const ICO_WARRANTY = "🛡️";
+
 	//Поля
   try {
     var FWarranty = deal.field (WARRANTY);
-    return FWarranty;
+    if (FWarranty == undefined || FWarranty == "") {
+      return 0;
+    } else {
+      return Number(FWarranty);
+    }
   }
-
   catch(e) {
-    return "error";
+    return 0;
   }
 
 }
