@@ -736,7 +736,7 @@ function getDealWarranty() {
 
 	if (FWarranty_2 != "no") {
 		var dteDiff = pDaysLeft(FWarranty_2);
-    if (dteDiff >-1) {return dteDiff + " дн.";} else {return "";}
+    if (dteDiff >-1) {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
 		return "";
 	}	
@@ -786,105 +786,3 @@ function getDealColor() {
   }
 }
 
-//----------------------------------------------------------
-//Функция для вывода типа
-//07.09.2021 проверена
-//Зависит от pDaysLeft
-//----------------------------------------------------------
-function getDealWarranty2() {
-
-	//Обрабатываемое дело
-	var deal = entry();
-  const ICO_WARRANTY = "🛡️";
-	log("getDealWarranty2()\n");
-	//Поля
-	var FWarranty_2 = deal.field (WARRANTY_2);
-	log("FWarranty_2[" + FWarranty_2 + "]\n");
-	if (FWarranty_2 != -1) {
-		log("FWarranty_2 != -1\n>>>\n");
-		var dteDiff = pDaysLeft2(FWarranty_2);
-		log(">>>\ndteDiff: [" + dteDiff +"]\n");
-    if (dteDiff >=-1 && dteDiff != "") {
-      log("dteDiff >=-1 && dteDiff != \"\"\n");
-      return ICO_WARRANTY + " " + dteDiff + " дн.";
-    } else {
-      log("dteDiff else\n");
-      return "";
-    }
-	} else {
-		log("FWarranty_2 == -1\n");
-		//message(res);
-		return "";
-	}	
-}
-
-//--------------------------------------------------
-//Остаток дней
-//07.09.2021 проверена
-//Независимая
-//--------------------------------------------------
-function pDaysLeft2(dTarget, dReference, nRound) {
-  log("\npDaysLeft2\n");
-	log("dTarget[" + dTarget + "]\ndReference[" + dReference + "]\nnRound[" + nRound + "]\n\n");	
-	
-  //Если нет целевой даты, то ничего
-	if (dTarget == undefined || dTarget == "") {
-    log("dTarget == undefined || dTarget == \"\"\n");
-		return "";
-	} else {
-    try {
-      var dteTarget = new Date(dTarget);
-      log("\nnew Date(dTarget): " + dteTarget);
-      if (isNaN(dteTarget)) {
-        log("\ndteTarget is NaN");
-        return "";
-      }
-    }
-    catch (e) {
-      log("\ndTarget catch");
-      return "";
-    }
-  }
-
-  //Если нет отсчётной даты, то сегодня
-	if (dReference == undefined || dReference == "") {
-		var dteReference = new Date();
-    dteReference = dteReference.setHours(0, 0, 0, 0);
-	} else {
-    try {
-      var dteReference = new Date(dReference);
-      if (isNaN(dteReference)) {
-        dteReference = new Date();
-        dteReference = dteReference.setHours(0, 0, 0, 0);
-      }
-      dteReference = dteReference.setHours(0, 0, 0, 0);
-    }
-    catch (e) {
-			var dteReference = new Date();
-      dteReference = dteReference.setHours(0, 0, 0, 0);
-    }
-  }
-
-  //Если не передано округление, то до целых
-  if (nRound == undefined || nRound == "") {
-    var round = 0;
-  } else {
-    var round = Number(nRound);
-    if (isNaN(round)) {
-      round = 0;
-    } else {
-      round = Math.abs(round);
-      round = round.toFixed(0);
-    }
-  }
-
-	//Разница в днях с сейчас
-	var dDif = (dteTarget - dteReference)/(1000*3600*24);
-  log("\ndDif " + dDif);
-	//Округляем
-  dDif = dDif*(Math.pow(10, round));
-  dDif = Math.floor(dDif);
-
-	return dDif/(Math.pow(10, round));
-						
-}
