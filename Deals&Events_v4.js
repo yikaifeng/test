@@ -824,22 +824,24 @@ function getDealWarranty2() {
 //Независимая
 //--------------------------------------------------
 function pDaysLeft2(dTarget, dReference, nRound) {
-	var res = "dTarget[" + dTarget + "]\ndReference[" + dReference + "]\nnRound[" + nRound + "]\n\n";	
+  log("\npDaysLeft2\n");
+	log("dTarget[" + dTarget + "]\ndReference[" + dReference + "]\nnRound[" + nRound + "]\n\n");	
 	
   //Если нет целевой даты, то ничего
 	if (dTarget == undefined || dTarget == "") {
-    res = res + "dTarget == undefined || dTarget == \"\""
-    message (res);
+    log("dTarget == undefined || dTarget == \"\"\n");
 		return "";
 	} else {
     try {
       var dteTarget = new Date(dTarget);
-      res = res + "new Date(dTarget): " + dteTarget;
+      log("\nnew Date(dTarget): " + dteTarget);
       if (isNaN(dteTarget)) {
+        log("\ndteTarget is NaN");
         return "";
       }
     }
     catch (e) {
+      log("\ndTarget catch");
       return "";
     }
   }
@@ -878,8 +880,7 @@ function pDaysLeft2(dTarget, dReference, nRound) {
 
 	//Разница в днях с сейчас
 	var dDif = (dteTarget - dteReference)/(1000*3600*24);
-  res = res + "\ndDif[" + dDif + "]";
-  message(res);
+  log("\ndDif " + dDif);
 	//Округляем
   dDif = dDif*(Math.pow(10, round));
   dDif = Math.floor(dDif);
