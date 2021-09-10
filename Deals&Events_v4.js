@@ -796,19 +796,24 @@ function getDealWarranty2() {
 	//Обрабатываемое дело
 	var deal = entry();
   const ICO_WARRANTY = "🛡️";
-	var res = "";
+	log("getDealWarranty2()\n");
 	//Поля
 	var FWarranty_2 = deal.field (WARRANTY_2);
-	  res = res + "FWarranty_2: " + FWarranty_2 + "\n";
+	log("FWarranty_2[" + FWarranty_2 + "]\n");
 	if (FWarranty_2 != -1) {
-		res = res + "FWarranty_2 != -1";
+		log("FWarranty_2 != -1\n>>>\n");
 		var dteDiff = pDaysLeft2(FWarranty_2);
-		res = res + "\ndteDiff: [" + dteDiff +"]";
-		message(res);
-    if (dteDiff >=-1 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
+		log(">>>\ndteDiff: [" + dteDiff +"]\n");
+    if (dteDiff >=-1 && dteDiff != "") {
+      log("dteDiff >=-1 && dteDiff != \"\"\n");
+      return ICO_WARRANTY + " " + dteDiff + " дн.";
+    } else {
+      log("dteDiff else\n");
+      return "";
+    }
 	} else {
-		res = res + "FWarranty_2 == -1";
-		message(res);
+		log("FWarranty_2 == -1\n");
+		//message(res);
 		return "";
 	}	
 }
