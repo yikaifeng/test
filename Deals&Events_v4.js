@@ -802,10 +802,12 @@ function getDealWarranty2() {
 	  res = res + "FWarranty_2: " + FWarranty_2 + "\n";
 	if (FWarranty_2 != -1) {
 		res = res + "FWarranty_2 != -1";
+		message(res);
 		var dteDiff = pDaysLeft(FWarranty_2);
     if (dteDiff >=-1 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
 		res = res + "FWarranty_2 == -1";
+		message(res);
 		return "";
 	}	
 }
