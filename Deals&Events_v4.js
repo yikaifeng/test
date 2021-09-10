@@ -28,7 +28,7 @@ const WARRANTY = "Гарантия до";
 const COUNT = "Вычислять периодичность";
 const UNIT = "Ед.измерения";
 const INTERVAL = "Интервал";
-const SHOWWARRANTY = "Вывод гарантии";
+const WARRANTY2 = "Гарантия";
 
 //======================================================
 //Переменные
@@ -697,6 +697,31 @@ function getDealCost() {
 }
 
 //----------------------------------------------------------
+//Функция для вывода срока гарантии
+//10.09.2021 проверена
+//Независимая
+//----------------------------------------------------------
+function getDealWarrantyDate() {
+
+	//Обрабатываемое дело
+	var deal = entry();
+
+	//Поля
+  try {
+    var FWarranty = deal.field (WARRANTY);
+    if (FWarranty == undefined || FWarranty == "") {
+      return Number.NEGATIVE_INFINITY;
+    } else {
+      return Number(FWarranty);
+    }
+  }
+  catch(e) {
+    return Number.NEGATIVE_INFINITY;
+  }
+
+}
+
+//----------------------------------------------------------
 //Функция для вывода типа
 //07.09.2021 проверена
 //Зависит от pDaysLeft
@@ -707,10 +732,9 @@ function getDealWarranty() {
 	var deal = entry();
   const ICO_WARRANTY = "🛡️";
 	//Поля
-	var FWarranty = deal.field (WARRANTY);
+	var FWarranty = deal.field (WARRANTY2);
 
-	if (FWarranty != undefined) {
-    FWarranty = deal.field (WARRANTY);
+	if (FWarranty != Number.NEGATIVE_INFINITY) {
 		var dteDiff = pDaysLeft(FWarranty);
     if (dteDiff >=0 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
@@ -760,66 +784,4 @@ function getDealColor() {
   } else {
     return GREY;
   }
-}
-
-//----------------------------------------------------------
-//Функция для вывода гарантии
-//08.09.2021 проверена
-//Зависит от pDaysLeft
-//----------------------------------------------------------
-function updateWarranty() {
-
-	//Обрабатываемое дело
-	var curLib = lib();
-  var arrDeals = curLib.entries();
-  const ICO_WARRANTY = "🛡️";
-
-  for (var i=0; i<arrDeals.length; i++) {
-
-    var deal = arrDeals[i];
-    var FWarranty = deal.field (WARRANTY);
-
-    if (FWarranty != undefined) {
-      FWarranty = deal.field (WARRANTY);
-		  var dteDiff = pDaysLeft(FWarranty);
-	    log(dteDiff);
-      if (dteDiff >=0 && !(dteDiff == "")) {
-	       log("dteDiff>=0");
-        deal.set(SHOWWARRANTY, ICO_WARRANTY + " " + dteDiff + " дн.");
-      } else {
-	      log("dteDiff<0");
-        deal.set(SHOWWARRANTY, "");
-      }
-	  } else {
-		  log("undef");
-		  deal.set(SHOWWARRANTY, "");
-	  }	
-  }
-	message("ℹ️ Остаток гарантии обновлён");	
-}
-
-
-//----------------------------------------------------------
-//Функция для вывода срока гарантии
-//10.09.2021 проверена
-//Независимая
-//----------------------------------------------------------
-function getDealWarrantyDate() {
-
-	//Обрабатываемое дело
-	var deal = entry();
-
-	//Поля
-  try {
-    var FWarranty = deal.field (WARRANTY);
-    if (FWarranty == undefined || FWarranty == "") {
-      return 0;
-    } else {
-      return Number(FWarranty);
-    }
-  }
-  catch(e) {
-    return 0;
-  }
-
 }
