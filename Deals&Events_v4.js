@@ -238,18 +238,15 @@ function pDaysLeft(dTarget, dReference, nRound) {
 	
   //Если нет целевой даты, то ничего
 	if (dTarget == undefined || dTarget == "") {
-    log("no dTarget");
 		return "";
 	} else {
     try {
       var dteTarget = new Date(dTarget);
       if (isNaN(dteTarget)) {
-        log("dTarget is NaN");
         return "";
       }
     }
     catch (e) {
-      log("dTarget error");
       return "";
     }
   }
@@ -257,21 +254,18 @@ function pDaysLeft(dTarget, dReference, nRound) {
   //Если нет отсчётной даты, то сегодня
 	if (dReference == undefined || dReference == "") {
 		var dteReference = new Date();
-    log("no dReference");
     dteReference = dteReference.setHours(0, 0, 0, 0);
 	} else {
     try {
       var dteReference = new Date(dReference);
       if (isNaN(dteReference)) {
         dteReference = new Date();
-        log("dReference is NaN");
         dteReference = dteReference.setHours(0, 0, 0, 0);
       }
       dteReference = dteReference.setHours(0, 0, 0, 0);
     }
     catch (e) {
 			var dteReference = new Date();
-      log("dReference error");
       dteReference = dteReference.setHours(0, 0, 0, 0);
     }
   }
@@ -279,12 +273,10 @@ function pDaysLeft(dTarget, dReference, nRound) {
   //Если не передано округление, то до целых
   if (nRound == undefined || nRound == "") {
     var round = 0;
-    log("no nRound");
   } else {
     var round = Number(nRound);
     if (isNaN(round)) {
       round = 0;
-      log("nRound is NaN");
     } else {
       round = Math.abs(round);
       round = round.toFixed(0);
@@ -293,7 +285,6 @@ function pDaysLeft(dTarget, dReference, nRound) {
 
 	//Разница в днях с сейчас
 	var dDif = (dteTarget - dteReference)/(1000*3600*24);
-	log(dDif);
 
 	//Округляем
   dDif = dDif*(Math.pow(10, round));
