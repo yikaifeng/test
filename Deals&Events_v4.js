@@ -794,5 +794,3 @@ function getDealColor() {
     return GREY;
   }
 }
-
-console.log(pDaysLeft(new Date()));
