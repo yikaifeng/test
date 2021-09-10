@@ -738,7 +738,7 @@ function getDealWarranty() {
 		var dteDiff = pDaysLeft(FWarranty_2);
     if (dteDiff >-1) {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
-		return "";
+		return;
 	}	
 }
 
