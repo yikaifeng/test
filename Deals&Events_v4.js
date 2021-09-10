@@ -804,6 +804,7 @@ function getDealWarranty2() {
 		res = res + "FWarranty_2 != -1";
 		var dteDiff = pDaysLeft(FWarranty_2);
 		res = res + "dteDiff: [" + dteDiff +"]";
+		message(res);
     if (dteDiff >=-1 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
 		res = res + "FWarranty_2 == -1";
