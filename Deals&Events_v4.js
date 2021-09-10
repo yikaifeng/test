@@ -819,14 +819,17 @@ function getDealWarranty2() {
 //Независимая
 //--------------------------------------------------
 function pDaysLeft2(dTarget, dReference, nRound) {
-	var res = "dTarget[" + dTarget + "]\ndReference[" + dReference + "]\nnRound[" + nRound + "]";	
-	message(res);
+	var res = "dTarget[" + dTarget + "]\ndReference[" + dReference + "]\nnRound[" + nRound + "]\n\n";	
+	
   //Если нет целевой даты, то ничего
 	if (dTarget == undefined || dTarget == "") {
+    res = res + "dTarget == undefined || dTarget == \"\""
+    message (res);
 		return "";
 	} else {
     try {
       var dteTarget = new Date(dTarget);
+      res = res + "new Date(dTarget): " + dteTarget;
       if (isNaN(dteTarget)) {
         return "";
       }
@@ -870,7 +873,8 @@ function pDaysLeft2(dTarget, dReference, nRound) {
 
 	//Разница в днях с сейчас
 	var dDif = (dteTarget - dteReference)/(1000*3600*24);
-
+  res = res + "\ndDif[" + dDif + "]";
+  message(res);
 	//Округляем
   dDif = dDif*(Math.pow(10, round));
   dDif = Math.floor(dDif);
