@@ -28,7 +28,7 @@ const WARRANTY = "Гарантия до";
 const COUNT = "Вычислять периодичность";
 const UNIT = "Ед.измерения";
 const INTERVAL = "Интервал";
-const WARRANTY2 = "Гарантия";
+const WARRANTY_2 = "Гарантия";
 
 //======================================================
 //Переменные
@@ -741,10 +741,10 @@ function getDealWarranty() {
 	var deal = entry();
   const ICO_WARRANTY = "🛡️";
 	//Поля
-	var FWarranty = deal.field (WARRANTY2);
+	var FWarranty_2 = deal.field (WARRANTY_2);
 
-	if (FWarranty != -1) {
-		var dteDiff = pDaysLeft(FWarranty);
+	if (FWarranty_2 != -1) {
+		var dteDiff = pDaysLeft(FWarranty_2);
     if (dteDiff >=-1 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
 		return "";
