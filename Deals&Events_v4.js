@@ -786,3 +786,37 @@ function getDealColor() {
   }
 }
 
+//----------------------------------------------------------
+//Функция для вывода типа
+//07.09.2021 проверена
+//Зависит от pDaysLeft
+//----------------------------------------------------------
+function updateWarranty() {
+
+	//Обрабатываемое дело
+	var deals = lib().entries();
+
+  const ICO_WARRANTY = "🛡️";
+
+	//Поля
+  for (i=0; i<deals.length; i++) {
+
+    var deal = deals[i];
+    var FWarranty = deal.field (WARRANTY);
+
+    if (FWarranty != undefined) {
+
+      var dteDiff = pDaysLeft(FWarranty);
+
+      if (dteDiff >-1) {
+        deal.set(ICO_WARRANTY + " " + dteDiff + " дн.");
+      } else {
+        deal.set(WARRANTY_DAYS, "");
+      }
+
+    } else {
+      deal.set(WARRANTY_DAYS, "");
+    }
+  }
+	
+}
