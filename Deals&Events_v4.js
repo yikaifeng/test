@@ -802,13 +802,79 @@ function getDealWarranty2() {
 	  res = res + "FWarranty_2: " + FWarranty_2 + "\n";
 	if (FWarranty_2 != -1) {
 		res = res + "FWarranty_2 != -1";
-		var dteDiff = pDaysLeft(FWarranty_2);
-		res = res + "dteDiff: [" + dteDiff +"]";
-		message(res);
+		var dteDiff = pDaysLeft2(FWarranty_2);
+		res = res + "\ndteDiff: [" + dteDiff +"]";
+		//message(res);
     if (dteDiff >=-1 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
 	} else {
 		res = res + "FWarranty_2 == -1";
-		message(res);
+		//message(res);
 		return "";
 	}	
+}
+
+//--------------------------------------------------
+//Остаток дней
+//07.09.2021 проверена
+//Независимая
+//--------------------------------------------------
+function pDaysLeft2(dTarget, dReference, nRound) {
+	var res = "dTarget[" + dTarget + "]\ndReference[" + dReference + "]\nnRound[ + "]";	
+	message(res);
+  //Если нет целевой даты, то ничего
+	if (dTarget == undefined || dTarget == "") {
+		return "";
+	} else {
+    try {
+      var dteTarget = new Date(dTarget);
+      if (isNaN(dteTarget)) {
+        return "";
+      }
+    }
+    catch (e) {
+      return "";
+    }
+  }
+
+  //Если нет отсчётной даты, то сегодня
+	if (dReference == undefined || dReference == "") {
+		var dteReference = new Date();
+    dteReference = dteReference.setHours(0, 0, 0, 0);
+	} else {
+    try {
+      var dteReference = new Date(dReference);
+      if (isNaN(dteReference)) {
+        dteReference = new Date();
+        dteReference = dteReference.setHours(0, 0, 0, 0);
+      }
+      dteReference = dteReference.setHours(0, 0, 0, 0);
+    }
+    catch (e) {
+			var dteReference = new Date();
+      dteReference = dteReference.setHours(0, 0, 0, 0);
+    }
+  }
+
+  //Если не передано округление, то до целых
+  if (nRound == undefined || nRound == "") {
+    var round = 0;
+  } else {
+    var round = Number(nRound);
+    if (isNaN(round)) {
+      round = 0;
+    } else {
+      round = Math.abs(round);
+      round = round.toFixed(0);
+    }
+  }
+
+	//Разница в днях с сейчас
+	var dDif = (dteTarget - dteReference)/(1000*3600*24);
+
+	//Округляем
+  dDif = dDif*(Math.pow(10, round));
+  dDif = Math.floor(dDif);
+
+	return dDif/(Math.pow(10, round));
+						
 }
