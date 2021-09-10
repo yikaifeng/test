@@ -809,7 +809,7 @@ function updateWarranty() {
       var dteDiff = pDaysLeft(FWarranty);
 
       if (dteDiff >-1) {
-        deal.set(ICO_WARRANTY + " " + dteDiff + " дн.");
+        deal.set(WARRANTY_DAYS, ICO_WARRANTY + " " + dteDiff + " дн.");
       } else {
         deal.set(WARRANTY_DAYS, "");
       }
@@ -820,4 +820,3 @@ function updateWarranty() {
   }
 	
 }
-//
