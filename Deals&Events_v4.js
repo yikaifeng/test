@@ -785,3 +785,27 @@ function getDealColor() {
     return GREY;
   }
 }
+
+//----------------------------------------------------------
+//Функция для вывода типа
+//07.09.2021 проверена
+//Зависит от pDaysLeft
+//----------------------------------------------------------
+function getDealWarranty2() {
+
+	//Обрабатываемое дело
+	var deal = entry();
+  const ICO_WARRANTY = "🛡️";
+	var res = "";
+	//Поля
+	var FWarranty_2 = deal.field (WARRANTY_2);
+	  res = res + "FWarranty_2: " + FWarranty_2 + "\n";
+	if (FWarranty_2 != -1) {
+		res = res + "FWarranty_2 != -1";
+		var dteDiff = pDaysLeft(FWarranty_2);
+    if (dteDiff >=-1 && dteDiff != "") {return ICO_WARRANTY + " " + dteDiff + " дн.";} else {return "";}
+	} else {
+		res = res + "FWarranty_2 == -1";
+		return "";
+	}	
+}
