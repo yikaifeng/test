@@ -15,6 +15,7 @@ const TYPE = "Тип";
   const _MAIL = "почта";
   const _ACCAUNT = "аккаунт";
   const _OTHER = "прочее";
+const ADDRESS = "Адрес";
 
 //======================================================
 //Переменные
@@ -136,4 +137,29 @@ function GetIcon(sSource) {
 	
  return pGetIcon(sSource);
      
+}
+
+//--------------------------------------------------
+//Получить описание
+//28.06.2022 проверена
+//Независимая
+//--------------------------------------------------
+function GetDescription() {
+  var FType;
+  var FType = pGetText(field (TYPE))
+
+  switch (FType) {
+    case _MAIL:
+      return field (ADDRESS);
+      break;
+    case _ACCAUNT:
+      return "";
+      break;
+    case _OTHER:
+      return "";
+      break;
+    default:
+      return "";
+  }
+
 }
