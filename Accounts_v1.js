@@ -16,6 +16,10 @@ const TYPE = "Тип";
   const _ACCAUNT = "аккаунт";
   const _OTHER = "прочее";
 const ADDRESS = "Адрес";
+const MAIL = "Почта";
+const LOGIN = "Логин";
+const NUMBER = "Телефон";
+const NAME = "Наименование учётной записи";
 
 //======================================================
 //Переменные
@@ -153,7 +157,11 @@ function GetDescription() {
       return field (ADDRESS);
       break;
     case _ACCAUNT:
-      return "";
+      if (field(NAME) != "") {
+        return field(NAME);
+      } else {
+        return field(MAIL);
+      }
       break;
     case _OTHER:
       return "";
