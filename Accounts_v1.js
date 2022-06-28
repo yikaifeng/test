@@ -179,5 +179,3 @@ function GetDescription() {
   }
 
 }
-
-var e;
