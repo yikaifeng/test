@@ -159,9 +159,9 @@ function GetDescription() {
     case _ACCAUNT:
       if (field(NAME) != "") {
         if (field(MAIL) != "") {
-          return field(NAME) & " | " & field(MAIL);
+          return field(NAME) + " | " + field(MAIL);
         } else if (field(NUMBER) != "") {
-          return field(NAME) & " | " & field(NUMBER);
+          return field(NAME) + " | " + field(NUMBER);
         } else {
           return field(NAME);
         }
@@ -174,9 +174,9 @@ function GetDescription() {
     case _OTHER:
       if (field(NAME) != "") {
         if (field(MAIL) != "") {
-          return field(NAME) & " | " & field(MAIL);
+          return field(NAME) + " | " + field(MAIL);
         } else if (field(NUMBER) != "") {
-          return field(NAME) & " | " & field(NUMBER);
+          return field(NAME) + " | " + field(NUMBER);
         } else {
           return field(NAME);
         }
