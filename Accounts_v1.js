@@ -191,4 +191,3 @@ function GetDescription() {
   }
 
 }
-var a;
