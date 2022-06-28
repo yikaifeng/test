@@ -165,7 +165,7 @@ function GetDescription() {
         } else {
           return field(NAME);
         }
-      } elseif(field(MAIL) != "") {
+      } else if(field(MAIL) != "") {
         return field(MAIL);
       } else {
         return field(NUMBER);
@@ -180,7 +180,7 @@ function GetDescription() {
         } else {
           return field(NAME);
         }
-      } elseif(field(MAIL) != "") {
+      } else if(field(MAIL) != "") {
         return field(MAIL);
       } else {
         return field(NUMBER);
