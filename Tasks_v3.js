@@ -720,7 +720,7 @@ const RED = "#F44336";
 	const YELLOW = "#FFEB3B";
 	const GREEN = "#8BC34A";
 	const BLUE = "#2DB7F6";
-const DARKBLUE = "#3F51B5";
+	const DARKBLUE = "#3F51B5";
 	const GREY = "#9E9E9E";
 
 	switch (FStatus) {
@@ -733,7 +733,7 @@ const DARKBLUE = "#3F51B5";
 			color = DARKBLUE;
 			break;
       
-		case _ACTIVE: 
+		case _PLAN: 
 			if (dteDiff<1) {
 				return RED;
 			} else if (dteDiff>=1 && dteDiff<=3) {
