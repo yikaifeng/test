@@ -803,3 +803,5 @@ case GREY:
 	}
 
 }
+
+var a;
