@@ -715,7 +715,7 @@ function getTaskColor () {
 	var dteDiff = pDaysLeft(FStartDate);
 	if (dteDiff == 0) {dteDiff = Math.abs(dteDiff);}
 	
-const RED = "#F44336";
+	const RED = "#F44336";
 	const ORANGE = "#FFAE00";
 	const YELLOW = "#FFEB3B";
 	const GREEN = "#8BC34A";
@@ -726,11 +726,11 @@ const RED = "#F44336";
 	switch (FStatus) {
       
 		case _DONE: 
-			color = GREY;
+			return GREY;
 			break;
       
 		case _WAIT: 
-			color = DARKBLUE;
+			return DARKBLUE;
 			break;
       
 		case _PLAN: 
@@ -749,8 +749,6 @@ const RED = "#F44336";
       
       		default: break;
 	}
-	
-	return color;
 }
 
 //----------------------------------------------------------
