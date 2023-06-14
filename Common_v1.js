@@ -436,4 +436,41 @@ function shift_date(field, interval, unit, forward) {
   return dDate;
 
 }
+
+//------------------------------------------------------------------------------
+//Получить записи в библиотеке по условию для поля
+//14.06.2023 проверена
+//Args:
+//	entries|array| - массив записей
+//	field_name|string| - название поля
+//	values|array| - массив допустимых значений поля
+//Return:
+//	|array|
+//------------------------------------------------------------------------------	
+function get_entries(entries, field_name, values) {
+	
+	if (entries == undefined)	{
+		return "";
+	}
+	
+	if (field_name == undefined)	{
+		return "";
+	}
+	
+	if (values == undefined)	{
+		return "";
+	}
+	
+	var result = []
+	
+	//Перебор записей
+	for (var n = 0; n < entries.length; n++) {
+        if (values.indexOf(entries[n].field(field_name)) != -1) {
+			result.push(entries[n]);
+		}
+    }  
+		
+	return result;
+
+}
 	
