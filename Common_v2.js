@@ -23,6 +23,25 @@
 //******************************************************************************
 
 //******************************************************************************
+//Классы
+//******************************************************************************
+//------------------------------------------------------------------------------
+//Результат (результат + отладочная информация)
+//19.06.2023 проверена
+//Args:
+//	result|any| - результат
+//	info|any| - информация
+//------------------------------------------------------------------------------
+class Result {
+	
+	constructor(result, info) { 
+		this.result = result;
+		info = info || "нет информации";		
+		this.info = info;
+	}
+
+}
+//******************************************************************************
 //Закрытые функции
 //******************************************************************************
 
@@ -35,208 +54,49 @@
 //==============================================================================
 
 //------------------------------------------------------------------------------
-//Получить иконку из поля (первая группа символов, отделенная пробелпми)
-//13.06.2023 проверена
-//Args:
-//	field|field, string| - поле записи
-//Return:
-//	|string|
-//------------------------------------------------------------------------------
-function get_icon(field) {
-	
-	//Пустая строка, если поле пусто
-	if (field == undefined) {
-		return "";
-	}
-
-	//Пробуем привести к строке
-	field = String(field);
-
-	//Шаблон поиска иконки: первая группа символов не из пробелов
-	var regexp = /\S+/;
-
-	//Ищем первую группу символов, не являющимися пробелами. Если не найдено - null
-	var icon = field.match(regexp);
-
-	//Если иконки нет - пустая строка
-	if (icon == null) {
-		return "";
-	} else {
-		return icon[0];
-	}
-					
-}
-	
-//------------------------------------------------------------------------------
-//Соединить иконку одного поля с текстом (в том числе другого поля)
-//13.06.2023 проверена
-//Args:
-//	icon_field|field, string| - поле записи с иконкой
-//	icon_field|field, string| - поле записи с иконкой
-//	space|bool| - вставить ли пробел
-//Return:
-//	|string|
-///------------------------------------------------------------------------------
-function add_icon(icon_field, text_field, space) {
-	
-	space = space || true;
-	
-	//Если нет значения - пустая строка
-	if (icon_field == undefined) {
-		icon_field = "";
-	}
-
-	//Пробуем привести к строке
-	icon_field = String(icon_field);	
-	text_field = String(text_field);
-
-	//Шаблон поиска иконки: первая группа символов не из пробелов
-	var regexp = /\S+/;
-
-	//Ищем первую группу символов, не являющимися пробелами. Если не найдено - null
-	var icon = icon_field.match(regexp);
-
-	//Если иконки нет - толко текст
-	if (icon == null) {
-		return text_field.trim();
-	} else {
-		if (space) {
-			  return icon[0] + " " + text_field.trim();
-		} else {
-			  return icon[0] + text_field.trim();
-		}
-	}
-
-}
-
-//------------------------------------------------------------------------------
-//Получить строку без иконки в начале строки (удаляет первую группу символов,
-//	отделенную пробелами
-//13.06.2023 проверена
-//Args:
-//	field|field, string| - поле записи
-//Return:
-//	|string|
-//------------------------------------------------------------------------------	
-function get_text(field) {	
-    
-	//Выход, если нет значения
-	if (field == undefined) {
-		return "";
-	}
-	
-	//Пробуем привести к строке
-	field = String(field);
-
-	//Заменяем пустой строкой первую группу символов
-	var regexp = /\s*\S+\s*/;
-	var result = field.replace(regexp, "");
-	result = result.trim();
-
-	return result;
-
-}
-
-//------------------------------------------------------------------------------
-//Отформатировать деньги (разделить по три разряда, добавить единицы измерения)
-//13.06.2023 проверена
-//Args:
-//	field|field, string| - поле записи
-//	unit|string| - единица измерения
-//Return:
-//	|string|
-//------------------------------------------------------------------------------	
-function format_money(field, unit) {
-		
-	//Выход, если нет значения
-	if (field == undefined || field == "") {
-		return "";
-	}
-		
-	//Пробуем привести к числу
-	nSum = Number(field);
-
-	//Если числа нет - вернуть пустую строку
-	if (isNaN(nSum)) {
-		return "";
-	}
-
-	//Округляем до двух знаков
-	nSum = nSum.toFixed(2);
-
-	//Определяем знак	
-	var sign = "";
-	if (nSum < 0) {
-		sign = "-";
-		nSum = Math.abs(nSum);
-		nSum = nSum.toFixed(2);
-	}
-
-	//Форматируем	
-	nSum += "";
-	nSum = new Array(4 - nSum.length % 3).join("U") + nSum;
-	nSum = nSum.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
-	nSum = sign + nSum;
-	nSum = nSum.trim();
-		
-	//Добавляем единицы измерения
-	if (unit != undefined) {
-		return nSum + " " + String(unit);
-	} else {
-		return nSum;
-	}		
-			
-}
-
-//------------------------------------------------------------------------------
-//Получить строку из символов табуляции
-//19.06.2023 проверена
-//Args:
-//	number|int| - количество символов
-//Return:
-//	|string|
-//------------------------------------------------------------------------------	
-function tabs(number) {	
-    
-	//Выход, если нет значения
-	if (number == undefined) {
-		return "";
-	}
-	if (!Number.isInteger(number)) {
-		return "";
-	}
-	if (number < 0) {
-		return "";
-	}
-	
-	return "\t".repeat(number);
-
-}
-
-//------------------------------------------------------------------------------
 //Получить строку из символов
 //19.06.2023 проверена
 //Args:
 //	number|int| - количество символов
+//	symbol|string| - символ заполнения
 //Return:
-//	|string|
+//	|Result(string, string)|
 //------------------------------------------------------------------------------	
-function sep(number, separator) {	
+function fill(number, symbol) {	
+
+	//Результат
+	res = Result();
     
-	separator = separator || "-";
+	//Значения по умолчанию
+	symbol = symbol || "\t";
 	
-	//Выход, если нет значения
+	//Пробуем привести к строке
+	symbol = String(symbol);
+	res.info += "symbol: [" + symbol + "]" + "\n";
+	
+	//Пустая строка, если число не определен
 	if (number == undefined) {
-		return "";
+		res.result = "";
+		res.info += "number is undefined" + "\n";
+		return res;
 	}
-	if (!Number.isInteger(number)) {
-		return "";
-	}
-	if (number < 0) {
-		return "";
+	//Пустая строка, если число не целое
+	if (!Number.isInteger(number) ) {
+		res.result = "";
+		res.info += "number is not Integer" + "\n";
+		return res;
 	}
 	
-	return separator.repeat(number);
+	//Пустая строка, если число меньше нуля
+	if (number < 0) {
+		res.result = "";
+		res.info += "number < 0" + "\n";
+		return res;
+	}
+	
+	res.result = symbol.repeat(number);
+	
+	return res;
 
 }
 
@@ -246,62 +106,281 @@ function sep(number, separator) {
 //Args:
 //	text_|string| - текст
 //Return:
-//	|string|
+//	|Result(string, string)|
 //------------------------------------------------------------------------------	
-function del_last_enter(text_) {	
+function del_last_enter(text_) {
+
+	//Результат
+	res = Result();
     
 	//Выход, если нет значения
 	if (text_ == undefined) {
-		return "";
+		res.result = "";
+		res.info += "text_ is undefined" + "\n";
+		return res;
 	} else {
 		text_ = String(text_);
+		res.info += "text: [" + text_ + "]" + "\n";
 	}
 	
 	if (text_.length != 0) { 
 		var last = text_.substring(text_.length-1, text_.length);
 		if (last=="\n") {
-			return text_.substring(0, text_.length-1);
+			res.result =  text_.substring(0, text_.length-1);
 		} else {
-			return text_
+			res.result = text_;
 		}
 	} else {
-		return text_
+		res.result = text_;
 	}
+	
+	return res;
 
 }
 
 //------------------------------------------------------------------------------
-//Получить строку заданной ширины из символов табуляции слева от текста
+//Получить иконку из поля (первая группа символов, отделенная пробелпми)
+//16.06.2023 проверена
+//Args:
+//	field|field, string| - поле записи
+//Return:
+//	|Result(string, string)|
+//------------------------------------------------------------------------------
+function get_icon(field) {
+	
+	//Результат
+	res = Result();
+	
+	//Возвращаем пустую строку, если не передано поле
+	if (field == undefined) {
+		res.result = "";
+		res.info += "field is undefined" + "\n";
+		return res;
+	}
+
+	//Пробуем привести к строке
+	field = String(field);
+	res.info += "text: [" + field + "]" + "\n";
+
+	//Шаблон поиска иконки: первая группа символов не из пробелов
+	var regexp = /\S+/;
+
+	//Ищем первую группу символов, не являющимися пробелами. Если не найдено - null
+	var icon = field.match(regexp);
+
+	//Если иконки нет - пустая строка
+	if (icon == null) {
+		res.result = "";
+	} else {
+		res.result = icon[0];
+	}
+	
+	//Возвращаем результат
+	return res;
+					
+}
+	
+//------------------------------------------------------------------------------
+//Соединить иконку одного поля с текстом (в том числе другого поля)
 //19.06.2023 проверена
 //Args:
-//	rtext|string| - текст справа от табуляции
-//	width|integer| - общая ширина текста
+//	icon_field|field, string| - поле записи с иконкой
+//	icon_field|field, string| - поле записи с иконкой
+//	space|bool| - вставить ли пробел
 //Return:
-//	|string|
+//	|Result(string, string)|
+///------------------------------------------------------------------------------
+function add_icon(icon_field, text_field, space) {
+	
+	//Результат
+	res = Result();
+	
+	//Значения по умолчанию
+	space = space || true;
+	
+	//Если нет значения - пустая строка
+	if (icon_field == undefined) {
+		res.info += "icon_field is undefined" + "\n";
+		icon_field = "";
+	}
+	if (text_field == undefined) {
+		res.info += "text_field is undefined" + "\n";
+		text_field = "";
+	}
+
+	//Пробуем привести к строке
+	icon_field = String(icon_field);
+	res.info += "icon_field: [" + icon_field + "]" + "\n";	
+	text_field = String(text_field);
+	res.info += "text_field: [" + text_field + "]" + "\n";
+
+	//Шаблон поиска иконки: первая группа символов не из пробелов
+	var regexp = /\S+/;
+
+	//Ищем первую группу символов, не являющимися пробелами. Если не найдено - null
+	var icon = icon_field.match(regexp);
+
+	//Если иконки нет - толко текст
+	if (icon == null) {
+		res.result = text_field.trim();
+	} else {
+		if (space) {
+			res.result = icon[0] + " " + text_field.trim();
+		} else {
+			res.result = icon[0] + text_field.trim();
+		}
+	}
+	
+	return res;
+
+}
+
+//------------------------------------------------------------------------------
+//Получить строку без иконки в начале строки (удаляет первую группу символов,
+//	отделенную пробелами
+//19.06.2023 проверена
+//Args:
+//	field|field, string| - поле записи
+//Return:
+//	|Result(string, string)|
 //------------------------------------------------------------------------------	
-function left_tabs(rtext, width) {	
+function get_text(field) {
+
+	//Результат
+	res = Result();
+    
+	//Возвращает пустую строку, если поле неопределено
+	if (field == undefined) {
+		res.result = "";
+		res.info += "field is undefined" + "\n";
+		return res;
+	}
+	
+	//Пробуем привести к строке
+	field = String(field);
+	res.info += "text: [" + field + "]" + "\n";
+
+	//Заменяем пустой строкой первую группу символов
+	var regexp = /\s*\S+\s*/;
+	res.result = field.replace(regexp, "");
+	res.result = res.result.trim();
+
+	return res;
+
+}
+
+//------------------------------------------------------------------------------
+//Отформатировать деньги (разделить по три разряда, добавить единицы измерения)
+//19.06.2023 проверена
+//Args:
+//	field|field, string| - поле записи
+//	unit|string| - единица измерения
+//Return:
+//	|Result(string, string)|
+//------------------------------------------------------------------------------	
+function format_money(field, unit) {
+	
+	//Результат
+	res = Result();	
+	
+	//Пустая строка, если поле не определено или пусто
+	if (field == undefined || field == "") {
+		res.result = "";
+		res.info += "field is undefined or empty" + "\n";
+		return res;
+	}
+		
+	//Пробуем привести к числу
+	sum = Number(field);
+
+	//Если числа нет - вернуть пустую строку
+	if (isNaN(nSum)) {
+		res.result = "";
+		res.info += "field doesn't contain number" + "\n";
+		return res;
+	}
+	res.info += "number: [" + sum + "]\n";
+
+	//Округляем до двух знаков
+	sum = sum.toFixed(2);
+
+	//Определяем знак	
+	var sign = "";
+	if (sum < 0) {
+		sign = "-";
+		sum = Math.abs(sum);
+		sum = sum.toFixed(2);
+	}
+
+	//Форматируем	
+	sum += "";
+	sum = new Array(4 - sum.length % 3).join("U") + sum;
+	sum = sum.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
+	sum = sign + sum;
+	sum = sum.trim();
+		
+	//Добавляем единицы измерения
+	if (unit != undefined) {
+		res.result = sum + " " + String(unit).trim();
+	} else {
+		res.result = sum;
+	}
+
+	return res;
+			
+}
+
+
+//------------------------------------------------------------------------------
+//Получить строку заданной ширины из символов  слева от текста
+//19.06.2023 проверена
+//Args:
+//	rtext|string| - текст справа от символов
+//	width|integer| - общая ширина текста
+//	symbol|string| - символ заполнения
+//Return:
+//	|Result(string, string)|
+//------------------------------------------------------------------------------	
+function left_tabs(rtext, width, symbol) {	
+
+	//Результат
+	res = Result();	
+	
+	//Значения по умолчанию
+	symbol = symbol || "\t";
 
 	//Преобразуем в текст
 	if (rtext == undefined) {
+		res.info += "rtext is undefined" + "\n";
 		rtext = "";
 	} else {
 		rtext = String(rtext);
+		res.info += "rtext: [" + rtext + "]" + "\n";
 	}
 	
-	//Если не указана ширина - вернуть текст
+	//Если не указана ширина или не является числом - вернуть текст
 	if (width == undefined || !Number.isInteger(width)) {
-		return rtext;
+		res.result = rtext;
+		res.info += "width is undefined" + "\n";
+		return res;
 	}
+	//Если  ширина меньше 0 - вернуть текст
 	if (width < 0) {
-		return rtext;
+		res.result = rtext;
+		res.info += "width < 0" + "\n";
+		return res;
 	}
 	
 	//Если ширина меньше текста, вернуть текст
 	if (width <= rtext.length) {
-		return rtext;
+		res.result = rtext;
+		res.info += "width < rtext.length" + "\n";
+		return res;
 	} else {
 		var number = width - rtext.length;
-		return tabs(number) + rtext;
+		res.result = fill(number, symbol) + rtext;
+		res.info += "width < rtext.length" + "\n";
+		return res;
 	}
 
 }
@@ -314,110 +393,57 @@ function left_tabs(rtext, width) {
 //	rtext|string| - текст справа от табуляции
 //	width|integer| - общая ширина текста
 //	postfix|string| - постфикс левого текста
+//	symbol|string| - символ заполнения
 //Return:
-//	|string|
+//	|Result(string, string)|
 //------------------------------------------------------------------------------	
-function between_tabs(ltext, rtext, width, postfix) {	
+function between_tabs(ltext, rtext, width, postfix, symbol) {	
 	
+	//Результат
+	res = Result();	
+	
+	//Значения по умолчанию
 	postfix = postfix || "";
+	symbol = symbol || "\t";
 	
 	//Преобразуем в текст
 	if (ltext == undefined) {
+		res.info += "ltext is undefined" + "\n";
 		ltext = "";
 	} else {
 		ltext = String(ltext);
+		res.info += "ltext: [" + ltext + "]" + "\n";
 	}
 	if (rtext == undefined) {
+		res.info += "ltext is undefined" + "\n";
 		rtext = "";
 	} else {
 		rtext = String(rtext);
+		res.info += "rtext: [" + rtext + "]" + "\n";
 	}
 	
-	//Если не указана ширина - вернуть текст
+	//Если не указана ширина, не число или меньше нуля - вернуть текст
 	if (width == undefined || !Number.isInteger(width)) {
-		return ltext + postfix + rtext;
+		res.result = ltext + postfix + rtext;
+		res.info += "width is undefined or is not Integer\n";
+		return res;
 	}
 	if (width < 0) {
-		return ltext + postfix + rtext;
+		res.result = ltext + postfix + rtext;
+		res.info += "width <0\n";
+		return res;
 	}
 	
 	//Если ширина меньше текста, вернуть текст
 	if (width <= (ltext.length + postfix.length + rtext.length)) {
-		return ltext + postfix + rtext;
+		res.result = ltext + postfix + rtext;
+		res.info += "width less than text\n";
+		return res;
 	} else {
 		var number = width - (ltext.length + postfix.length + rtext.length);
-		return ltext + postfix + tabs(number) + rtext;
-	}
-
-}
-
-//------------------------------------------------------------------------------
-//Соединить две строки табуляцией в строку заданной ширины
-//19.06.2023 проверена
-//Args:
-//	ltext|string| - текст слева от табуляции
-//	rtext|string| - текст справа от табуляции
-//	width|integer| - общая ширина текста
-//	postfix|string| - постфикс левого текста
-//Return:
-//	|string|
-//------------------------------------------------------------------------------	
-function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {	
-
-	//Результат
-	var res = ["", ""];
-	
-	postfix = postfix || "";
-	p0 = p0 || "";
-	p1 = p1 || "- ";
-	p2 = p2 || "- - ";
-	unit = unit || "";
-	
-	//Если не переданы массивы - то ничего
-	if (names == undefined || values == undefined || levels == undefined) {
-		res[0] = "🚫";
-		res[1] = "не переданы все массивы: names, values, levels";
+		res.result = ltext + postfix + tabs(number, tab) + rtext;
 		return res;
-	} 
-	
-	//Если не переданы массивы - то ничего
-	if (names.length != values.length || names.length != levels.length) {
-		res[0] = "🚫";
-		res[1] = "длина массивов names, values, levels не одинакова";
-		return res;
-	} 
-	
-	res[1] += "Array length: " + names.length + "\n";
-	len = names.length - 1;
-	res[1] += "[Before for]\n";
-	
-	for (let i = 0; i < len; i++) {
-		res[1] += "[Test For: " + i + "]\n";
 	}
-	
-	for (let i = 0; i < len; i++) {
-		res[1] += "[For: " + i + "]\n";
-		var ltext = "";
-		if (levels[i]==0) { 
-			ltext = p0 + names[i]; 
-		} else if (levels[i]==1) {
-			ltext = p1 + names[i];
-		} else if (levels[i]==2) {
-			ltext = p2 + names[i];
-		} else {
-			ltext = p0 + names[i];
-		}
-		res[1] += "ltext: " + ltext + "\n";
-		res[1] += "ltext: " + values[i] + "\n";
-		var rtext = values[i] + unit;
-		res[0] += between_tabs(ltext, rtext, width, postfix) + "\n";
-	}
-	
-	res[1] += "[After for]";
-	
-	res[0] = del_last_enter(res[0])
-	
-	return res;
 
 }
 
@@ -700,4 +726,3 @@ function filter_entries(entries, field_name, values) {
 	return result;
 
 }
-	
