@@ -363,6 +363,9 @@ function between_tabs(ltext, rtext, width, postfix) {
 //	|string|
 //------------------------------------------------------------------------------	
 function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {	
+
+	//Результат
+	var res = ["", ""];
 	
 	postfix = postfix || "";
 	p0 = p0 || "";
@@ -380,9 +383,8 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 		return "длина массивов names, values, levels не одинакова";
 	} 
 	
-	var res = "";
 	for (let i = 0; i < names.lenghth-1; i++) {
-		var ltext;
+		var ltext = "";
 		if (levels[i]=="0") { 
 			ltext = p0 + names[i]; 
 		} else if (levels[i]=="1") {
@@ -393,10 +395,13 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 			ltext = p0 + names[i];
 		}
 		var rtext = values[i] + unit;
-		res += between_tabs(ltext, rtext, width, postfix) + "\n";
+		res[1] += ltext + " " + rtext + "\n";
+		res[0] += between_tabs(ltext, rtext, width, postfix) + "\n";
 	}
 	
-	return del_last_enter(res);
+	res[0] = del_last_enter(res[0])
+	
+	return res;
 
 }
 
