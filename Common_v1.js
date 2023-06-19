@@ -196,8 +196,10 @@ function format_money(field, unit) {
 //Return:
 //	|string|
 //------------------------------------------------------------------------------	
-function tabs(number) {	
+function tabs(number, tab) {	
     
+	tab = tab || "\t";
+	
 	//Выход, если нет значения
 	if (number == undefined) {
 		return "";
@@ -209,7 +211,7 @@ function tabs(number) {
 		return "";
 	}
 	
-	return "\t".repeat(number);
+	return tab.repeat(number);
 
 }
 
@@ -279,7 +281,7 @@ function del_last_enter(text_) {
 //Return:
 //	|string|
 //------------------------------------------------------------------------------	
-function left_tabs(rtext, width) {	
+function left_tabs(rtext, width, tab) {	
 
 	//Преобразуем в текст
 	if (rtext == undefined) {
@@ -301,7 +303,7 @@ function left_tabs(rtext, width) {
 		return rtext;
 	} else {
 		var number = width - rtext.length;
-		return tabs(number) + rtext;
+		return tabs(number, tab) + rtext;
 	}
 
 }
@@ -317,7 +319,7 @@ function left_tabs(rtext, width) {
 //Return:
 //	|string|
 //------------------------------------------------------------------------------	
-function between_tabs(ltext, rtext, width, postfix) {	
+function between_tabs(ltext, rtext, width, postfix, tab) {	
 	
 	postfix = postfix || "";
 	
@@ -346,7 +348,7 @@ function between_tabs(ltext, rtext, width, postfix) {
 		return ltext + postfix + rtext;
 	} else {
 		var number = width - (ltext.length + postfix.length + rtext.length);
-		return ltext + postfix + tabs(number) + rtext;
+		return ltext + postfix + tabs(number, tab) + rtext;
 	}
 
 }
@@ -362,7 +364,7 @@ function between_tabs(ltext, rtext, width, postfix) {
 //Return:
 //	|string|
 //------------------------------------------------------------------------------	
-function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {	
+function statistics(names, values, levels, width, postfix, p0, p1, p2, unit, tab) {	
 
 	//Результат
 	var res = ["", ""];
@@ -410,7 +412,7 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 		res[1] += "ltext: " + ltext + "\n";
 		res[1] += "ltext: " + values[i] + "\n";
 		var rtext = values[i] + unit;
-		res[0] += between_tabs(ltext, rtext, width, postfix) + "\n";
+		res[0] += between_tabs(ltext, rtext, width, postfix, tab) + "\n";
 	}
 	
 	res[1] += "[After for]";
