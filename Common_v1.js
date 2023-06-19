@@ -77,8 +77,10 @@ function get_icon(field) {
 //Return:
 //	|string|
 ///------------------------------------------------------------------------------
-function add_icon(icon_field, text_field, space=true) {
-		
+function add_icon(icon_field, text_field, space) {
+	
+	space = space || true;
+	
 	//Если нет значения - пустая строка
 	if (icon_field == undefined) {
 		icon_field = "";
@@ -216,8 +218,10 @@ function tabs(number) {
 //Return:
 //	|string|
 //------------------------------------------------------------------------------	
-function sep(number, separator="-") {	
+function sep(number, separator) {	
     
+	separator = separator || "-";
+	
 	//Выход, если нет значения
 	if (number == undefined or !isInteger(number)) {
 		return "";
@@ -307,8 +311,10 @@ function left_tabs(rtext, width) {
 //Return:
 //	|string|
 //------------------------------------------------------------------------------	
-function between_tabs(ltext, rtext, width, postfix="") {	
-
+function between_tabs(ltext, rtext, width, postfix) {	
+	
+	postfix = postfix || "";
+	
 	//Преобразуем в текст
 	if (ltext == undefined) {
 		ltext = "";
@@ -350,8 +356,14 @@ function between_tabs(ltext, rtext, width, postfix="") {
 //Return:
 //	|string|
 //------------------------------------------------------------------------------	
-function statistics(names, values, levels, width, postfix="", p0="", p1="- ", p2="- - ", unit="") {	
-
+function statistics(names, values, levels, width, postfix, p0, p1=, p2=, unit) {	
+	
+	postfix = postfix || "";
+	p0 = p0 || "";
+	p1 = p1 || "- ";
+	p2 = p2 || "- - ";
+	unit = unit || "";
+	
 	//Если не переданы массивы - то ничего
 	if (names == undefined or values == undefined or levels == undefined) {
 		return "не переданы все массивы: names, values, levels";
