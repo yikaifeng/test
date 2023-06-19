@@ -17,7 +17,6 @@
 //******************************************************************************
 //Константы
 //******************************************************************************
-const ERROR = "🚫";
 
 //******************************************************************************
 //Переменные
@@ -376,22 +375,23 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 	
 	//Если не переданы массивы - то ничего
 	if (names == undefined || values == undefined || levels == undefined) {
-		res[0] = ERROR;
+		res[0] = "🚫";
 		res[1] = "не переданы все массивы: names, values, levels";
 		return res;
 	} 
 	
 	//Если не переданы массивы - то ничего
 	if (names.length != values.length || names.length != levels.length) {
-		res[0] = ERROR;
+		res[0] = "🚫";
 		res[1] = "длина массивов names, values, levels не одинакова";
 		return res;
 	} 
 	
 	res[1] += "Array length: " + names.length + "\n";
+	len = names.length - 1;
 	res[1] += "[Before for]\n";
 	
-	for (let i = 0; i < names.lenghth-1; i++) {
+	for (let i = 0; i < len; i++) {
 		res[1] += "[For: " + i + "]\n";
 		var ltext = "";
 		if (levels[i]==0) { 
