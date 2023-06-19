@@ -202,14 +202,14 @@ function tabs(number) {
 	if (number == undefined) {
 		return "";
 	}
-	if (!isInteger(number)) {
+	if (!number.isInteger) {
 		return "";
 	}
 	if (number < 0) {
 		return "";
 	}
 	
-	return "\t"*number;
+	return "\t".repeat(number);
 
 }
 
@@ -229,14 +229,14 @@ function sep(number, separator) {
 	if (number == undefined) {
 		return "";
 	}
-	if (!isInteger(number)) {
+	if (!number.isInteger) {
 		return "";
 	}
 	if (number < 0) {
 		return "";
 	}
 	
-	return separator*number;
+	return separator.repeat(number);
 
 }
 
@@ -289,7 +289,7 @@ function left_tabs(rtext, width) {
 	}
 	
 	//Если не указана ширина - вернуть текст
-	if (width == undefined || !isInteger(width)) {
+	if (width == undefined || !width.isInteger) {
 		return rtext;
 	}
 	if (width < 0) {
@@ -334,7 +334,7 @@ function between_tabs(ltext, rtext, width, postfix) {
 	}
 	
 	//Если не указана ширина - вернуть текст
-	if (width == undefined || !isInteger(width)) {
+	if (width == undefined || !width.isInteger) {
 		return ltext + postfix + rtext;
 	}
 	if (width < 0) {
