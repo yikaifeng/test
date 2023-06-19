@@ -226,7 +226,10 @@ function sep(number, separator) {
 	separator = separator || "-";
 	
 	//Выход, если нет значения
-	if (number == undefined or !isInteger(number)) {
+	if (number == undefined) {
+		return "";
+	}
+	if (!isInteger(number)) {
 		return "";
 	}
 	if (number < 0) {
