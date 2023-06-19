@@ -391,6 +391,7 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 	res[1] += "[Before for]\n";
 	
 	for (let i = 0; i < names.lenghth-1; i++) {
+		res[1] += "[For: " + i + "]\n";
 		var ltext = "";
 		if (levels[i]==0) { 
 			ltext = p0 + names[i]; 
@@ -401,8 +402,9 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 		} else {
 			ltext = p0 + names[i];
 		}
+		res[1] += "ltext: " + ltext + "\n";
+		res[1] += "ltext: " + values[i] + "\n";
 		var rtext = values[i] + unit;
-		res[1] += ltext + " " + rtext + "\n";
 		res[0] += between_tabs(ltext, rtext, width, postfix) + "\n";
 	}
 	
@@ -693,3 +695,4 @@ function filter_entries(entries, field_name, values) {
 	return result;
 
 }
+	
