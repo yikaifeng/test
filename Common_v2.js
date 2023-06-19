@@ -383,6 +383,8 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 		return "длина массивов names, values, levels не одинакова";
 	} 
 	
+	res[1] += "before for\n";
+	
 	for (let i = 0; i < names.lenghth-1; i++) {
 		var ltext = "";
 		if (levels[i]=="0") { 
@@ -398,6 +400,8 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 		res[1] += ltext + " " + rtext + "\n";
 		res[0] += between_tabs(ltext, rtext, width, postfix) + "\n";
 	}
+	
+	res[1] += "after for\n";
 	
 	res[0] = del_last_enter(res[0])
 	
