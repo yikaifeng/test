@@ -392,6 +392,10 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 	res[1] += "[Before for]\n";
 	
 	for (let i = 0; i < len; i++) {
+		res[1] += "[Test For: " + i + "]\n";
+	}
+	
+	for (let i = 0; i < len; i++) {
 		res[1] += "[For: " + i + "]\n";
 		var ltext = "";
 		if (levels[i]==0) { 
