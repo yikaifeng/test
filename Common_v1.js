@@ -199,7 +199,10 @@ function format_money(field, unit) {
 function tabs(number) {	
     
 	//Выход, если нет значения
-	if (number == undefined or !isInteger(number)) {
+	if (number == undefined) {
+		return "";
+	}
+	if (!isInteger(number)) {
 		return "";
 	}
 	if (number < 0) {
