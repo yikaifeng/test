@@ -289,7 +289,7 @@ function left_tabs(rtext, width) {
 	}
 	
 	//Если не указана ширина - вернуть текст
-	if (width == undefined or !isInteger(width)) {
+	if (width == undefined || !isInteger(width)) {
 		return rtext;
 	}
 	if (width < 0) {
@@ -334,7 +334,7 @@ function between_tabs(ltext, rtext, width, postfix) {
 	}
 	
 	//Если не указана ширина - вернуть текст
-	if (width == undefined or !isInteger(width)) {
+	if (width == undefined || !isInteger(width)) {
 		return ltext + postfix + rtext;
 	}
 	if (width < 0) {
@@ -371,12 +371,12 @@ function statistics(names, values, levels, width, postfix, p0, p1=, p2=, unit) {
 	unit = unit || "";
 	
 	//Если не переданы массивы - то ничего
-	if (names == undefined or values == undefined or levels == undefined) {
+	if (names == undefined || values == undefined || levels == undefined) {
 		return "не переданы все массивы: names, values, levels";
 	} 
 	
 	//Если не переданы массивы - то ничего
-	if (names.length != values.length or names.length != levels.length) {
+	if (names.length != values.length || names.length != levels.length) {
 		return "длина массивов names, values, levels не одинакова";
 	} 
 	
