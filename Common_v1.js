@@ -388,7 +388,7 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 	} 
 	
 	res[1] += "Array length: " + names.length + "\n";
-	len = names.length - 1;
+	var len = names.length - 1;
 	res[1] += "[Before for]\n";
 	
 	for (let i = 0; i < len; i++) {
