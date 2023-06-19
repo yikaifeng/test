@@ -428,7 +428,7 @@ function shift_date(field, interval, unit, forward) {
 //Return:
 //	|array|
 //------------------------------------------------------------------------------	
-function get_entries(entries, field_name, values) {
+function filter_entries(entries, field_name, values) {
 	
 	if (entries == undefined)	{
 		return "";
