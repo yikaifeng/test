@@ -209,7 +209,7 @@ function tabs(number) {
 		return "";
 	}
 	
-	return "\t"*number;
+	return "\t".repeat(number);
 
 }
 
@@ -236,7 +236,7 @@ function sep(number, separator) {
 		return "";
 	}
 	
-	return separator*number;
+	return separator.repeat(number);
 
 }
 
@@ -679,3 +679,4 @@ function filter_entries(entries, field_name, values) {
 	return result;
 
 }
+	
