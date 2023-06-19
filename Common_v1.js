@@ -362,7 +362,7 @@ function between_tabs(ltext, rtext, width, postfix) {
 //Return:
 //	|string|
 //------------------------------------------------------------------------------	
-function statistics(names, values, levels, width, postfix, p0, p1=, p2=, unit) {	
+function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {	
 	
 	postfix = postfix || "";
 	p0 = p0 || "";
@@ -679,3 +679,4 @@ function filter_entries(entries, field_name, values) {
 	return result;
 
 }
+	
