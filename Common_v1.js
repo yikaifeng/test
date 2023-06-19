@@ -1,5 +1,16 @@
 //******************************************************************************
 //Common - библиотека общих функций
+//
+//get_icon(field)
+//add_icon(icon_field, text_field, space)
+//get_text(field)
+//format_money(field, unit)
+//tabs(number)
+//sep(number, separator="-")
+//del_last_enter(text_)
+//left_tabs(rtext, width)
+//between_tabs(ltext, rtext, width, postfix="")
+//statistics(names, values, levels, width, postfix="", p0="", p1="- ", p2="- - ", unit="")
 //*******************************************************************************
 "use strict";
 
@@ -18,7 +29,11 @@
 //******************************************************************************
 //Открытые функции
 //******************************************************************************
-	
+
+//==============================================================================
+//Работа с текстом
+//==============================================================================
+
 //------------------------------------------------------------------------------
 //Получить иконку из поля (первая группа символов, отделенная пробелпми)
 //13.06.2023 проверена
@@ -62,7 +77,7 @@ function get_icon(field) {
 //Return:
 //	|string|
 ///------------------------------------------------------------------------------
-function add_icon(icon_field, text_field, space) {
+function add_icon(icon_field, text_field, space=true) {
 		
 	//Если нет значения - пустая строка
 	if (icon_field == undefined) {
@@ -72,10 +87,6 @@ function add_icon(icon_field, text_field, space) {
 	//Пробуем привести к строке
 	icon_field = String(icon_field);	
 	text_field = String(text_field);
-
-	//Параметры по умолчанию: ставить пробел
-	var bSp = true;
-	if (space != undefined) { bSp = space; }
 
 	//Шаблон поиска иконки: первая группа символов не из пробелов
 	var regexp = /\S+/;
@@ -87,7 +98,7 @@ function add_icon(icon_field, text_field, space) {
 	if (icon == null) {
 		return text_field.trim();
 	} else {
-		if (bSp) {
+		if (space) {
 			  return icon[0] + " " + text_field.trim();
 		} else {
 			  return icon[0] + text_field.trim();
@@ -173,6 +184,202 @@ function format_money(field, unit) {
 		return nSum;
 	}		
 			
+}
+
+//------------------------------------------------------------------------------
+//Получить строку из символов табуляции
+//19.06.2023 проверена
+//Args:
+//	number|int| - количество символов
+//Return:
+//	|string|
+//------------------------------------------------------------------------------	
+function tabs(number) {	
+    
+	//Выход, если нет значения
+	if (number == undefined or !isInteger(number)) {
+		return "";
+	}
+	if (number < 0) {
+		return "";
+	}
+	
+	return "\t"*number;
+
+}
+
+//------------------------------------------------------------------------------
+//Получить строку из символов
+//19.06.2023 проверена
+//Args:
+//	number|int| - количество символов
+//Return:
+//	|string|
+//------------------------------------------------------------------------------	
+function sep(number, separator="-") {	
+    
+	//Выход, если нет значения
+	if (number == undefined or !isInteger(number)) {
+		return "";
+	}
+	if (number < 0) {
+		return "";
+	}
+	
+	return separator*number;
+
+}
+
+//------------------------------------------------------------------------------
+//Удалить крайний правый перенос строки в строке
+//19.06.2023 проверена
+//Args:
+//	text_|string| - текст
+//Return:
+//	|string|
+//------------------------------------------------------------------------------	
+function del_last_enter(text_) {	
+    
+	//Выход, если нет значения
+	if (text_ == undefined) {
+		return "";
+	} else {
+		text_ = String(text_);
+	}
+	
+	if (text_.length != 0) { 
+		var last = text_.substring(text_.length-1, text_.length);
+		if (last=="\n") {
+			return text_.substring(0, text_.length-1);
+		} else {
+			return text_
+		}
+	} else {
+		return text_
+	}
+
+}
+
+//------------------------------------------------------------------------------
+//Получить строку заданной ширины из символов табуляции слева от текста
+//19.06.2023 проверена
+//Args:
+//	rtext|string| - текст справа от табуляции
+//	width|integer| - общая ширина текста
+//Return:
+//	|string|
+//------------------------------------------------------------------------------	
+function left_tabs(rtext, width) {	
+
+	//Преобразуем в текст
+	if (rtext == undefined) {
+		rtext = "";
+	} else {
+		rtext = String(rtext);
+	}
+	
+	//Если не указана ширина - вернуть текст
+	if (width == undefined or !isInteger(width)) {
+		return rtext;
+	}
+	if (width < 0) {
+		return rtext;
+	}
+	
+	//Если ширина меньше текста, вернуть текст
+	if (width <= rtext.length) {
+		return rtext;
+	} else {
+		var number = width - rtext.length;
+		return tabs(number) + rtext;
+	}
+
+}
+
+//------------------------------------------------------------------------------
+//Соединить две строки табуляцией в строку заданной ширины
+//19.06.2023 проверена
+//Args:
+//	ltext|string| - текст слева от табуляции
+//	rtext|string| - текст справа от табуляции
+//	width|integer| - общая ширина текста
+//	postfix|string| - постфикс левого текста
+//Return:
+//	|string|
+//------------------------------------------------------------------------------	
+function between_tabs(ltext, rtext, width, postfix="") {	
+
+	//Преобразуем в текст
+	if (ltext == undefined) {
+		ltext = "";
+	} else {
+		ltext = String(ltext);
+	}
+	if (rtext == undefined) {
+		rtext = "";
+	} else {
+		rtext = String(rtext);
+	}
+	
+	//Если не указана ширина - вернуть текст
+	if (width == undefined or !isInteger(width)) {
+		return ltext + postfix + rtext;
+	}
+	if (width < 0) {
+		return ltext + postfix + rtext;
+	}
+	
+	//Если ширина меньше текста, вернуть текст
+	if (width <= (ltext.length + postfix.length + rtext.length)) {
+		return ltext + postfix + rtext;
+	} else {
+		var number = width - (ltext.length + postfix.length + rtext.length);
+		return ltext + postfix + tabs(number) + rtext;
+	}
+
+}
+
+//------------------------------------------------------------------------------
+//Соединить две строки табуляцией в строку заданной ширины
+//19.06.2023 проверена
+//Args:
+//	ltext|string| - текст слева от табуляции
+//	rtext|string| - текст справа от табуляции
+//	width|integer| - общая ширина текста
+//	postfix|string| - постфикс левого текста
+//Return:
+//	|string|
+//------------------------------------------------------------------------------	
+function statistics(names, values, levels, width, postfix="", p0="", p1="- ", p2="- - ", unit="") {	
+
+	//Если не переданы массивы - то ничего
+	if (names == undefined or values == undefined or levels == undefined) {
+		return "не переданы все массивы: names, values, levels";
+	} 
+	
+	//Если не переданы массивы - то ничего
+	if (names.length != values.length or names.length != levels.length) {
+		return "длина массивов names, values, levels не одинакова";
+	} 
+	
+	var res = "";
+	for (let i = 0; i < names.lenghth-1; i++) {
+		var ltext;
+		if (levels[i]=="0") { 
+			ltext = p0 + names[i]; 
+		} else if (levels[i]=="1") {
+			ltext = p1 + names[i];
+		} else if (levels[i]=="2") {
+			ltext = p2 + names[i];
+		} else {
+			ltext = p0 + names[i];
+		}
+		var rtext = values[i] + unit;
+		res += between_tabs(ltext, rtext, width, postfix) + "\n";
+	}
+	
+	return del_last_enter(res);
+
 }
 
 //------------------------------------------------------------------------------
@@ -454,4 +661,3 @@ function filter_entries(entries, field_name, values) {
 	return result;
 
 }
-	
