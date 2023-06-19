@@ -17,6 +17,7 @@
 //******************************************************************************
 //Константы
 //******************************************************************************
+const ERROR = "🚫";
 
 //******************************************************************************
 //Переменные
@@ -375,29 +376,40 @@ function statistics(names, values, levels, width, postfix, p0, p1, p2, unit) {
 	
 	//Если не переданы массивы - то ничего
 	if (names == undefined || values == undefined || levels == undefined) {
-		return "не переданы все массивы: names, values, levels";
+		res[0] = ERROR;
+		res[1] = "не переданы все массивы: names, values, levels";
+		return res;
 	} 
 	
 	//Если не переданы массивы - то ничего
 	if (names.length != values.length || names.length != levels.length) {
-		return "длина массивов names, values, levels не одинакова";
+		res[0] = ERROR;
+		res[1] = "длина массивов names, values, levels не одинакова";
+		return res;
 	} 
 	
+	res[1] += "Array length: " + names.length + "\n";
+	res[1] += "[Before for]\n";
+	
 	for (let i = 0; i < names.lenghth-1; i++) {
+		res[1] += "[For: " + i + "]\n";
 		var ltext = "";
-		if (levels[i]=="0") { 
+		if (levels[i]==0) { 
 			ltext = p0 + names[i]; 
-		} else if (levels[i]=="1") {
+		} else if (levels[i]==1) {
 			ltext = p1 + names[i];
-		} else if (levels[i]=="2") {
+		} else if (levels[i]==2) {
 			ltext = p2 + names[i];
 		} else {
 			ltext = p0 + names[i];
 		}
+		res[1] += "ltext: " + ltext + "\n";
+		res[1] += "ltext: " + values[i] + "\n";
 		var rtext = values[i] + unit;
-		res[1] += ltext + " " + rtext + "\n";
 		res[0] += between_tabs(ltext, rtext, width, postfix) + "\n";
 	}
+	
+	res[1] += "[After for]";
 	
 	res[0] = del_last_enter(res[0])
 	
