@@ -172,7 +172,7 @@ function rtext(text_) {
 	text_ = String(text_ || "").trim();
 	
 	//Шаблон
-	re = /^\s*?\S+?)s+?(.*)$/;
+	re = /^\s*?\S+?s+?(.*)$/;
     
 	//Результат
 	return text_.replace(re, "$1");
