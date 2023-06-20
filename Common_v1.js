@@ -280,7 +280,7 @@ function fillcarr(larr, rarr, widtharr) {
 	var res = "";
 	
 	for (var n = 0; n < larr.length; n++) {
-        res += fillс(larr[n], rarr[n], widtharr[n]) + "\n";
+        res += fillc(larr[n], rarr[n], widtharr[n]) + "\n";
     }  
 	
 	return res.trim();
