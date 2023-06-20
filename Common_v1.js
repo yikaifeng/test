@@ -272,7 +272,7 @@ function fillarr(larr, rarr, widtharr, suf) {
 //Return:
 //	(string)
 //------------------------------------------------------------------------------	
-function fillсarr(larr, rarr, widtharr) {	
+function fillcarr(larr, rarr, widtharr) {	
 	
 	//Если длины массивов не совпадают, то вернуть пустую строку
 	if (larr.length != rarr.length || larr.length != widtharr.length) { return ""; }
