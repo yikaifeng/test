@@ -66,7 +66,7 @@ function deln(text_) {
 	text_ = String(text_ || "");
 	
 	//Шаблон
-	re = /^[\n|\r|\r\n]*(.*)[\n|\r|\r\n]*$/;
+	var re = /^[\n|\r|\r\n]*(.*)[\n|\r|\r\n]*$/;
     
 	//Результат
 	return text_.replace(re, "$1");
@@ -88,7 +88,7 @@ function pref(text_, symbol) {
 	symbol = String(symbol || "- ");
 	
 	//Шаблон
-	re = /^/gm;
+	var re = /^/gm;
     
 	//Результат
 	return text_.replace(re, "symbol");
@@ -109,7 +109,7 @@ function lcut(text_) {
 	text_ = String(text_ || "").trim();
 	
 	//Шаблон
-	re = /^\s*?(\S+?)\s+?.*$/;
+	var re = /^\s*?(\S+?)\s+?.*$/;
     
 	//Результат
 	return text_.replace(re, "$1");
@@ -130,7 +130,7 @@ function rcut(text_) {
 	text_ = String(text_ || "").trim();
 	
 	//Шаблон
-	re = /^.*\s+?(\S+?)$/;
+	var re = /^.*\s+?(\S+?)$/;
     
 	//Результат
 	return text_.replace(re, "$1");
@@ -151,7 +151,7 @@ function ltext(text_) {
 	text_ = String(text_ || "").trim();
 	
 	//Шаблон
-	re = /^(.*)\s+?\S+?$/;
+	var re = /^(.*)\s+?\S+?$/;
     
 	//Результат
 	return text_.replace(re, "$1");
@@ -172,7 +172,7 @@ function rtext(text_) {
 	text_ = String(text_ || "").trim();
 	
 	//Шаблон
-	re = /^\s*?\S+?s+?(.*)$/;
+	var re = /^\s*?\S+?s+?(.*)$/;
     
 	//Результат
 	return text_.replace(re, "$1");
@@ -365,7 +365,7 @@ function money(sum, unit, show) {
 	if (sum==undefined && !show) { return ""; }
 	
 	//Значения по умолчанию и преобразование типов
-	sum_ = parseFloat(sum || 0);
+	var sum_ = parseFloat(sum || 0);
 	unit = String(unit || "").trim();
 
 	//Если передано не число, вернуть исходную строку
@@ -530,7 +530,7 @@ function shift_date(date_, interval, unit, forward) {
 	if (date_ == undefined || date_ == "") {
 		return;
 	} else {
-		dte = new Date(date_);
+		var dte = new Date(date_);
 		if (isNaN(dte)) { return; }
 	}
 
@@ -715,3 +715,4 @@ function count_entries(field_name, entries) {
 	return [names, count];
 
 }
+	
