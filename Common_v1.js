@@ -679,7 +679,7 @@ function count_entries(field_name, entries) {
 	
 	//Перебор записей
 	for (var n = 0; n < entries.length; n++) {
-        if (names.indexOf(entries[n].field(field_name)) != -1) {
+        if (names.indexOf(entries[n].field(field_name)) == -1) {
 			names.push(field_name);
 			count.push(1);
 		} else {
