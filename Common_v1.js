@@ -11,7 +11,7 @@
 //fill(ltext_="", rtext_="", width=0, suf="")
 //fillc(ltext_="", rtext_="", width=0)
 //fillarr(larr, rarr, widtharr, suf="")
-//fillсarr(larr, rarr, widtharr)
+//fillcarr(larr, rarr, widtharr)
 //insert_after(text_="", add_="", after=0)
 //money(sum=0, unit="", show=false)
 //day_start(date_= new Date())
