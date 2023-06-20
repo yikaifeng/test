@@ -215,7 +215,7 @@ function fill(ltext_, rtext_, width, suf) {
 		var number = width - (ltext_.length + suf.length + rtext_.length);
 		//Из-за непонятного косяка, если в слове есть 1 или более из 4 букв 
 		//г, т, у , х, то нужен дополнительный \t
-		//number = (/[гтух]/.test(ltext_)) ? number + 1 : number;
+		number = (/[гтух]/.test(ltext_)) ? number + 1 : number;
 		return ltext_ + suf + sep(number) + rtext_;
 	}
 
