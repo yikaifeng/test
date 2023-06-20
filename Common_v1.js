@@ -10,8 +10,8 @@
 //lfill(rtext_="", width=0)
 //fill(ltext_="", rtext_="", width=0, suf="")
 //fillc(ltext_="", rtext_="", width=0)
-//fillarr(larr, rarr, width, suf)
-//fillсarr(larr, rarr, width, suf)
+//fillarr(larr, rarr, widtharr, suf="")
+//fillсarr(larr, rarr, widtharr)
 //insert_after(text_="", add_="", after=0)
 //money(sum=0, unit="", show=false)
 //day_start(date_= new Date())
@@ -239,22 +239,22 @@ function fillc(ltext_, rtext_, width) {
 //	длина кажой строки равнялась заданной. Повле левого текста добавляется 
 //	указанный суффикс.
 //Args:
-//	ltext_ (string, default=""): текст слева от табуляции
-//	rtext_ (string, default=""): текст справа от табуляции
-//	width (integer, default=0) - общая ширина текста
+//	larr (Array): массив левых строк
+//	rarr (Array): массив правых строк
+//	widtharr (Array): массив длин
 //	suf (string): суффикс левого текста
 //Return:
 //	(string)
 //------------------------------------------------------------------------------	
-function fillarr(larr, rarr, width, suf) {	
+function fillarr(larr, rarr, widtharr, suf) {	
 	
 	//Если длины массивов не совпадают, то вернуть пустую строку
-	if (larr.length != rarr.length) { return ""; }
+	if (larr.length != rarr.length || larr.length != widtharr.length) { return ""; }
 	
 	var res = "";
 	
 	for (var n = 0; n < larr.length; n++) {
-        res += fill(larr[n], rarr[n], width, suf) + "\n";
+        res += fill(larr[n], rarr[n], widtharr[n], suf) + "\n";
     }  
 	
 	return res.trim();
@@ -266,22 +266,21 @@ function fillarr(larr, rarr, width, suf) {
 //	длина кажой строки равнялась заданной. Повле левого текста добавляется 
 //	суффикс ":".
 //Args:
-//	ltext_ (string, default=""): текст слева от табуляции
-//	rtext_ (string, default=""): текст справа от табуляции
-//	width (integer, default=0) - общая ширина текста
-//	suf (string): суффикс левого текста
+//	larr (Array): массив левых строк
+//	rarr (Array): массив правых строк
+//	widtharr (Array): массив длин
 //Return:
 //	(string)
 //------------------------------------------------------------------------------	
-function fillсarr(larr, rarr, width) {	
+function fillсarr(larr, rarr, widtharr) {	
 	
 	//Если длины массивов не совпадают, то вернуть пустую строку
-	if (larr.length != rarr.length) { return ""; }
+	if (larr.length != rarr.length || larr.length != widtharr.length) { return ""; }
 	
 	var res = "";
 	
 	for (var n = 0; n < larr.length; n++) {
-        res += fillс(larr[n], rarr[n], width, suf) + "\n";
+        res += fillс(larr[n], rarr[n], widtharr[n]) + "\n";
     }  
 	
 	return res.trim();
@@ -691,3 +690,4 @@ function count_entries(field_name, entries) {
 	return [names, count];
 
 }
+	
