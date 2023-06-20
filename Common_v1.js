@@ -70,7 +70,7 @@ function pref(text_, symbol) {
 	var re = /^/gm;
     
 	//Результат
-	return text_.replace(re, "symbol");
+	return text_.replace(re, symbol);
 
 }
 
