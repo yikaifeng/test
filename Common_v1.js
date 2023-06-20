@@ -708,7 +708,7 @@ function count_entries(field_name, entries) {
 			names.push(field_name);
 			count.push(1);
 		} else {
-			count[names.indexOf(entries[n].field(field_name)] += 1;
+			count[names.indexOf(entries[n].field(field_name))] += 1;
 		}
     }  
 	
