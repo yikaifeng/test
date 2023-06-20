@@ -66,10 +66,10 @@ function deln(text_) {
 	text_ = String(text_ || "");
 	
 	//Шаблон
-	var re = /^[\n|\r|\r\n]*([\S\s\n]*)[\n|\r|\r\n]*$/;
+	var re = /^\n*|\n*$/g;
     
 	//Результат
-	return text_.replace(re, "$1");
+	return text_.replace(re, "");
 
 }
 
