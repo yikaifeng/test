@@ -2,7 +2,6 @@
 //Common - библиотека общих функций
 //
 //sep(number=0, symbol="\t")
-//deln(text_="")
 //pref(text_="", symbol="- ")
 //lcut(text_="")
 //rcut(text_="")
@@ -54,26 +53,6 @@ function sep(number, symbol) {
 }
 
 //------------------------------------------------------------------------------
-//Возвращает строку с удаленными переносами строки в самом начале и самом конце
-//Args:
-//	text_ (string, default=""): строка
-//Return:
-//	(string)
-//------------------------------------------------------------------------------	
-function deln(text_) {
-
-	//Значения по умолчанию и преобразование типов
-	text_ = String(text_ || "");
-	
-	//Шаблон
-	var re = /^\n*|\n*$/g;
-    
-	//Результат
-	return text_.replace(re, "");
-
-}
-
-//------------------------------------------------------------------------------
 //Возвращает строку вставленными префиксами в начале каждой строки
 //Args:
 //	text_ (string, default=""): строка
@@ -84,7 +63,7 @@ function deln(text_) {
 function pref(text_, symbol) {
 
 	//Значения по умолчанию и преобразование типов
-	text_ = deln(String(text_ || ""));
+	text_ = String(text_ || "").trim();
 	symbol = String(symbol || "- ");
 	
 	//Шаблон
@@ -281,7 +260,7 @@ function fillarr(larr, rarr, width, suf) {
         res += fill(larr[n], rarr[n], width, suf) + "\n";
     }  
 	
-	return deln(res);
+	return res.trim();
 
 }
 
@@ -308,7 +287,7 @@ function fillсarr(larr, rarr, width) {
         res += fillс(larr[n], rarr[n], width, suf) + "\n";
     }  
 	
-	return deln(res);
+	return res.trim();
 
 }
 
