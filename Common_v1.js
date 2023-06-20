@@ -655,7 +655,7 @@ function sort_entries(field_name, entries) {
 		
 	return entries.sort(function(a, b) {
 			if (a.field(field_name)>b.field(field_name)) { return 1; }
-			if (a.field(field_name)=b.field(field_name)) { return 0; }
+			if (a.field(field_name)==b.field(field_name)) { return 0; }
 			if (a.field(field_name)<b.field(field_name)) { return -1; }
 		});
 
