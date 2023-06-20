@@ -357,7 +357,7 @@ function money(sum, unit, show) {
 	sum = (sign + sum).trim() + unit;
 		
 	//Результат
-	return res;
+	return sum;
 			
 }
 
