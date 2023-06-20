@@ -341,7 +341,7 @@ function money(sum, unit, show) {
 	
 	//Значения по умолчанию и преобразование типов
 	var sum_ = parseFloat(sum || 0);
-	unit = String(unit || "").trim();
+	unit = String(unit || "");
 
 	//Если передано не число, вернуть исходную строку
 	if (isNaN(sum_)) { return sum; }
