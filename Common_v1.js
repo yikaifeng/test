@@ -406,15 +406,14 @@ function insert_aftert(text_, add_, after) {
 	//Значения по умолчанию и преобразование типов
 	text_ = String(text_ || "").trim();
 	add_ = String(add_ || "").trim();
-	after = String(add_ || "").trim();
+	after = String(after || "").trim();
 	
 	//Вставка
 	var number = 0;
 	var res = text_.split("\n");
 	for (var n = 0; n < res.length; n++) {
 		number = n;
-		log("Итерация " + n + ", строка [" + res[n] + "], поиск " + after);
-        if (res[n].indexOf(after)!=-1) { log("found!"); break; }
+        if (res[n].indexOf(after)!=-1) { break; }
     }  
 	res.splice(number, 0, add_);
 	
