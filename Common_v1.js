@@ -413,7 +413,8 @@ function insert_aftert(text_, add_, after) {
 	var res = text_.split("\n");
 	for (var n = 0; n < res.length; n++) {
 		number = n;
-        if (res[n].indexOf(after)!=-1) { break; }
+		log("Итерация " + n + ", строка [" + res[n] + "], поиск " + after);
+        if (res[n].indexOf(after)!=-1) { log("found!"); break; }
     }  
 	res.splice(number, 0, add_);
 	
