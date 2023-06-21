@@ -415,7 +415,7 @@ function insert_aftert(text_, add_, after) {
 		number = n;
         if (res[n].indexOf(after)!=-1) { break; }
     }  
-	res.splice(number, 0, add_);
+	res.splice(number+1, 0, add_);
 	
 	return res.join("\n");
 
