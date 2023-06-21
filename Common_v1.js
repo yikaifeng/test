@@ -379,8 +379,8 @@ function fillcarr(larr, rarr, widtharr) {
 function insert_aftern(text_, add_, after) {	
 	
 	//Значения по умолчанию и преобразование типов
-	text_ = String(text_ || "").trim();
-	add_ = String(add_ || "").trim();
+	text_ = String(text_ || "");
+	add_ = String(add_ || "");
 	after = parseInt(after || 0);
 	after = (isNaN(after) || after<0) ? 0 : after;
 	
@@ -404,8 +404,8 @@ function insert_aftern(text_, add_, after) {
 function insert_aftert(text_, add_, after) {	
 	
 	//Значения по умолчанию и преобразование типов
-	text_ = String(text_ || "").trim();
-	add_ = String(add_ || "").trim();
+	text_ = String(text_ || "");
+	add_ = String(add_ || "");
 	after = String(after || "").trim();
 	
 	//Вставка
