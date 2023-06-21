@@ -734,7 +734,7 @@ function filter_entries(field_name, values, entries) {
 	for (var n = 0; n < entries.length; n++) {
 		//Если поле - массив
 		if (typeof entries[n].field(field_name) === 'object') {
-			field_values = entries[n].field(field_name);
+			var field_values = entries[n].field(field_name);
 			for (var k=0; k<field_values.length; k++) {
 				if (values.indexOf(field_values[k]) != -1) {
 					result.push(entries[n]);
