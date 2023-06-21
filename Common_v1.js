@@ -13,7 +13,8 @@
 //fillc(ltext_="", rtext_="", width=0)
 //fillarr(larr, rarr, widtharr, suf_="")
 //fillcarr(larr, rarr, widtharr)
-//insert_after(text_="", add_="", after=0)
+//insert_aftern(text_="", add_="", after=0)
+//insert_aftert(text_="", add_="", after="")
 //money(sum=0, unit="", show=false)
 //day_start(date_= new Date())
 //day_end(date_= new Date())
@@ -367,9 +368,7 @@ function fillcarr(larr, rarr, widtharr) {
 }
 
 //------------------------------------------------------------------------------
-//Возвращает строку, соединяющую два массива табуляцией так, чтобы общая
-//	длина кажой строки равнялась заданной. Повле левого текста добавляется 
-//	суффикс ":".
+//Вставляет строку после заданного номера строки.
 //Args:
 //	text_ (string, default=""): основной текст, разбитый на строки
 //	add_ (string, default=""): вставляемый текст
@@ -377,7 +376,7 @@ function fillcarr(larr, rarr, widtharr) {
 //Return:
 //	(string)
 //------------------------------------------------------------------------------	
-function insert_after(text_, add_, after) {	
+function insert_aftern(text_, add_, after) {	
 	
 	//Значения по умолчанию и преобразование типов
 	text_ = String(text_ || "").trim();
@@ -388,6 +387,35 @@ function insert_after(text_, add_, after) {
 	//Вставка
 	var res = text_.split("\n");
 	res.splice(after, 0, add_);
+	
+	return res.join("\n");
+
+}
+
+//------------------------------------------------------------------------------
+//Вставляет строку после заданной подстроки
+//Args:
+//	text_ (string, default=""): основной текст, разбитый на строки
+//	add_ (string, default=""): вставляемый текст
+//	after (string, default=""): строка вставки
+//Return:
+//	(string)
+//------------------------------------------------------------------------------	
+function insert_aftert(text_, add_, after) {	
+	
+	//Значения по умолчанию и преобразование типов
+	text_ = String(text_ || "").trim();
+	add_ = String(add_ || "").trim();
+	after = String(add_ || "").trim();
+	
+	//Вставка
+	var number = 0;
+	var res = text_.split("\n");
+	for (var n = 0; n < res.length; n++) {
+		number = n;
+        if (res.indexOf(after)!=-1) { break; }
+    }  
+	res.splice(number, 0, add_);
 	
 	return res.join("\n");
 
