@@ -3,14 +3,15 @@
 //
 //sep(number=0, symbol="\t")
 //pref(text_="", symbol="- ")
+//suf(text_="", symbol="")
 //lcut(text_="")
 //rcut(text_="")
 //ltext(text_="")
 //rtext(text_="")
 //lfill(rtext_="", width=0)
-//fill(ltext_="", rtext_="", width=0, suf="")
+//fill(ltext_="", rtext_="", width=0, suf_="")
 //fillc(ltext_="", rtext_="", width=0)
-//fillarr(larr, rarr, widtharr, suf="")
+//fillarr(larr, rarr, widtharr, suf_="")
 //fillcarr(larr, rarr, widtharr)
 //insert_after(text_="", add_="", after=0)
 //money(sum=0, unit="", show=false)
@@ -23,6 +24,62 @@
 //count_entries(field_name="", entries=lib().entries())
 //==============================================================================
 "use strict";
+
+//==============================================================================
+//Классы
+//==============================================================================
+
+//------------------------------------------------------------------------------
+//Для возврата результата из функции count_entries
+//Args:
+//	names (Array): массив имён
+//	values (Array): массив значений
+//	widths (Array): массив ширин
+//
+//	width(Integer=0): устанавливает одну ширину для всено массива ширин
+//	correct(name="", rel=0): изменяет для какого-то названия относительное 
+//		значение шириины
+//------------------------------------------------------------------------------	
+var Statistics = function(names, values, widths) {	
+  
+	this.n = names;
+	this.v = values;
+	this.w = widths;
+	
+	this.width = function(width_) {
+		
+		//Значения по умолчанию и преобразование типов
+		width_ = parseInt(width_ || 0);
+		width_ = (isNaN(width_)) ? 0 : width_;
+		
+		var w_ = [];
+		
+		for (var k = 0; k < this.n.length; k++) {
+			w_.push(width_);
+		}  
+		
+		this.w = w_;
+		
+		return;
+	}
+	
+	this.correct = function(name, rel) {
+		
+		//Значения по умолчанию и преобразование типов
+		name = String(name || "");
+		rel = parseInt(rel || 0);
+		rel = (isNaN(rel)) ? 0 : rel;
+		
+		ind = name.indexOf(this.n);
+		if (ind!=-1) {
+			this.w[ind] += rel;
+			return;
+			
+		}
+	}
+
+}
+
 
 //==============================================================================
 //Работа с текстом
@@ -53,7 +110,7 @@ function sep(number, symbol) {
 }
 
 //------------------------------------------------------------------------------
-//Возвращает строку вставленными префиксами в начале каждой строки
+//Возвращает строку co вставленными префиксами в начале каждой строки
 //Args:
 //	text_ (string, default=""): строка
 //	symbol (string, default="- "): символ префикса
@@ -68,6 +125,28 @@ function pref(text_, symbol) {
 	
 	//Шаблон
 	var re = /^/gm;
+    
+	//Результат
+	return text_.replace(re, symbol);
+
+}
+
+//------------------------------------------------------------------------------
+//Возвращает строку со вставленными суффиксами в конце каждой строки
+//Args:
+//	text_ (string, default=""): строка
+//	symbol (string, default="- "): символ префикса
+//Return:
+//	(string)
+//------------------------------------------------------------------------------	
+function suf(text_, symbol) {
+
+	//Значения по умолчанию и преобразование типов
+	text_ = String(text_ || "").trim();
+	symbol = String(symbol || "");
+	
+	//Шаблон
+	var re = /$/gm;
     
 	//Результат
 	return text_.replace(re, symbol);
@@ -193,11 +272,11 @@ function lfill(rtext_, width) {
 //	ltext_ (string, default=""): текст слева от табуляции
 //	rtext_ (string, default=""): текст справа от табуляции
 //	width (integer, default=0) - общая ширина текста
-//	suf (string): суффикс левого текста
+//	suf_ (string): суффикс левого текста
 //Return:
 //	(string)
 //------------------------------------------------------------------------------	
-function fill(ltext_, rtext_, width, suf) {	
+function fill(ltext_, rtext_, width, suf_) {	
 	
 	//Значения по умолчанию и преобразование типов
 	ltext_ = String(ltext_ || "").trim();
@@ -205,15 +284,15 @@ function fill(ltext_, rtext_, width, suf) {
 	width = parseInt(width || 0);
 	width = (isNaN(width)) ? 0 : width;
 	width = (width<0) ? 0 : width;
-	suf = suf || "";
+	suf_ = suf_ || "";
 	
 	//Если ширина меньше текста, вернуть текст
-	if (width<=(ltext_.length + suf.length + rtext_.length)) {
-		return ltext_ + suf + rtext_;
+	if (width<=(ltext_.length + suf_.length + rtext_.length)) {
+		return ltext_ + suf_ + rtext_;
 	//Иначе сделать иммитацию выравнивания по правому краю
 	} else {
-		var number = width - (ltext_.length + suf.length + rtext_.length);
-		return ltext_ + suf + sep(number) + rtext_;
+		var number = width - (ltext_.length + suf_.length + rtext_.length);
+		return ltext_ + suf_ + sep(number) + rtext_;
 	}
 
 }
@@ -242,11 +321,11 @@ function fillc(ltext_, rtext_, width) {
 //	larr (Array): массив левых строк
 //	rarr (Array): массив правых строк
 //	widtharr (Array): массив длин
-//	suf (string): суффикс левого текста
+//	suf_ (string): суффикс левого текста
 //Return:
 //	(string)
 //------------------------------------------------------------------------------	
-function fillarr(larr, rarr, widtharr, suf) {	
+function fillarr(larr, rarr, widtharr, suf_) {	
 	
 	//Если длины массивов не совпадают, то вернуть пустую строку
 	if (larr.length != rarr.length || larr.length != widtharr.length) { return ""; }
@@ -254,7 +333,7 @@ function fillarr(larr, rarr, widtharr, suf) {
 	var res = "";
 	
 	for (var n = 0; n < larr.length; n++) {
-        res += fill(larr[n], rarr[n], widtharr[n], suf) + "\n";
+        res += fill(larr[n], rarr[n], widtharr[n], suf_) + "\n";
     }  
 	
 	return res.trim();
@@ -662,12 +741,12 @@ function sort_entries(field_name, entries) {
 }
 
 //------------------------------------------------------------------------------
-//Возвращает массив из массива значений поля и массива количества его повторений
+//Возвращает экземпляр Statistics
 //Args:
 //	field_name (string, default=""): название поля
 //	entries (Array, default=lib().entries()): массив записей
 //Return:
-//	([Array, Array])
+//	(Statistics)
 //------------------------------------------------------------------------------	
 function count_entries(field_name, entries) {
 	
@@ -676,18 +755,18 @@ function count_entries(field_name, entries) {
 	entries = entries || lib().entries();
 	
 	var names = [], count = [];
+	var ind;
 	
 	//Перебор записей
 	for (var n = 0; n < entries.length; n++) {
-        if (names.indexOf(entries[n].field(field_name)) == -1) {
+		ind = names.indexOf(entries[n].field(field_name));
+        if (ind == -1) {
 			names.push(entries[n].field(field_name));
 			count.push(1);
 		} else {
-			count[names.indexOf(entries[n].field(field_name))] += 1;
+			count[ind] += 1;
 		}
     }  
 	
-	return [names, count];
-
+	return new Statistics(names, count);
 }
-	
