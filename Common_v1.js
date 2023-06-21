@@ -70,7 +70,7 @@ var Statistics = function(names, values, widths) {
 		rel = parseInt(rel || 0);
 		rel = (isNaN(rel)) ? 0 : rel;
 		
-		var ind = name.indexOf(this.n);
+		var ind = this.n.indexOf(name);
 		if (ind!=-1) {
 			this.w[ind] += rel;
 			return;
