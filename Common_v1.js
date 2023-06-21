@@ -413,7 +413,7 @@ function insert_aftert(text_, add_, after) {
 	var res = text_.split("\n");
 	for (var n = 0; n < res.length; n++) {
 		number = n;
-        if (res.indexOf(after)!=-1) { break; }
+        if (res[n].indexOf(after)!=-1) { break; }
     }  
 	res.splice(number, 0, add_);
 	
